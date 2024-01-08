@@ -9,4 +9,6 @@ module eu.telecomnancy.condinglate {
 
     opens eu.telecomnancy.condinglate to javafx.fxml;
     exports eu.telecomnancy.condinglate;
+    exports eu.telecomnancy.condinglate.UI;
+    opens eu.telecomnancy.condinglate.UI to javafx.fxml;
 }
