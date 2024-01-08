@@ -7,7 +7,7 @@ abstract class Person {
     - email : string
     - password : string
     - phone : string
-    - balance : int
+    - balance : float
 }
 
 Person *-- Address

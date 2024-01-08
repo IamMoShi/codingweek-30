@@ -18,15 +18,15 @@ enum PriceType {
 
 
 class Product extends Offer {
-    - category : Category
+    - category : ProductCategory
     - brand : string
     - model : string
     - year : int
-    - condition : Condition
+    - condition : ProductCondition
     - images : Image[]
 }
 
-enum Category {
+enum ProductCategory {
     Auto,
     Jardin,
     Maison,
@@ -71,10 +71,10 @@ class Waiting {
     - offer : Offer
     - user : User
     - askingDate
-    - status : WaitingListStatus
+    - status : WaitingStatus
 }
 
-enum WaitingListStatus {
+enum WaitingStatus {
     Pending,
     Accepted,
     Refused,
@@ -82,6 +82,12 @@ enum WaitingListStatus {
     Cancelled
 }
 
+enum ProductCondition {
+    New,
+    Good,
+    Used,
+    Refurbished
+}
 
 
 @enduml

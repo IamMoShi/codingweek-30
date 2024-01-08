@@ -6,6 +6,8 @@ module eu.telecomnancy.codinglate {
     requires com.dlsc.formsfx;
     requires net.synedra.validatorfx;
     requires org.kordamp.bootstrapfx.core;
+    requires java.sql;
+    requires org.xerial.sqlitejdbc;
 
     opens eu.telecomnancy.codinglate to javafx.fxml;
     exports eu.telecomnancy.codinglate;

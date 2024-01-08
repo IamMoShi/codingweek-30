@@ -4,10 +4,37 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="BaseApp patch name mistake and updated README.md">
-      <change afterPath="$PROJECT_DIR$/diagrams/Product.puml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/diagrams/user.puml" afterDir="false" />
+    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="begin UML diagrams">
+      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CodingWeekDatabase.db" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/DbConnection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/DatabaseController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/user/PersonController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/DataObject.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/enums/BookingStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/enums/PriceType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/enums/ProductCategory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/enums/ProductCondition.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/enums/WaitingStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/Offer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/Product.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/ProductImage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/Rating.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/Service.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/user/Address.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/user/Admin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/user/Person.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/user/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/diagrams/Product.puml" beforeDir="false" afterPath="$PROJECT_DIR$/diagrams/Product.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/diagrams/user.puml" beforeDir="false" afterPath="$PROJECT_DIR$/diagrams/user.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,16 +57,16 @@
             <expand>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="condingLate" type="f1a62948:ProjectNode" />
+                <item name="codingLate" type="f1a62948:ProjectNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="condingLate" type="f1a62948:ProjectNode" />
+                <item name="codingLate" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="condingLate" type="f1a62948:ProjectNode" />
+                <item name="codingLate" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="build" type="c8890929:TasksNode$1" />
               </path>
@@ -54,6 +81,10 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="UML Class" />
+        <option value="Record" />
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -75,23 +106,45 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "DefaultPlantUmlFileTemplate": "UML Class",
+    "Gradle.condingLate [:App.main()].executor": "Run",
     "Gradle.condingLate [:HelloApplication.main()].executor": "Run",
+    "Gradle.condingLate [dependencies].executor": "Run",
     "Gradle.condingLate [jar].executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/moshi/Documents/projets/codingLate/codingweek-30/condingLate/CodingWeekDatabase.db",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.selected.configurable": "preferences.keymap",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Gradle.condingLate [jar]">
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\moshi\Documents\projets\codingLate\codingweek-30\condingLate" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.App">
+    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="eu.telecomnancy.codinglate.App" />
+      <module name="codingLate.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="eu.telecomnancy.codinglate.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="HelloApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="eu.telecomnancy.codinglate.HelloApplication" />
       <module name="condingLate.main" />
@@ -104,6 +157,28 @@
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
+    </configuration>
+    <configuration name="condingLate [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="dependencies" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
     </configuration>
     <configuration name="condingLate [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
@@ -129,6 +204,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.condingLate [dependencies]" />
+        <item itemvalue="Application.App" />
         <item itemvalue="Gradle.condingLate [jar]" />
         <item itemvalue="Application.HelloApplication" />
       </list>
@@ -149,7 +226,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1704698704827</updated>
-      <workItem from="1704698705755" duration="5190000" />
+      <workItem from="1704698705755" duration="16051000" />
     </task>
     <task id="LOCAL-00001" summary="Base app">
       <option name="closed" value="true" />
@@ -167,7 +244,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704701170739</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="begin UML diagrams">
+      <option name="closed" value="true" />
+      <created>1704704060081</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1704704060081</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -176,6 +261,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Base app" />
     <MESSAGE value="BaseApp patch name mistake and updated README.md" />
-    <option name="LAST_COMMIT_MESSAGE" value="BaseApp patch name mistake and updated README.md" />
+    <MESSAGE value="begin UML diagrams" />
+    <option name="LAST_COMMIT_MESSAGE" value="begin UML diagrams" />
   </component>
 </project>
