@@ -70,13 +70,11 @@ public class LoginCreator {
         String email = emailField.getText();
         String password = PasswordField.getText();
         PersonController personcontroller = PersonController.getInstance();
-        try {
-            if(personcontroller.VerifierBase(email,password)){
-                System.out.print("Utilisateur inscrit!");
-            }
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
+
+        if(personcontroller.VerifierBase(email,password)){
+            System.out.print("Utilisateur inscrit!");
         }
+
 
     });
 
