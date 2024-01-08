@@ -13,11 +13,11 @@ public class Rating extends DataObject {
     private String comment;
 
     public Rating(int id, Offer offer, User user, int value, String comment) {
-        this.id = id;
-        this.offer = offer;
-        this.user = user;
-        this.value = value;
-        this.comment = StringControlled.correctedString(comment, 512);
+        setId(id);
+        setOffer(offer);
+        setUser(user);
+        setValue(value);
+        setComment(comment);
     }
 
     public Rating(Offer offer, User user, int value) {
@@ -65,7 +65,7 @@ public class Rating extends DataObject {
     }
 
     public void setComment(String comment) {
-        this.comment = comment;
+        this.comment = StringControlled.correctedString(comment, 512);
     }
 
 

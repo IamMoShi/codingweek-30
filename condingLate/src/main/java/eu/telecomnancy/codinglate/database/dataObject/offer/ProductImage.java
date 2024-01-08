@@ -9,9 +9,9 @@ public class ProductImage extends DataObject {
     private String path;
 
     public ProductImage(int id, Product product, String path) {
-        this.id = id;
-        this.product = product;
-        this.path = StringControlled.correctedString(path, 255);
+        setId(id);
+        setProduct(product);
+        setPath(path);
     }
 
     public ProductImage(Product product, String path) {
@@ -43,7 +43,7 @@ public class ProductImage extends DataObject {
     }
 
     public void setPath(String path) {
-        this.path = path;
+        this.path = StringControlled.correctedString(path, 255);
     }
 
 }
