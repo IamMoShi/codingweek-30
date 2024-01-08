@@ -66,7 +66,9 @@ public class SearchBar extends HBox {
         getChildren().add(userButton);
         ContextMenu contextMenu = new ContextMenu();
         MenuItem item1 = new MenuItem("Profil");
+        MenuItem item3 = new MenuItem("Messagerie");
         MenuItem item2 = new MenuItem("Déconnexion");
+
         contextMenu.getItems().addAll(item1, item2);
         userButton.setOnMouseClicked(e -> {
             contextMenu.show(userButton, e.getScreenX() - userButton.getHeight(), e.getScreenY() + userButton.getHeight());

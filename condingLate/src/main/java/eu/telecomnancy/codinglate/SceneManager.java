@@ -142,4 +142,39 @@ public class SceneManager {
         return scene;
     }
 
+
+    public Scene createSceneProfil(){
+        SearchBar searchBar = new SearchBar();
+
+        BorderPane root = new BorderPane();
+        // Mise en page de la scène
+        VBox layout = new VBox(10);
+        layout.setPadding(new Insets(0));
+        layout.getChildren().add(searchBar);
+
+        root.setTop(layout);
+
+        VBox vbox = new VBox();
+        vbox.setSpacing(10);
+
+
+        GridPane gridPane = new GridPane();
+        gridPane.setPadding(new Insets(10, 40, 10, 40));
+        gridPane.setStyle("-fx-font-size: 20px;");
+        gridPane.setAlignment(Pos.CENTER_LEFT);
+        gridPane.add(new Text("Nom : "), 0, 0);
+        gridPane.add(new Text("Prénom : "), 0, 1);
+        gridPane.add(new Text("Email : "), 0, 2);
+        gridPane.add(new Text("Téléphone : "), 0, 3);
+        gridPane.add(new Text("Adresse : "), 0, 4);
+        gridPane.add(new Text("Solde : "), 0, 5);
+
+
+        root.setCenter(gridPane);
+        Scene scene = new Scene(root, 1000, 600);
+        scene.getStylesheets().add("eu/telecomnancy/condinglate/css/ui/searchBar.css");
+        return scene;
+
+    }
+
 }
