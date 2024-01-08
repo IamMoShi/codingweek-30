@@ -1,0 +1,28 @@
+@startuml
+
+abstract class Person {
+    - id : int
+    - firstName : string
+    - lastName : string
+    - email : string
+    - password : string
+    - phone : string
+    - balance : int
+}
+
+Person *-- Address
+
+class Address {
+    - id : int
+    - address : string
+}
+
+class User extends Person {
+
+}
+
+class Admin extends Person {
+
+}
+
+@enduml
