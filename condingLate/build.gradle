@@ -25,8 +25,8 @@ tasks.withType(JavaCompile) {
 }
 
 application {
-  mainModule = 'eu.telecomnancy.condinglate'
-  mainClass = 'eu.telecomnancy.condinglate.HelloApplication'
+  mainModule = 'eu.telecomnancy.codinglate'
+  mainClass = 'eu.telecomnancy.codinglate.App'
 }
 
 javafx {

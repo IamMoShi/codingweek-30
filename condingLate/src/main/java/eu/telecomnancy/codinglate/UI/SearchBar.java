@@ -1,4 +1,4 @@
-package eu.telecomnancy.condinglate.UI;
+package eu.telecomnancy.codinglate.UI;
 
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;

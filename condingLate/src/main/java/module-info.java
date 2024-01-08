@@ -1,4 +1,4 @@
-module eu.telecomnancy.condinglate {
+module eu.telecomnancy.codinglate {
     requires javafx.controls;
     requires javafx.fxml;
 
@@ -7,8 +7,8 @@ module eu.telecomnancy.condinglate {
     requires net.synedra.validatorfx;
     requires org.kordamp.bootstrapfx.core;
 
-    opens eu.telecomnancy.condinglate to javafx.fxml;
-    exports eu.telecomnancy.condinglate;
-    exports eu.telecomnancy.condinglate.UI;
-    opens eu.telecomnancy.condinglate.UI to javafx.fxml;
+    opens eu.telecomnancy.codinglate to javafx.fxml;
+    exports eu.telecomnancy.codinglate;
+    exports eu.telecomnancy.codinglate.UI;
+    opens eu.telecomnancy.codinglate.UI to javafx.fxml;
 }

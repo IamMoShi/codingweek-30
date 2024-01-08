@@ -1,4 +1,4 @@
-package eu.telecomnancy.condinglate.UI;
+package eu.telecomnancy.codinglate.UI;
 
 public class SearchBarButton extends AbstractButton{
     public SearchBarButton(String buttonName, String Label) {

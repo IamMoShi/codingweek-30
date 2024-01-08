@@ -1,6 +1,7 @@
-package eu.telecomnancy.condinglate;
+package eu.telecomnancy.codinglate;
 
-import eu.telecomnancy.condinglate.UI.SearchBar;
+
+import eu.telecomnancy.codinglate.UI.SearchBar;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
