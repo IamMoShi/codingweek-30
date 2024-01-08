@@ -1,4 +1,4 @@
-package eu.telecomnancy.condinglate;
+package eu.telecomnancy.codinglate;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

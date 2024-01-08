@@ -7,6 +7,6 @@ module eu.telecomnancy.condinglate {
     requires net.synedra.validatorfx;
     requires org.kordamp.bootstrapfx.core;
 
-    opens eu.telecomnancy.condinglate to javafx.fxml;
-    exports eu.telecomnancy.condinglate;
+    opens eu.telecomnancy.codinglate to javafx.fxml;
+    exports eu.telecomnancy.codinglate;
 }

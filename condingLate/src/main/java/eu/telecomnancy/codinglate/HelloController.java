@@ -1,4 +1,4 @@
-package eu.telecomnancy.condinglate;
+package eu.telecomnancy.codinglate;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
