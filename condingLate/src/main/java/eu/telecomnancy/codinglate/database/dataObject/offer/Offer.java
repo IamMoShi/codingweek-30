@@ -13,20 +13,20 @@ public abstract class Offer extends DataObject {
     private User user;
     private String title;
     private String description;
-    private float price;
+    private double price;
     private PriceType priceType;
     private LocalDate startingDate;
     private LocalDate endingDate;
 
-    public Offer(int id, User user, String title, String description, float price, PriceType priceType, LocalDate startingDate, LocalDate endingDate) {
-        this.id = id;
-        this.user = user;
-        this.title = StringControlled.correctedString(title, 64);
-        this.description = StringControlled.correctedString(description, 512);
-        this.price = price;
-        this.priceType = priceType;
-        this.startingDate = startingDate;
-        this.endingDate = endingDate;
+    public Offer(int id, User user, String title, String description, double price, PriceType priceType, LocalDate startingDate, LocalDate endingDate) {
+        setId(id);
+        setUser(user);
+        setTitle(title);
+        setDescription(description);
+        setPrice(price);
+        setPriceType(priceType);
+        setStartingDate(startingDate);
+        setEndingDate(endingDate);
     }
 
     // Getters ------------------------------------------------------------------------------------
@@ -47,7 +47,7 @@ public abstract class Offer extends DataObject {
         return description;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
@@ -74,14 +74,14 @@ public abstract class Offer extends DataObject {
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.title = StringControlled.correctedString(title, 64);
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.description = StringControlled.correctedString(description, 512);
     }
 
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

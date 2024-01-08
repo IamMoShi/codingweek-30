@@ -16,14 +16,14 @@ public abstract class Person extends DataObject {
     private Address address;
 
     public Person(int id, String firstname, String lastname, String email, String password, String phone, float balance, Address address) {
-        this.id = id;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.email = email;
-        this.password = password;
-        this.phone = phone;
-        this.balance = balance;
-        this.address = address;
+        setId(id);
+        setFirstname(firstname);
+        setLastname(lastname);
+        setEmail(email);
+        setPassword(password);
+        setPhone(phone);
+        setBalance(balance);
+        setAddress(address);
     }
 
 
@@ -91,10 +91,10 @@ public abstract class Person extends DataObject {
     }
 
     public void setPhone(String phone) {
-        this.phone = StringControlled.correctedString(phone, 10);
+        this.phone = StringControlled.correctedString(phone, 15).replaceAll(" ", "");
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(float balance) {
         this.balance = balance;
     }
 
