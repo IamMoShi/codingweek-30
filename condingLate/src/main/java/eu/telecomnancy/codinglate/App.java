@@ -5,27 +5,24 @@ import eu.telecomnancy.codinglate.UI.SearchBar;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class App extends Application {
+
+    private SceneManager sceneManager;
     @Override
     public void start(Stage stage) throws IOException {
+        Image appIcon = new Image("eu/telecomnancy/condinglate/icon/logo_hands.png");
+        stage.getIcons().add(appIcon);
 
-        SearchBar searchBar = new SearchBar();
+        this.sceneManager = new SceneManager(stage);
 
-        // Mise en page de la scène
-        VBox layout = new VBox(10);
-        layout.setPadding(new Insets(10));
-        layout.getChildren().add(searchBar);
-
-        // Création de la scène
-        Scene scene = new Scene(layout, 300, 200);
-        scene.getStylesheets().add("eu/telecomnancy/condinglate/css/ui/searchBar.css");
-        stage.setScene(scene);
-        stage.show();
+        Scene scene = sceneManager.createScenePresentation();
+        sceneManager.switchScene(scene);
     }
 
     public static void main(String[] args) {

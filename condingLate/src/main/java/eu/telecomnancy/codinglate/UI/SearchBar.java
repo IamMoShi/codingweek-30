@@ -41,7 +41,8 @@ public class SearchBar extends HBox {
         getChildren().add(spacer2);
 
 
-        SearchBarButton searchButton = new SearchBarButton("searchButton", "Rechercher");
+        SearchBarButton searchButton = new SearchBarButton("searchButton", "Se connecter");
+        searchButton.initializeButton();
         getChildren().add(searchButton);
 
         Image userIcon = new Image("eu/telecomnancy/condinglate/icon/user.png");
