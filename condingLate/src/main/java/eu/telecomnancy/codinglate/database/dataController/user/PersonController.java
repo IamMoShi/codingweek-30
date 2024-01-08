@@ -1,13 +1,13 @@
 package eu.telecomnancy.codinglate.database.dataController.user;
 
 import eu.telecomnancy.codinglate.database.DbConnection;
+import eu.telecomnancy.codinglate.database.dataObject.user.Address;
 import eu.telecomnancy.codinglate.database.dataObject.user.Admin;
 import eu.telecomnancy.codinglate.database.dataObject.user.Person;
+import eu.telecomnancy.codinglate.database.dataObject.user.User;
 
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class PersonController {
 
@@ -21,26 +21,166 @@ public class PersonController {
     }
 
     public void insert(Person person) {
-        Connection conn = DbConnection.connect();
-        PreparedStatement pstmt;
-        try {
-            String sql = "INSERT INTO user(firstname, lastname, email, password, phone, balance, admin) VALUES(?,?,?,?,?,?,?)";
-            pstmt = conn.prepareStatement(sql);
+        int generatedId = -1; // Valeur par défaut en cas d'échec de l'insertion
+
+        try (Connection conn = DbConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement(
+                     "INSERT INTO user (firstname, lastname, email, password, phone, balance, admin) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                     Statement.RETURN_GENERATED_KEYS)) {
+
             pstmt.setString(1, person.getFirstname());
             pstmt.setString(2, person.getLastname());
             pstmt.setString(3, person.getEmail());
             pstmt.setString(4, person.getPassword());
             pstmt.setString(5, person.getPhone());
             pstmt.setFloat(6, person.getBalance());
-            if (person instanceof Admin) {
-                pstmt.setInt(7, 1);
+            pstmt.setInt(7, (person instanceof Admin) ? 1 : 0);
+
+            int rowsInserted = pstmt.executeUpdate();
+
+            if (rowsInserted > 0) {
+                try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        generatedId = generatedKeys.getInt(1); // Récupérer l'ID généré
+                    } else {
+                        System.out.println("Aucun ID généré trouvé.");
+                    }
+                }
             } else {
-                pstmt.setInt(7, 0);
+                System.out.println("L'insertion a échoué.");
             }
-            pstmt.execute();
-            System.out.println("Person inserted");
+
         } catch (SQLException e) {
-            System.out.println(e+"");
+            e.printStackTrace();
+            // Gérer les erreurs de manière appropriée, par exemple, en lançant une exception personnalisée
+        }
+
+        person.setId(generatedId);
+    }
+
+
+
+    public void update(Person person) {
+        try (Connection conn = DbConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement(
+                     "UPDATE user SET firstname = ?, lastname = ?, email = ?, password = ?, phone = ?, balance = ?, admin = ? WHERE id = ?")) {
+
+            pstmt.setString(1, person.getFirstname());
+            pstmt.setString(2, person.getLastname());
+            pstmt.setString(3, person.getEmail());
+            pstmt.setString(4, person.getPassword());
+            pstmt.setString(5, person.getPhone());
+            pstmt.setFloat(6, person.getBalance());
+            pstmt.setInt(7, (person instanceof Admin) ? 1 : 0);
+            pstmt.setInt(8, person.getId());
+
+            int rowsUpdated = pstmt.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                System.out.println("Person updated successfully");
+            } else {
+                System.out.println("No person with the given ID found for update");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Gérer les erreurs de manière appropriée, par exemple, en lançant une exception personnalisée
+        }
+    }
+
+
+    public Person getPersonById(int userId) {
+        Person person = null;
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = DbConnection.connect();
+            String sql = "SELECT * FROM user WHERE id = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, userId);
+
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                int id = rs.getInt("id");
+                String firstname = rs.getString("firstname");
+                String lastname = rs.getString("lastname");
+                String email = rs.getString("email");
+                String password = rs.getString("password");
+                String phone = rs.getString("phone");
+                float balance = rs.getFloat("balance");
+                int adminValue = rs.getInt("admin");
+
+                Address address = null; // Vous devez obtenir l'adresse à partir de la base de données si nécessaire
+
+                if (adminValue == 1) {
+                    // L'utilisateur est un administrateur
+                    person = new Admin(id, firstname, lastname, email, password, phone, balance, address);
+                } else {
+                    // L'utilisateur est un utilisateur standard
+                    person = new User(id, firstname, lastname, email, password, phone, balance, address);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Gérer les erreurs de manière appropriée, par exemple, en lançant une exception personnalisée
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return person;
+    }
+
+    public void delete(Person person) {
+        deletePersonById(person.getId());
+    }
+
+    public void deletePersonById(int userId) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            conn = DbConnection.connect();
+            String sql = "DELETE FROM user WHERE id = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, userId);
+
+            int rowsDeleted = pstmt.executeUpdate();
+
+            if (rowsDeleted > 0) {
+                System.out.println("Person with ID " + userId + " deleted successfully");
+            } else {
+                System.out.println("No person with the given ID found for deletion");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Gérer les erreurs de manière appropriée, par exemple, en lançant une exception personnalisée
+        } finally {
+            try {
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 

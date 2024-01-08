@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import eu.telecomnancy.codinglate.database.dataObject.enums.ProductCategory;
 import eu.telecomnancy.codinglate.database.dataObject.enums.ProductCondition;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Product;
-import eu.telecomnancy.codinglate.database.dataObject.offer.ProductImage;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Service;
 import eu.telecomnancy.codinglate.database.dataObject.user.Address;
 import eu.telecomnancy.codinglate.database.dataObject.user.User;
@@ -74,17 +73,17 @@ public class DataObject {
     public void Offer() {
         Address address = new Address(12, "12 rue de la paix 54000 Nancy");
         User user = new User(12, "John", "Doe", "john.doe@telecomnancy.eu", "password2", "03 12 34 56 78", 100, address);
-        Product product1 = new Product(user, "Product1", 10, PriceType.euro_per_day);
+        Product product1 = new Product(user, "Product1", 10, PriceType.EURO_PER_DAY);
 
         assertEquals(-1, product1.getId());
         assertEquals(user, product1.getUser());
         assertEquals("product1", product1.getTitle());
         assertEquals("", product1.getDescription());
         assertEquals(10, product1.getPrice());
-        assertEquals(PriceType.euro_per_day, product1.getPriceType());
+        assertEquals(PriceType.EURO_PER_DAY, product1.getPriceType());
         assertNull(product1.getStartingDate());
         assertNull(product1.getEndingDate());
-        assertEquals(ProductCategory.Other, product1.getCategory());
+        assertEquals(ProductCategory.OTHER, product1.getCategory());
         assertEquals("", product1.getBrand());
         assertEquals("", product1.getModel());
         assertEquals(0, product1.getYear());
@@ -97,14 +96,14 @@ public class DataObject {
                 "Product2",
                 "Description",
                 12.2,
-                PriceType.euro_per_day,
+                PriceType.EURO_PER_DAY,
                 LocalDate.of(2023, 12, 24),
                 LocalDate.of(2024, 1, 1),
-                ProductCategory.Other,
+                ProductCategory.OTHER,
                 "Brand",
                 "Model",
                 2020,
-                ProductCondition.New,
+                ProductCondition.NEW,
                 new ArrayList<>());
 
         assertEquals(12, product2.getId());
@@ -112,14 +111,14 @@ public class DataObject {
         assertEquals("product2", product2.getTitle());
         assertEquals("description", product2.getDescription());
         assertEquals(12.2, product2.getPrice());
-        assertEquals(PriceType.euro_per_day, product2.getPriceType());
+        assertEquals(PriceType.EURO_PER_DAY, product2.getPriceType());
         assertEquals(LocalDate.of(2023, 12, 24), product2.getStartingDate());
         assertEquals(LocalDate.of(2024, 1, 1), product2.getEndingDate());
-        assertEquals(ProductCategory.Other, product2.getCategory());
+        assertEquals(ProductCategory.OTHER, product2.getCategory());
         assertEquals("brand", product2.getBrand());
         assertEquals("model", product2.getModel());
         assertEquals(2020, product2.getYear());
-        assertEquals(ProductCondition.New, product2.getCondition());
+        assertEquals(ProductCondition.NEW, product2.getCondition());
         assertEquals(0, product2.getImages().size());
 
         User user2 = new User("Paul", "Dupont", "paul.dupont@gmail.com", "password1", address);
@@ -129,14 +128,14 @@ public class DataObject {
         product2.setTitle("Product3");
         product2.setDescription("Description2");
         product2.setPrice(13.4);
-        product2.setPriceType(PriceType.euro_per_hour);
+        product2.setPriceType(PriceType.EURO_PER_HOUR);
         product2.setStartingDate(LocalDate.of(2023, 12, 25));
         product2.setEndingDate(LocalDate.of(2024, 1, 2));
-        product2.setCategory(ProductCategory.Auto);
+        product2.setCategory(ProductCategory.AUTO);
         product2.setBrand("Brand2");
         product2.setModel("Model2");
         product2.setYear(2021);
-        product2.setCondition(ProductCondition.Used);
+        product2.setCondition(ProductCondition.USED);
         product2.setImages(new ArrayList<>());
 
         assertEquals(13, product2.getId());
@@ -144,14 +143,14 @@ public class DataObject {
         assertEquals("product3", product2.getTitle());
         assertEquals("description2", product2.getDescription());
         assertEquals(13.4, product2.getPrice());
-        assertEquals(PriceType.euro_per_hour, product2.getPriceType());
+        assertEquals(PriceType.EURO_PER_HOUR, product2.getPriceType());
         assertEquals(LocalDate.of(2023, 12, 25), product2.getStartingDate());
         assertEquals(LocalDate.of(2024, 1, 2), product2.getEndingDate());
-        assertEquals(ProductCategory.Auto, product2.getCategory());
+        assertEquals(ProductCategory.AUTO, product2.getCategory());
         assertEquals("brand2", product2.getBrand());
         assertEquals("model2", product2.getModel());
         assertEquals(2021, product2.getYear());
-        assertEquals(ProductCondition.Used, product2.getCondition());
+        assertEquals(ProductCondition.USED, product2.getCondition());
         assertEquals(0, product2.getImages().size());
 
 
@@ -161,7 +160,7 @@ public class DataObject {
                 "Service1",
                 "Description",
                 12.2,
-                PriceType.euro_per_day,
+                PriceType.EURO_PER_DAY,
                 LocalDate.of(2023, 12, 24),
                 LocalDate.of(2024, 1, 1));
 
@@ -170,18 +169,18 @@ public class DataObject {
         assertEquals("service1", service1.getTitle());
         assertEquals("description", service1.getDescription());
         assertEquals(12.2, service1.getPrice());
-        assertEquals(PriceType.euro_per_day, service1.getPriceType());
+        assertEquals(PriceType.EURO_PER_DAY, service1.getPriceType());
         assertEquals(LocalDate.of(2023, 12, 24), service1.getStartingDate());
         assertEquals(LocalDate.of(2024, 1, 1), service1.getEndingDate());
 
-        Service service2 = new Service(user, "Service2", 10, PriceType.euro_per_week);
+        Service service2 = new Service(user, "Service2", 10, PriceType.EURO_PER_WEEK);
 
         assertEquals(-1, service2.getId());
         assertEquals(user, service2.getUser());
         assertEquals("service2", service2.getTitle());
         assertEquals("", service2.getDescription());
         assertEquals(10, service2.getPrice());
-        assertEquals(PriceType.euro_per_week, service2.getPriceType());
+        assertEquals(PriceType.EURO_PER_WEEK, service2.getPriceType());
         assertNull(service2.getStartingDate());
         assertNull(service2.getEndingDate());
 
@@ -190,7 +189,7 @@ public class DataObject {
         service2.setTitle("Service3");
         service2.setDescription("Description2");
         service2.setPrice(13.4);
-        service2.setPriceType(PriceType.euro_per_hour);
+        service2.setPriceType(PriceType.EURO_PER_HOUR);
         service2.setStartingDate(LocalDate.of(2023, 12, 25));
         service2.setEndingDate(LocalDate.of(2024, 1, 2));
 
@@ -199,7 +198,7 @@ public class DataObject {
         assertEquals("service3", service2.getTitle());
         assertEquals("description2", service2.getDescription());
         assertEquals(13.4, service2.getPrice());
-        assertEquals(PriceType.euro_per_hour, service2.getPriceType());
+        assertEquals(PriceType.EURO_PER_HOUR, service2.getPriceType());
         assertEquals(LocalDate.of(2023, 12, 25), service2.getStartingDate());
         assertEquals(LocalDate.of(2024, 1, 2), service2.getEndingDate());
 
