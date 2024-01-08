@@ -1,6 +1,7 @@
 package eu.telecomnancy.codinglate.database.dataObject.user;
 
 import eu.telecomnancy.codinglate.database.dataObject.DataObject;
+import eu.telecomnancy.codinglate.database.dataObject.StringControlled;
 
 
 public class Address extends DataObject {
@@ -9,7 +10,7 @@ public class Address extends DataObject {
 
     public Address(int id, String address) {
         this.id = id;
-        this.address = address;
+        this.address = StringControlled.correctedString(address, 255);
     }
 
     public Address(String address) {

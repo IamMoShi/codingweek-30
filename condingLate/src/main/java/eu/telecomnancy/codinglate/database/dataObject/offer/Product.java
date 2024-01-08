@@ -1,6 +1,7 @@
 package eu.telecomnancy.codinglate.database.dataObject.offer;
 
 
+import eu.telecomnancy.codinglate.database.dataObject.StringControlled;
 import eu.telecomnancy.codinglate.database.dataObject.enums.ProductCategory;
 import eu.telecomnancy.codinglate.database.dataObject.enums.ProductCondition;
 import eu.telecomnancy.codinglate.database.dataObject.enums.PriceType;
@@ -22,8 +23,8 @@ public class Product extends Offer {
     public Product(int id, User user, String title, String description, float price, PriceType priceType, LocalDate startingDate, LocalDate endingDate, ProductCategory category, String brand, String model, int year, ProductCondition condition, ArrayList<ProductImage> images) {
         super(id, user, title, description, price, priceType, startingDate, endingDate);
         this.category = category;
-        this.brand = brand;
-        this.model = model;
+        this.brand = StringControlled.correctedString(brand, 64);
+        this.model = StringControlled.correctedString(model, 64);
         this.year = year;
         this.condition = condition;
         this.images = images;

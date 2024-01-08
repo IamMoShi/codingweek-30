@@ -1,6 +1,7 @@
 package eu.telecomnancy.codinglate.database.dataObject.user;
 
 import eu.telecomnancy.codinglate.database.dataObject.DataObject;
+import eu.telecomnancy.codinglate.database.dataObject.StringControlled;
 
 
 public abstract class Person extends DataObject {
@@ -74,23 +75,23 @@ public abstract class Person extends DataObject {
     }
 
     public void setFirstname(String firstname) {
-        this.firstname = firstname;
+        this.firstname = StringControlled.correctedString(firstname, 30);
     }
 
     public void setLastname(String lastname) {
-        this.lastname = lastname;
+        this.lastname = StringControlled.correctedString(lastname, 30);
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = StringControlled.correctedString(email, 60);
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = StringControlled.correctedString(password, 300);
     }
 
     public void setPhone(String phone) {
-        this.phone = phone;
+        this.phone = StringControlled.correctedString(phone, 10);
     }
 
     public void setBalance(int balance) {

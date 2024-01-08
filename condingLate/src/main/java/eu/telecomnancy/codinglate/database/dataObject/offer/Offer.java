@@ -1,6 +1,7 @@
 package eu.telecomnancy.codinglate.database.dataObject.offer;
 
 import eu.telecomnancy.codinglate.database.dataObject.DataObject;
+import eu.telecomnancy.codinglate.database.dataObject.StringControlled;
 import eu.telecomnancy.codinglate.database.dataObject.enums.PriceType;
 import eu.telecomnancy.codinglate.database.dataObject.user.User;
 
@@ -20,8 +21,8 @@ public abstract class Offer extends DataObject {
     public Offer(int id, User user, String title, String description, float price, PriceType priceType, LocalDate startingDate, LocalDate endingDate) {
         this.id = id;
         this.user = user;
-        this.title = title;
-        this.description = description;
+        this.title = StringControlled.correctedString(title, 64);
+        this.description = StringControlled.correctedString(description, 512);
         this.price = price;
         this.priceType = priceType;
         this.startingDate = startingDate;

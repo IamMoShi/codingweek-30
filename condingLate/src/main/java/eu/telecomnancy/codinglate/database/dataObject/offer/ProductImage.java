@@ -1,6 +1,7 @@
 package eu.telecomnancy.codinglate.database.dataObject.offer;
 
 import eu.telecomnancy.codinglate.database.dataObject.DataObject;
+import eu.telecomnancy.codinglate.database.dataObject.StringControlled;
 
 public class ProductImage extends DataObject {
     private int id;
@@ -10,7 +11,7 @@ public class ProductImage extends DataObject {
     public ProductImage(int id, Product product, String path) {
         this.id = id;
         this.product = product;
-        this.path = path;
+        this.path = StringControlled.correctedString(path, 255);
     }
 
     public ProductImage(Product product, String path) {

@@ -1,6 +1,7 @@
 package eu.telecomnancy.codinglate.database.dataObject.offer;
 
 import eu.telecomnancy.codinglate.database.dataObject.DataObject;
+import eu.telecomnancy.codinglate.database.dataObject.StringControlled;
 import eu.telecomnancy.codinglate.database.dataObject.user.User;
 
 
@@ -16,7 +17,7 @@ public class Rating extends DataObject {
         this.offer = offer;
         this.user = user;
         this.value = value;
-        this.comment = comment;
+        this.comment = StringControlled.correctedString(comment, 512);
     }
 
     public Rating(Offer offer, User user, int value) {
