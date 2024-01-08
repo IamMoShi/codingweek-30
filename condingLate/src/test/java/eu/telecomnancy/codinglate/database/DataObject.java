@@ -3,15 +3,10 @@ package eu.telecomnancy.codinglate.database;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import eu.telecomnancy.codinglate.database.dataObject.enums.ProductCategory;
-import eu.telecomnancy.codinglate.database.dataObject.enums.ProductCondition;
-import eu.telecomnancy.codinglate.database.dataObject.offer.Product;
-import eu.telecomnancy.codinglate.database.dataObject.offer.ProductImage;
-import eu.telecomnancy.codinglate.database.dataObject.offer.Rating;
-import eu.telecomnancy.codinglate.database.dataObject.offer.Service;
+import eu.telecomnancy.codinglate.database.dataObject.enums.*;
+import eu.telecomnancy.codinglate.database.dataObject.offer.*;
 import eu.telecomnancy.codinglate.database.dataObject.user.Address;
 import eu.telecomnancy.codinglate.database.dataObject.user.User;
-import eu.telecomnancy.codinglate.database.dataObject.enums.PriceType;
 
 import org.junit.jupiter.api.Test;
 
@@ -262,5 +257,85 @@ public class DataObject {
         assertEquals(13, rating2.getId());
         assertEquals(product1, rating2.getOffer());
         assertEquals(user1, rating2.getUser());
+    }
+
+    @Test
+    public void booking() {
+        Address address = new Address(12, "12 rue de la paix 54000 Nancy");
+        User user1 = new User("Jean", "Dupont", "jean.dupont@gmail.com", "password1", address);
+        Product product1 = new Product(user1, "Product1", 10, PriceType.EURO_PER_DAY);
+
+        Booking booking1 = new Booking(12, product1, user1, LocalDate.of(2021, 1, 1), LocalDate.of(2021, 1, 2), BookingStatus.PENDING);
+
+        assertEquals(12, booking1.getId());
+        assertEquals(product1, booking1.getOffer());
+        assertEquals(user1, booking1.getUser());
+        assertEquals(LocalDate.of(2021, 1, 1), booking1.getStartingDate());
+        assertEquals(LocalDate.of(2021, 1, 2), booking1.getEndingDate());
+        assertEquals(BookingStatus.PENDING, booking1.getStatus());
+
+        Booking booking2 = new Booking(product1, user1, LocalDate.of(2021, 1, 1), LocalDate.of(2021, 1, 2));
+
+        assertEquals(-1, booking2.getId());
+        assertEquals(product1, booking2.getOffer());
+        assertEquals(user1, booking2.getUser());
+        assertEquals(LocalDate.of(2021, 1, 1), booking2.getStartingDate());
+        assertEquals(LocalDate.of(2021, 1, 2), booking2.getEndingDate());
+        assertEquals(BookingStatus.PENDING, booking2.getStatus());
+
+        User user2 = new User("Paul", "Dupont", "paul.dupont@gmail.com", "password1", address);
+
+
+        booking2.setId(13);
+        booking2.setOffer(product1);
+        booking2.setUser(user2);
+        booking2.setStartingDate(LocalDate.of(2021, 1, 3));
+        booking2.setEndingDate(LocalDate.of(2021, 1, 4));
+        booking2.setStatus(BookingStatus.ACCEPTED);
+
+        assertEquals(13, booking2.getId());
+        assertEquals(product1, booking2.getOffer());
+        assertEquals(user2, booking2.getUser());
+        assertEquals(LocalDate.of(2021, 1, 3), booking2.getStartingDate());
+        assertEquals(LocalDate.of(2021, 1, 4), booking2.getEndingDate());
+        assertEquals(BookingStatus.ACCEPTED, booking2.getStatus());
+
+    }
+
+    @Test
+    public void waiting() {
+        Address address = new Address(12, "12 rue de la paix 54000 Nancy");
+        User user1 = new User("Jean", "Dupont", "jean.dupont@gmail.com", "password1", address);
+        User user2 = new User("Paul", "Dupont", "paul.dupont@gmail.com", "password1", address);
+        Product product1 = new Product(user1, "Product1", 10, PriceType.EURO_PER_DAY);
+
+        Waiting waiting1 = new Waiting(12, product1, user1, LocalDate.of(2021, 1, 1), LocalDate.of(2021, 1, 2), LocalDate.of(2021, 1, 3), WaitingStatus.PENDING);
+
+        assertEquals(12, waiting1.getId());
+        assertEquals(product1, waiting1.getOffer());
+        assertEquals(user1, waiting1.getUser());
+        assertEquals(LocalDate.of(2021, 1, 1), waiting1.getAskingDate());
+        assertEquals(LocalDate.of(2021, 1, 2), waiting1.getStartingDate());
+        assertEquals(LocalDate.of(2021, 1, 3), waiting1.getEndingDate());
+        assertEquals(WaitingStatus.PENDING, waiting1.getStatus());
+
+        Waiting waiting2 = new Waiting(product1, user1, LocalDate.of(2021, 1, 1), LocalDate.of(2021, 1, 2), LocalDate.of(2021, 1, 3));
+
+        assertEquals(-1, waiting2.getId());
+        assertEquals(product1, waiting2.getOffer());
+        assertEquals(user1, waiting2.getUser());
+        assertEquals(LocalDate.of(2021, 1, 1), waiting2.getAskingDate());
+        assertEquals(LocalDate.of(2021, 1, 2), waiting2.getStartingDate());
+        assertEquals(LocalDate.of(2021, 1, 3), waiting2.getEndingDate());
+        assertEquals(WaitingStatus.PENDING, waiting2.getStatus());
+
+        waiting2.setId(13);
+        waiting2.setOffer(product1);
+        waiting2.setUser(user2);
+        waiting2.setAskingDate(LocalDate.of(2021, 1, 4));
+        waiting2.setStartingDate(LocalDate.of(2021, 1, 5));
+        waiting2.setEndingDate(LocalDate.of(2021, 1, 6));
+        waiting2.setStatus(WaitingStatus.ACCEPTED);
+
     }
 }
