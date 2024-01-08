@@ -1,0 +1,87 @@
+@startuml
+
+abstract class Offer {
+    - id : int
+    - user : User
+    - title : string
+    - description : string
+    - price : float
+    - priceType : PriceType
+    - startingDate
+    - endingDate
+}
+
+enum PriceType {
+    euro/hour
+    euro/day
+}
+
+
+class Product extends Offer {
+    - category : Category
+    - brand : string
+    - model : string
+    - year : int
+    - condition : Condition
+    - images : Image[]
+}
+
+enum Category {
+    Auto,
+    Jardin,
+    Maison,
+    Mode,
+    Multimedia,
+    Sport,
+    Autre
+}
+
+class Service extends Offer {
+
+}
+
+class Rating {
+    - id : int
+    - offer : Offer
+    - user : User
+    - value : float
+    - comment : string
+}
+
+
+class Booking {
+    - id : int
+    - offer : Offer
+    - user : User
+    - startingDate
+    - endingDate
+    - status : BookingStatus
+}
+
+enum BookingStatus {
+    Pending,
+    Accepted,
+    Refused,
+    Cancelled,
+    Finished
+}
+
+class Waiting {
+    - id : int
+    - offer : Offer
+    - user : User
+    - askingDate
+    - status : WaitingListStatus
+}
+
+enum WaitingListStatus {
+    Pending,
+    Accepted,
+    Refused,
+    Finished,
+    Cancelled
+}
+
+
+
+@enduml
