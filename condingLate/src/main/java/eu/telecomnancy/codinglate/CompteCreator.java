@@ -123,7 +123,7 @@ public class CompteCreator {
             else{
                 User newperson = new User(firstName, lastName, email, password, adress);
 
-                    PersonController personcontroller = PersonController.getInstance();
+                PersonController personcontroller = PersonController.getInstance();
                 personcontroller.insert((Person) newperson);
             }
         });
