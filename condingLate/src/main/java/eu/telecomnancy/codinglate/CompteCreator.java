@@ -53,22 +53,22 @@ public class CompteCreator {
     private void addUIControls(GridPane gridPane) {
         // Add controls to the gridPane
 
-        Label FirstnameLabel = new Label("FirstName:");
+        Label FirstnameLabel = new Label("Prénom:");
         TextField FirstnameField = new TextField();
         gridPane.add(FirstnameLabel, 0, 0);
         gridPane.add(FirstnameField, 1, 0);
 
-        Label LastnameLabel = new Label("LastName:");
+        Label LastnameLabel = new Label("Nom:");
         TextField LastnameField = new TextField();
         gridPane.add(LastnameLabel, 0, 1);
         gridPane.add(LastnameField, 1, 1);
 
-        Label emailLabel = new Label("emailName:");
+        Label emailLabel = new Label("email:");
         TextField emailField = new TextField();
         gridPane.add(emailLabel, 0, 2);
         gridPane.add(emailField, 1, 2);
 
-        Label phoneLabel = new Label("phone:");
+        Label phoneLabel = new Label("téléphone:");
         TextField phoneField = new TextField();
         gridPane.add(phoneLabel, 0, 3);
         gridPane.add(phoneField, 1, 3);
@@ -79,13 +79,13 @@ public class CompteCreator {
         gridPane.add(AdressField, 1, 4);
 
 
-        Label passwordLabel = new Label("Password:");
+        Label passwordLabel = new Label("Mot de Passe:");
         TextField passwordField = new TextField();
         gridPane.add(passwordLabel, 0, 5);
         gridPane.add(passwordField, 1, 5);
 
 
-        Button submitButton = new Button("Submit");
+        Button submitButton = new Button("Inscription");
 
         // Event handling for the submit button
         submitButton.setOnAction(e -> {
@@ -104,20 +104,20 @@ public class CompteCreator {
             //if nothing is filled
             if(lastName.isBlank() || firstName.isBlank() || email.isBlank() || phone.isBlank() || address.isBlank() || password.isBlank()){
 
-                addNewLabel(gridPane, "Informations Missing!");
+                addNewLabel(gridPane, "Informations Manquantes!");
 
             }
 
 
 
             if(!isAscii(firstName) && !isAscii(lastName)){
-                addNewLabel(gridPane, "Caracters not find!");
+                addNewLabel(gridPane, "Caractères non reconnus!");
             }
             if(!isAscii(password)){
-                addNewLabel(gridPane,"Caractères not find!");
+                addNewLabel(gridPane,"Caractères non reconnus!");
             }
             if(!isCorrect(password)) {
-                addNewLabel(gridPane,"Weak Password!");
+                addNewLabel(gridPane,"Mot de Passe trop faible!");
             }
 
             else{
@@ -128,7 +128,7 @@ public class CompteCreator {
             }
         });
 
-        gridPane.add(submitButton, 0, 5, 1, 6);
+        gridPane.add(submitButton, 0, 6, 2, 6);
 
 
     }
