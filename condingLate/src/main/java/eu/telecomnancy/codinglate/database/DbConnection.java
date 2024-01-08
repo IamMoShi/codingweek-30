@@ -6,12 +6,9 @@ import java.sql.SQLException;
 
 public class DbConnection {
 
-    private static Connection conn = null;
 
     public static Connection connect() {
-        if (conn != null)
-            return conn;
-
+        Connection conn = null;
         try {
             Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection("jdbc:sqlite:CodingWeekDatabase.db");

@@ -35,6 +35,20 @@ public class App extends Application {
         Address address = new Address("1 rue de la paix");
         User user = new User(-1, "john", "doe", "john.doe@telecomnancy.eu", "password1", "0011223344", 10, address);
         PersonController.getInstance().insert(user);
+        System.out.println(user.getId());
+        user.setEmail("NewEmail");
+        PersonController.getInstance().update(user);
+        System.out.println(user.getId());
+        System.out.println(user.getEmail());
+
+        User user2 = (User) PersonController.getInstance().getPersonById(user.getId());
+        System.out.println(user2.getId());
+
+        PersonController.getInstance().delete(user);
+        System.out.println(user.getId());
+
+        if (PersonController.getInstance().getPersonById(user.getId()) == null)
+            System.out.println("User deleted");
 
         launch();
     }
