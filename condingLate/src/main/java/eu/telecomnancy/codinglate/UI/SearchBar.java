@@ -1,16 +1,25 @@
 package eu.telecomnancy.codinglate.UI;
 
+import eu.telecomnancy.codinglate.CompteCreator;
+import eu.telecomnancy.codinglate.SceneManager;
+import javafx.scene.Scene;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.stage.PopupWindow;
+import javafx.stage.Stage;
 
 public class SearchBar extends HBox {
 
     private TextField searchField;
 
     public SearchBar() {
+
         Image logo = new Image("eu/telecomnancy/condinglate/icon/logo_hands.png");
         ImageView logoView = new ImageView(logo);
         logoView.setFitHeight(40);
@@ -44,12 +53,27 @@ public class SearchBar extends HBox {
         SearchBarButton searchButton = new SearchBarButton("searchButton", "Se connecter");
         searchButton.initializeButton();
         getChildren().add(searchButton);
+        searchButton.setOnMouseClicked(e -> {
 
-        Image userIcon = new Image("eu/telecomnancy/condinglate/icon/user.png");
-        ImageView userIconView = new ImageView(userIcon);
-        userIconView.setFitHeight(30);
-        userIconView.setFitWidth(30);
-        getChildren().add(userIconView);
+            SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
+            Scene scene = sceneManager.createSceneCompteCreator();
+            sceneManager.switchScene(scene);
+
+        });
+
+        IconButton userButton = new IconButton("userButton", "", "eu/telecomnancy/condinglate/icon/user.png");
+        userButton.initializeButton();
+        getChildren().add(userButton);
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem item1 = new MenuItem("Profil");
+        MenuItem item3 = new MenuItem("Messagerie");
+        MenuItem item2 = new MenuItem("Déconnexion");
+
+        contextMenu.getItems().addAll(item1, item2);
+        userButton.setOnMouseClicked(e -> {
+            contextMenu.show(userButton, e.getScreenX() - userButton.getHeight(), e.getScreenY() + userButton.getHeight());
+        });
+
 
         getStyleClass().add("search-bar");
         setSpacing(10);

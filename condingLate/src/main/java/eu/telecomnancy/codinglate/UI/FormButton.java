@@ -1,7 +1,7 @@
 package eu.telecomnancy.codinglate.UI;
 
-public class SearchBarButton extends AbstractButton{
-    public SearchBarButton(String buttonName, String Label) {
+public class FormButton extends AbstractButton{
+    public FormButton(String buttonName, String Label) {
         super(buttonName, Label, null);
     }
 
