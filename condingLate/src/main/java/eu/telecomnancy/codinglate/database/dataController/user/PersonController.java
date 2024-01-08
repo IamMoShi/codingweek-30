@@ -22,7 +22,7 @@ public class PersonController {
 
     public void insert(Person person) {
         Connection conn = DbConnection.connect();
-        PreparedStatement pstmt = null;
+        PreparedStatement pstmt;
         try {
             String sql = "INSERT INTO user(firstname, lastname, email, password, phone, balance, admin) VALUES(?,?,?,?,?,?,?)";
             pstmt = conn.prepareStatement(sql);

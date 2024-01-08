@@ -32,7 +32,7 @@ public class App extends Application {
 
     public static void main(String[] args) {
         DbConnection.connect();
-        Address address = new Address();
+        Address address = new Address("1 rue de la paix");
         User user = new User(-1, "john", "doe", "john.doe@telecomnancy.eu", "password1", "0011223344", 10, address);
         PersonController.getInstance().insert(user);
 
