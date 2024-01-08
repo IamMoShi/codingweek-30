@@ -184,6 +184,50 @@ public class PersonController {
         }
     }
 
+    public Boolean VerifierBase(String email,String password) {
+
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = DbConnection.connect();
+
+            String sql = "SELECT * FROM user WHERE email = ? AND password= ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, email);
+
+            pstmt.setString(2, password);
+
+            rs = pstmt.executeQuery();
+
+            boolean utilisateurTrouve = rs.next();
+
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        return utilisateurTrouve;
+
+    }
 
 
 }
