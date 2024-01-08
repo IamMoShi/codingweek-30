@@ -1,8 +1,8 @@
 package eu.telecomnancy.codinglate.database.dataObject.enums;
 
 public enum PriceType {
-    euro_per_hour,
-    euro_per_day,
-    euro_per_week,
-    euro_per_month,
+    EURO_PER_HOUR,
+    EURO_PER_DAY,
+    EURO_PER_WEEK,
+    EURO_PER_MONTH,
 }

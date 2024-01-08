@@ -45,7 +45,7 @@ public class Product extends Offer {
 
     public Product(User user, String title, double price, PriceType priceType) {
         super(-1, user, title, "", price, priceType, null, null);
-        setCategory(ProductCategory.Other);
+        setCategory(ProductCategory.OTHER);
         setBrand("");
         setModel("");
         setYear(0);
