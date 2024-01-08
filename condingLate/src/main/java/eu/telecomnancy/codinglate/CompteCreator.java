@@ -46,7 +46,7 @@ public class CompteCreator extends Application {
         Button submitButton = new Button("Submit");
         gridPane.add(submitButton, 0, 2, 2, 1);
 
-        // Event handling for the submit button (you can add your own logic)
+        // Event handling for the submit button
         submitButton.setOnAction(e -> {
             String name = nameField.getText();
             String email = passwordField.getText();
