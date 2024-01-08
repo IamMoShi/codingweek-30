@@ -1,13 +1,11 @@
 package eu.telecomnancy.codinglate;
 
-<<<<<<< HEAD
+
 import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
 import eu.telecomnancy.codinglate.database.dataObject.user.Address;
 import eu.telecomnancy.codinglate.database.dataObject.user.Person;
 import eu.telecomnancy.codinglate.database.dataObject.user.User;
-=======
 import eu.telecomnancy.codinglate.UI.SearchBar;
->>>>>>> 562f948477b3484c000cc8feb5d452b634c1278b
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -53,64 +51,112 @@ public class CompteCreator {
     }
 
     private void addUIControls(GridPane gridPane) {
-
         // Add controls to the gridPane
-
-
-
 
         Label FirstnameLabel = new Label("FirstName:");
         TextField FirstnameField = new TextField();
-        gridPane.add(FirstnameLabel, 0, 1);
-        gridPane.add(FirstnameField, 1, 1);
+        gridPane.add(FirstnameLabel, 0, 0);
+        gridPane.add(FirstnameField, 1, 0);
 
         Label LastnameLabel = new Label("LastName:");
         TextField LastnameField = new TextField();
-        gridPane.add(LastnameLabel, 0, 2);
-        gridPane.add(LastnameField, 1, 2);
+        gridPane.add(LastnameLabel, 0, 1);
+        gridPane.add(LastnameField, 1, 1);
 
         Label emailLabel = new Label("emailName:");
         TextField emailField = new TextField();
-        gridPane.add(emailLabel, 0, 3);
-        gridPane.add(emailField, 1, 3);
+        gridPane.add(emailLabel, 0, 2);
+        gridPane.add(emailField, 1, 2);
 
         Label phoneLabel = new Label("phone:");
         TextField phoneField = new TextField();
-        gridPane.add(phoneLabel, 0, 4);
-        gridPane.add(phoneField, 1, 4);
+        gridPane.add(phoneLabel, 0, 3);
+        gridPane.add(phoneField, 1, 3);
 
         Label AdressLabel = new Label("Adress:");
         TextField AdressField = new TextField();
-        gridPane.add(AdressLabel, 0, 5);
-        gridPane.add(AdressField, 1, 5);
+        gridPane.add(AdressLabel, 0, 4);
+        gridPane.add(AdressField, 1, 4);
 
 
         Label passwordLabel = new Label("Password:");
         TextField passwordField = new TextField();
-        gridPane.add(passwordLabel, 0, 6);
-        gridPane.add(passwordField, 1, 6);
+        gridPane.add(passwordLabel, 0, 5);
+        gridPane.add(passwordField, 1, 5);
 
 
         Button submitButton = new Button("Submit");
-        gridPane.add(submitButton, 0, 6, 1, 7);
-
 
         // Event handling for the submit button
         submitButton.setOnAction(e -> {
+
             String firstName = FirstnameField.getText();
             String lastName = LastnameField.getText();
             String email = emailField.getText();
             String phone = phoneField.getText();
+
             String address = AdressField.getText();
             String password = passwordField.getText();
-            Address adress = new Address(id,address);
-            User newperson = new User(id, firstName, lastName, email, password, phone, 0.0, adress);
-            PersonController personcontroller = PersonController.getInstance();
-            personcontroller.insert((Person) newperson);
+
+
+            Address adress = new Address(address);
+
+            //if nothing is filled
+            if(lastName.isBlank() || firstName.isBlank() || email.isBlank() || phone.isBlank() || address.isBlank() || password.isBlank()){
+
+                addNewLabel(gridPane, "Informations Missing!");
+
+            }
+
+
+
+            if(!isAscii(firstName) && !isAscii(lastName)){
+                addNewLabel(gridPane, "Caracters not find!");
+            }
+            if(!isAscii(password)){
+                addNewLabel(gridPane,"Caractères not find!");
+            }
+            if(!isCorrect(password)) {
+                addNewLabel(gridPane,"Weak Password!");
+            }
+
+            else{
+                User newperson = new User(firstName, lastName, email, password, adress);
+
+                    PersonController personcontroller = PersonController.getInstance();
+                personcontroller.insert((Person) newperson);
+            }
         });
+
+        gridPane.add(submitButton, 0, 5, 1, 6);
+
+
     }
 
+    private boolean isAscii(String str) {
+        return str.matches("\\A\\p{ASCII}*\\z");
+    }
+
+    //Check if the password is relatively strong
+    private boolean isCorrect(String str){
+        assert (str.contains("0-9"));
+        assert (str.contains("a-z"));
+        assert (str.contains("A-Z"));
+        assert (str.length()>=5);
+        return true;
+    }
+
+
+
+    private void addNewLabel(GridPane root, String str) {
+
+        Label Label = new Label(str);
+
+        root.add(Label,1,8);
+    }
 }
+
+
 
 
 
