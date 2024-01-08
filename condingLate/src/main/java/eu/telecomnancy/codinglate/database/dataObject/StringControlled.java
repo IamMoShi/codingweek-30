@@ -6,7 +6,7 @@ public class StringControlled {
         if (string.length() > length) {
             string = string.substring(0, length);
         }
-        return string;
+        return string.toLowerCase();
     }
 
 

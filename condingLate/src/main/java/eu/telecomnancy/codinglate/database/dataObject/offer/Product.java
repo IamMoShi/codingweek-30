@@ -20,24 +20,37 @@ public class Product extends Offer {
     private ProductCondition condition;
     private ArrayList<ProductImage> images;
 
-    public Product(int id, User user, String title, String description, float price, PriceType priceType, LocalDate startingDate, LocalDate endingDate, ProductCategory category, String brand, String model, int year, ProductCondition condition, ArrayList<ProductImage> images) {
+    public Product(int id,
+                   User user,
+                   String title,
+                   String description,
+                   double price,
+                   PriceType priceType,
+                   LocalDate startingDate,
+                   LocalDate endingDate,
+                   ProductCategory category,
+                   String brand,
+                   String model,
+                   int year,
+                   ProductCondition condition,
+                   ArrayList<ProductImage> images) {
         super(id, user, title, description, price, priceType, startingDate, endingDate);
         this.category = category;
-        this.brand = StringControlled.correctedString(brand, 64);
-        this.model = StringControlled.correctedString(model, 64);
-        this.year = year;
-        this.condition = condition;
-        this.images = images;
+        setBrand(brand);
+        setModel(model);
+        setYear(year);
+        setCondition(condition);
+        setImages(images);
     }
 
-    public Product(User user, String title, float price, PriceType priceType) {
+    public Product(User user, String title, double price, PriceType priceType) {
         super(-1, user, title, "", price, priceType, null, null);
-        this.category = null;
-        this.brand = "";
-        this.model = "";
-        this.year = 0;
-        this.condition = null;
-        this.images = new ArrayList<>();
+        setCategory(ProductCategory.Other);
+        setBrand("");
+        setModel("");
+        setYear(0);
+        setCondition(null);
+        setImages(new ArrayList<>());
     }
 
     // Getters ------------------------------------------------------------------------------------
@@ -73,11 +86,11 @@ public class Product extends Offer {
     }
 
     public void setBrand(String brand) {
-        this.brand = brand;
+        this.brand = StringControlled.correctedString(brand, 64);
     }
 
     public void setModel(String model) {
-        this.model = model;
+        this.model = StringControlled.correctedString(model, 64);
     }
 
     public void setYear(int year) {

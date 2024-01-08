@@ -4,14 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="Start implementing constructor, setters and getters for classes of data">
-      <change afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/StringControlled.java" afterDir="false" />
+    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="implementing constructor, setters and getters for classes of data">
+      <change afterPath="$PROJECT_DIR$/src/test/java/eu/telecomnancy/codinglate/database/DataObject.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodingWeekDatabase.db" beforeDir="false" afterPath="$PROJECT_DIR$/CodingWeekDatabase.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/StringControlled.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/StringControlled.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/Offer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/Offer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/Product.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/ProductImage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/ProductImage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/Rating.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/Rating.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/Service.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/user/Address.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/user/Address.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/user/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/user/Person.java" afterDir="false" />
     </list>
@@ -85,6 +86,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "DefaultPlantUmlFileTemplate": "UML Class",
+    "Gradle.DataObject.executor": "Run",
     "Gradle.condingLate [:App.main()].executor": "Run",
     "Gradle.condingLate [:HelloApplication.main()].executor": "Run",
     "Gradle.condingLate [dependencies].executor": "Run",
@@ -101,6 +103,9 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.55381787",
     "settings.editor.selected.configurable": "preferences.keymap",
     "vue.rearranger.settings.migration": "true"
   }
@@ -110,7 +115,7 @@
       <recent name="C:\Users\moshi\Documents\projets\codingLate\codingweek-30\condingLate" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.App">
+  <component name="RunManager" selected="Gradle.DataObject">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="eu.telecomnancy.codinglate.App" />
       <module name="codingLate.main" />
@@ -136,6 +141,30 @@
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
+    </configuration>
+    <configuration name="DataObject" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;eu.telecomnancy.codinglate.database.DataObject&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
     </configuration>
     <configuration name="condingLate [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
@@ -183,6 +212,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.DataObject" />
         <item itemvalue="Gradle.condingLate [dependencies]" />
         <item itemvalue="Application.App" />
         <item itemvalue="Gradle.condingLate [jar]" />
@@ -205,7 +235,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1704698704827</updated>
-      <workItem from="1704698705755" duration="18296000" />
+      <workItem from="1704698705755" duration="21649000" />
     </task>
     <task id="LOCAL-00001" summary="Base app">
       <option name="closed" value="true" />
@@ -247,7 +277,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704720833279</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="implementing constructor, setters and getters for classes of data">
+      <option name="closed" value="true" />
+      <created>1704722153002</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1704722153002</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -259,6 +297,7 @@
     <MESSAGE value="begin UML diagrams" />
     <MESSAGE value="dataclasses implementation without setter and getters" />
     <MESSAGE value="Start implementing constructor, setters and getters for classes of data" />
-    <option name="LAST_COMMIT_MESSAGE" value="Start implementing constructor, setters and getters for classes of data" />
+    <MESSAGE value="implementing constructor, setters and getters for classes of data" />
+    <option name="LAST_COMMIT_MESSAGE" value="implementing constructor, setters and getters for classes of data" />
   </component>
 </project>

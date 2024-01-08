@@ -9,8 +9,8 @@ public class Address extends DataObject {
     private String address;
 
     public Address(int id, String address) {
-        this.id = id;
-        this.address = StringControlled.correctedString(address, 255);
+        setId(id);
+        setAddress(address);
     }
 
     public Address(String address) {
@@ -34,6 +34,6 @@ public class Address extends DataObject {
     }
 
     public void setAddress(String address) {
-        this.address = address;
+        this.address = StringControlled.correctedString(address, 255);
     }
 }
