@@ -1,19 +1,30 @@
 package eu.telecomnancy.codinglate.UI;
 
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public abstract class AbstractButton extends Button {
     private String buttonName;
     private String Label;
+    private String iconPath;
 
 
-    public AbstractButton(String buttonName, String Label) {
+    public AbstractButton(String buttonName, String Label, String iconPath) {
+        this.iconPath = iconPath;
         this.buttonName = buttonName;
         this.Label = Label;
     }
 
     public void initializeButton() {
         this.setText(this.Label);
+        if (this.iconPath != null) {
+            ImageView icon = new ImageView(new Image(this.iconPath));
+            icon.setFitHeight(20);
+            icon.setFitWidth(20);
+            this.setGraphic(icon);
+        }
+
 
         customButtonStyle();
 

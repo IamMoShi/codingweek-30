@@ -1,5 +1,6 @@
 package eu.telecomnancy.codinglate;
 
+import eu.telecomnancy.codinglate.UI.SearchBar;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -7,37 +8,48 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class CompteCreator extends Application {
+public class CompteCreator {
 
+    private VBox vbox;
 
-    public void start(Stage primaryStage) {
-        primaryStage.setTitle("Form Creator");
-
-        GridPane gridPane = createFormPane();
-        addUIControls(gridPane);
-
-        Scene scene = new Scene(gridPane, 700, 400);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+    public VBox getVbox() {
+        return this.vbox;
     }
 
-    private GridPane createFormPane() {
+
+    public CompteCreator() {
+        this.vbox = createFormPane();
+        addUIControls((GridPane) vbox.getChildren().get(0));
+    }
+
+
+
+
+    private VBox createFormPane() {
+        VBox vbox = new VBox();
+        vbox.setSpacing(10);
+        vbox.setAlignment(javafx.geometry.Pos.CENTER);
+        vbox.setStyle("-fx-background-color: #336699;");
+
         GridPane gridPane = new GridPane();
-        gridPane.setPadding(new Insets(20, 20, 20, 20));
+        gridPane.setStyle("-fx-background-color: red;");
+        gridPane.setAlignment(javafx.geometry.Pos.CENTER);
         gridPane.setHgap(5);
         gridPane.setVgap(5);
-        return gridPane;
+
+        vbox.getChildren().add(gridPane);
+
+        return vbox;
     }
 
     private void addUIControls(GridPane gridPane) {
+
         // Add controls to the gridPane
 
-        Label idLabel = new Label("ID:");
-        TextField idField = new TextField();
-        gridPane.add(idLabel, 0, 0);
-        gridPane.add(idField, 1, 0);
+
 
 
         Label FirstnameLabel = new Label("FirstName:");
@@ -75,9 +87,9 @@ public class CompteCreator extends Application {
         Button submitButton = new Button("Submit");
         gridPane.add(submitButton, 0, 6, 1, 7);
 
+
         // Event handling for the submit button
         submitButton.setOnAction(e -> {
-            int  id = Integer.getInteger(idField.getText());
             String firstName = FirstnameField.getText();
             String lastName = LastnameField.getText();
             String email = emailField.getText();
@@ -88,7 +100,4 @@ public class CompteCreator extends Application {
         });
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
 }
