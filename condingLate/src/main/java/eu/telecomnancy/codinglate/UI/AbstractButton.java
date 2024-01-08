@@ -6,12 +6,13 @@ public abstract class AbstractButton extends Button {
     private String buttonName;
     private String Label;
 
+
     public AbstractButton(String buttonName, String Label) {
         this.buttonName = buttonName;
         this.Label = Label;
     }
 
-    private void initializeButton() {
+    public void initializeButton() {
         this.setText(this.Label);
 
         customButtonStyle();
