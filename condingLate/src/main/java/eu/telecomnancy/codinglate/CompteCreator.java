@@ -124,9 +124,13 @@
 
                 else{
                     User newperson = new User(firstName, lastName, email, password, adress);
-
                     PersonController personcontroller = PersonController.getInstance();
                     personcontroller.insert((Person) newperson);
+                    personcontroller.setCurrentUser(newperson);
+                    //SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
+                    //Scene scene = sceneManager.createSceneProfil(personcontroller);
+                    //sceneManager.switchScene(scene);
+
                 }
             });
 
