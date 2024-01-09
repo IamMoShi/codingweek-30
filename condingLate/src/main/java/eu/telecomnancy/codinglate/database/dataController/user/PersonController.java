@@ -59,7 +59,6 @@ public class PersonController {
     }
 
 
-
     public void update(Person person) {
         try (Connection conn = DbConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(
@@ -184,8 +183,7 @@ public class PersonController {
         }
     }
 
-    public Boolean VerifierBase(String email,String password) {
-
+    public Boolean VerifierBase(String email, String password) {
 
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -205,10 +203,9 @@ public class PersonController {
 
             utilisateurTrouve = rs.next();
 
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-            
+
         } finally {
             try {
                 if (rs != null) {
