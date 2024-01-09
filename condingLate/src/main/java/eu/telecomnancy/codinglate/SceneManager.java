@@ -1,17 +1,25 @@
 package eu.telecomnancy.codinglate;
 
+import eu.telecomnancy.codinglate.UI.CustomListCell;
 import eu.telecomnancy.codinglate.UI.SearchBar;
+import eu.telecomnancy.codinglate.database.dataObject.message.Message;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SceneManager {
     private Stage primaryStage;
@@ -70,7 +78,7 @@ public class SceneManager {
     }
 
 
-    public Scene createSceneDisplayProduct(){
+    public Scene createSceneDisplayProduct() {
         SearchBar searchBar = new SearchBar();
 
         BorderPane root = new BorderPane();
@@ -105,7 +113,7 @@ public class SceneManager {
         return scene;
     }
 
-    private ImageView createArticleTile(){
+    private ImageView createArticleTile() {
         Image image = new Image("eu/telecomnancy/codinglate/icon/user.png");
         ImageView imageView = new ImageView(image);
         imageView.setPreserveRatio(true);
@@ -143,7 +151,7 @@ public class SceneManager {
     }
 
 
-    public Scene createSceneProfil(){
+    public Scene createSceneProfil() {
         SearchBar searchBar = new SearchBar();
 
         BorderPane root = new BorderPane();
@@ -187,4 +195,67 @@ public class SceneManager {
 
     }
 
+
+    public Scene createMessageScene() {
+
+        //POur avoir un exemple de listView
+        ListView<Message> listView = new ListView<>();
+
+        Message message1 = new Message(0, null, null, "Bonjour", null);
+        Message message2 = new Message(0, null, null, "Bonjourno", null);
+
+        listView.getItems().add(message1);
+        listView.getItems().add(message2);
+        listView.setCellFactory(param -> new CustomListCell());
+
+        //POur avoir un exemple de listMessage
+        List<Message> MessageUserWithSelectedUserFromUserList = new ArrayList<>();
+        Message message3 = new Message(0, null, null, "Bonjour", LocalDate.of(2021, 1, 1));
+        Message message4 = new Message(0, null, null, "Bonjourno", LocalDate.of(2021, 1, 2));
+
+        MessageUserWithSelectedUserFromUserList.add(message3);
+        MessageUserWithSelectedUserFromUserList.add(message4);
+
+        SearchBar searchBar = new SearchBar();
+
+
+        BorderPane root = new BorderPane();
+        // Mise en page de la scène
+        VBox layout = new VBox(10);
+        layout.setPadding(new Insets(0));
+        layout.getChildren().add(searchBar);
+
+        root.setTop(layout);
+
+        MessagingList messagingClass = new MessagingList(listView, MessageUserWithSelectedUserFromUserList);
+        BorderPane borderPane = messagingClass.getBorderPane();
+
+        root.setCenter(borderPane);
+
+        Scene scene = new Scene(root, 1000, 600);
+        scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
+        return scene;
+
+    }
+
+    public Scene createSceneConnexion() {
+        SearchBar searchBar = new SearchBar();
+
+        BorderPane root = new BorderPane();
+        // Mise en page de la scène
+        VBox layout = new VBox(10);
+        layout.setPadding(new Insets(0));
+        layout.getChildren().add(searchBar);
+
+        root.setTop(layout);
+
+        Scene scene = new Scene(root, 1000, 600);
+        scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
+        return scene;
+
+
+    }
+
 }
+
+
