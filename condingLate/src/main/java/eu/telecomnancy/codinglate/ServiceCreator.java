@@ -1,6 +1,7 @@
 package eu.telecomnancy.codinglate;
 
 import eu.telecomnancy.codinglate.UI.FormButton;
+import eu.telecomnancy.codinglate.database.dataController.offer.OfferController;
 import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
 import eu.telecomnancy.codinglate.database.dataObject.enums.PriceType;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Offer;
@@ -121,8 +122,10 @@ public class ServiceCreator {
                 Person currentUser = personcontroller.getCurrentUser();
                 if(currentUser instanceof User){
                     User user = (User) currentUser;
-
                     Service service = new Service(user.getId(),user,title,description,price,priceType,StartDate,EndDate);
+                    OfferController offercontroller = new OfferController();
+                    offercontroller.insert(service);
+
                 }
 
                 //SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
