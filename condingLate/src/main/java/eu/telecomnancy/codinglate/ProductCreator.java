@@ -172,7 +172,7 @@ public class ProductCreator {
                     if(!EndDate.isEqual(LocalDate.of(1, 1, 1)) && !StartDate.isEqual(LocalDate.of(1, 1, 1))){
                         product.setEndingDate(EndDate);
                     }
-                    */
+
                     if(!ProductCategoryBox.getValue().isBlank()) {
                         ProductCategory productCategory = setProductCategry(ProductCategoryBox.getValue());
                         product.setCategory(productCategory);
@@ -182,7 +182,7 @@ public class ProductCreator {
                         ProductCondition condition = setProductCondition(ProductCategoryBox.getValue());
                         product.setCondition(condition);
                     }
-
+                    */
 
                     OfferController offercontroller = new OfferController();
                     offercontroller.insert(product);
