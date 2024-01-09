@@ -1,17 +1,14 @@
 package eu.telecomnancy.codinglate.UI;
 
-import eu.telecomnancy.codinglate.CompteCreator;
 import eu.telecomnancy.codinglate.SceneManager;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
 
 public class SearchBar extends HBox {
@@ -20,7 +17,8 @@ public class SearchBar extends HBox {
 
     public SearchBar() {
 
-        Image logo = new Image("eu/telecomnancy/condinglate/icon/logo_hands.png");
+        Image logo = new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/icon/logo_hands.png")    );
+        assert logo != null;
         ImageView logoView = new ImageView(logo);
         logoView.setFitHeight(40);
         logoView.setFitWidth(40);
@@ -38,7 +36,8 @@ public class SearchBar extends HBox {
         searchField.getStyleClass().add("search-field");
         getChildren().add(searchField);
 
-        Image searchIcon = new Image("eu/telecomnancy/condinglate/icon/search.png");
+        Image searchIcon = new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/icon/search.png")    );
+        assert searchIcon != null;
         ImageView searchIconView = new ImageView(searchIcon);
         searchIconView.setFitHeight(30);
         searchIconView.setFitWidth(30);
@@ -61,7 +60,7 @@ public class SearchBar extends HBox {
 
         });
 
-        IconButton userButton = new IconButton("userButton", "", "eu/telecomnancy/condinglate/icon/user.png");
+        IconButton userButton = new IconButton("userButton", "", "/eu/telecomnancy/codinglate/icon/user.png");
         userButton.initializeButton();
         getChildren().add(userButton);
         ContextMenu contextMenu = new ContextMenu();

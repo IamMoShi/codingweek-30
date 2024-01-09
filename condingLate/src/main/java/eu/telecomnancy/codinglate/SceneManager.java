@@ -40,7 +40,7 @@ public class SceneManager {
         imageBox.setAlignment(Pos.CENTER_LEFT);
         imageBox.setSpacing(150);
         imageBox.setPadding(new Insets(0, 0, 0, 50));
-        Image image = new Image("eu/telecomnancy/condinglate/picture/sharingeconomy.jpg");
+        Image image = new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/picture/sharingeconomy.jpg"));
         ImageView imageView = new ImageView(image);
         imageView.setPreserveRatio(true);
 
@@ -57,7 +57,7 @@ public class SceneManager {
         root.setCenter(imageBox);
 
         Scene scene = new Scene(root, 1000, 600);
-        scene.getStylesheets().add("eu/telecomnancy/condinglate/css/ui/searchBar.css");
+        scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
 
         scene.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
@@ -100,13 +100,13 @@ public class SceneManager {
         root.setCenter(scrollPane);
 
         Scene scene = new Scene(root, 1000, 600);
-        scene.getStylesheets().add("eu/telecomnancy/condinglate/css/ui/searchBar.css");
-        scene.getStylesheets().add("eu/telecomnancy/condinglate/css/ui/scrollPane.css");
+        scene.getStylesheets().add("eu/telecomnancy/codinglate/css/ui/searchBar.css");
+        scene.getStylesheets().add("eu/telecomnancy/codinglate/css/ui/scrollPane.css");
         return scene;
     }
 
     private ImageView createArticleTile(){
-        Image image = new Image("eu/telecomnancy/condinglate/icon/user.png");
+        Image image = new Image("eu/telecomnancy/codinglate/icon/user.png");
         ImageView imageView = new ImageView(image);
         imageView.setPreserveRatio(true);
 
@@ -137,7 +137,7 @@ public class SceneManager {
 
         root.setCenter(gridPane);
         Scene scene = new Scene(root, 800, 500);
-        scene.getStylesheets().add("eu/telecomnancy/condinglate/css/ui/searchBar.css");
+        scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
 
         return scene;
     }
@@ -170,13 +170,19 @@ public class SceneManager {
         gridPane.add(new Text("Solde : "), 0, 5);
 
         root.setCenter(gridPane);
-        Image image = new Image("eu/telecomnancy/condinglate/icon/user.png");
+
+        Image image = new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/icon/user.png"));
         ImageView imageView = new ImageView(image);
         imageView.setPreserveRatio(true);
+        imageView.setFitWidth(200);
+        imageView.minWidth(200);
+
+
+        root.setRight(imageView);
 
 
         Scene scene = new Scene(root, 1000, 600);
-        scene.getStylesheets().add("eu/telecomnancy/condinglate/css/ui/searchBar.css");
+        scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
         return scene;
 
     }

@@ -24,6 +24,15 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
+sourceSets {
+    main {
+        resources {
+            srcDirs = ["src/main/resources"]
+        }
+    }
+}
+
+
 application {
     mainModule = 'eu.telecomnancy.codinglate'
     mainClass = 'eu.telecomnancy.codinglate.App'
