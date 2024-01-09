@@ -169,8 +169,12 @@ public class SceneManager {
         gridPane.add(new Text("Adresse : "), 0, 4);
         gridPane.add(new Text("Solde : "), 0, 5);
 
-
         root.setCenter(gridPane);
+        Image image = new Image("eu/telecomnancy/condinglate/icon/user.png");
+        ImageView imageView = new ImageView(image);
+        imageView.setPreserveRatio(true);
+
+
         Scene scene = new Scene(root, 1000, 600);
         scene.getStylesheets().add("eu/telecomnancy/condinglate/css/ui/searchBar.css");
         return scene;
