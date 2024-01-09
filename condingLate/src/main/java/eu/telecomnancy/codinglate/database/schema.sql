@@ -90,5 +90,6 @@ CREATE TABLE IF NOT EXISTS "user" (
     "phone"    TEXT NOT NULL,
     "balance"  REAL NOT NULL,
     "admin"    INTEGER NOT NULL,
+    "address"  INTEGER NOT NULL,
     PRIMARY KEY ("id" AUTOINCREMENT)
 );

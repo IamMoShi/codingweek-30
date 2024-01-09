@@ -35,7 +35,7 @@ public class PersonController {
 
         try (Connection conn = DbConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(
-                     "INSERT INTO user (firstname, lastname, email, password, phone, balance, admin) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                     "INSERT INTO user (firstname, lastname, email, password, phone, balance, admin, address) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
                      Statement.RETURN_GENERATED_KEYS)) {
 
             pstmt.setString(1, person.getFirstname());
@@ -45,6 +45,16 @@ public class PersonController {
             pstmt.setString(5, person.getPhone());
             pstmt.setFloat(6, person.getBalance());
             pstmt.setInt(7, (person instanceof Admin) ? 1 : 0);
+
+            if (person.getAddress().getId() == -1) {
+                // L'adresse n'existe pas encore dans la base de données
+                AddressController addressController = new AddressController();
+                addressController.insert(person.getAddress());
+                pstmt.setInt(8, person.getAddress().getId());
+            } else {
+                // L'adresse existe déjà dans la base de données
+                pstmt.setInt(8, person.getAddress().getId());
+            }
 
             int rowsInserted = pstmt.executeUpdate();
 
