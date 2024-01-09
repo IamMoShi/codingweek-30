@@ -75,6 +75,7 @@ CREATE TABLE IF NOT EXISTS "offer" (
     "model"        TEXT,
     "condition"    INTEGER,
     "year"         INTEGER,
+    "service"      INTEGER,
     PRIMARY KEY ("id" AUTOINCREMENT),
     FOREIGN KEY ("user") REFERENCES "user" ("id")
 );

@@ -4,12 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="J'espère que j'ai tout">
-      <change afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/offer/OfferController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="update database">
+      <change afterPath="$PROJECT_DIR$/src/test/java/eu/telecomnancy/codinglate/database/controller/OfferControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodingWeekDatabase.db" beforeDir="false" afterPath="$PROJECT_DIR$/CodingWeekDatabase.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/user/PersonController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/user/PersonController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/CodingWeekDatabase.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/CodingWeekDatabase.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/offer/OfferController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/offer/OfferController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/schema.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,29 +79,38 @@
   &quot;associatedIndex&quot;: 5
 }</component>
   <component name="ProjectId" id="2af9KH91D83dcjSm77Ucf9D4YaI" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "DefaultPlantUmlFileTemplate": "UML Class",
+    "Downloaded.Files.Path.Enabled": "false",
     "Gradle.AddressTest.executor": "Run",
     "Gradle.AddressTest.testInsertAddress.executor": "Debug",
     "Gradle.AddressTest.testUpdateAddress.executor": "Run",
     "Gradle.DataObject.executor": "Run",
+    "Gradle.OfferControllerTest.executor": "Run",
     "Gradle.condingLate [:App.main()].executor": "Run",
     "Gradle.condingLate [:HelloApplication.main()].executor": "Run",
     "Gradle.condingLate [dependencies].executor": "Run",
     "Gradle.condingLate [jar].executor": "Run",
     "Gradle.condingLate [run].executor": "Run",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/moshi/Documents/projets/codingLate/codingweek-30/condingLate/src/main/java/eu/telecomnancy/codinglate/database/dataController/user",
+    "last_opened_file_path": "C:/Users/moshi/Documents/projets/codingLate/codingweek-30/condingLate/CodingWeekDatabase.db",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -114,14 +125,14 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\moshi\Documents\projets\codingLate\codingweek-30\condingLate" />
       <recent name="C:\Users\moshi\Documents\projets\codingLate\codingweek-30\condingLate\src\main\java\eu\telecomnancy\codinglate\database\dataController\user" />
       <recent name="C:\Users\moshi\Documents\projets\codingLate\codingweek-30\condingLate\src\test\java\eu\telecomnancy\codinglate\database\controller" />
       <recent name="C:\Users\moshi\Documents\projets\codingLate\codingweek-30\condingLate\src\main\java\eu\telecomnancy\codinglate\database\dataObject\offer" />
       <recent name="C:\Users\moshi\Documents\projets\codingLate\codingweek-30\condingLate\src\main\java\eu\telecomnancy\codinglate\database\dataObject\enums" />
-      <recent name="C:\Users\moshi\Documents\projets\codingLate\codingweek-30\condingLate" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.condingLate [run]">
+  <component name="RunManager" selected="Gradle.OfferControllerTest">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="eu.telecomnancy.codinglate.App" />
       <module name="codingLate.main" />
@@ -207,7 +218,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="DataObject" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="OfferControllerTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -220,7 +231,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;eu.telecomnancy.codinglate.database.DataObject&quot;" />
+            <option value="&quot;eu.telecomnancy.codinglate.database.controller.OfferControllerTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -256,18 +267,18 @@
     <list>
       <item itemvalue="Application.App" />
       <item itemvalue="Gradle.condingLate [run]" />
+      <item itemvalue="Gradle.OfferControllerTest" />
       <item itemvalue="Gradle.AddressTest" />
       <item itemvalue="Gradle.AddressTest.testInsertAddress" />
       <item itemvalue="Gradle.AddressTest.testUpdateAddress" />
-      <item itemvalue="Gradle.DataObject" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.OfferControllerTest" />
         <item itemvalue="Gradle.AddressTest" />
         <item itemvalue="Application.App" />
         <item itemvalue="Gradle.AddressTest.testInsertAddress" />
         <item itemvalue="Gradle.AddressTest.testUpdateAddress" />
-        <item itemvalue="Gradle.DataObject" />
       </list>
     </recent_temporary>
   </component>
@@ -287,7 +298,7 @@
       <option name="presentableId" value="Default" />
       <updated>1704698704827</updated>
       <workItem from="1704698705755" duration="21649000" />
-      <workItem from="1704791960968" duration="3593000" />
+      <workItem from="1704791960968" duration="6144000" />
     </task>
     <task id="LOCAL-00001" summary="Base app">
       <option name="closed" value="true" />
@@ -353,7 +364,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704738158215</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="update database">
+      <option name="closed" value="true" />
+      <created>1704797635709</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1704797635709</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -371,6 +390,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Base app" />
     <MESSAGE value="BaseApp patch name mistake and updated README.md" />
     <MESSAGE value="begin UML diagrams" />
@@ -379,6 +399,7 @@
     <MESSAGE value="implementing constructor, setters and getters for classes of data" />
     <MESSAGE value="Correction des erreurs de merge" />
     <MESSAGE value="J'espère que j'ai tout" />
-    <option name="LAST_COMMIT_MESSAGE" value="J'espère que j'ai tout" />
+    <MESSAGE value="update database" />
+    <option name="LAST_COMMIT_MESSAGE" value="update database" />
   </component>
 </project>

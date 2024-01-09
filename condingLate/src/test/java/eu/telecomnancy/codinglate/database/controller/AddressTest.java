@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AddressTest {
-    private AddressController addressController = new AddressController();
+    private final AddressController addressController = new AddressController();
 
     @Test
     public void testInsertAddress() {
