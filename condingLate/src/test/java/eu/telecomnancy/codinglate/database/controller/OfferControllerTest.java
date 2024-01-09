@@ -183,4 +183,48 @@ public class OfferControllerTest {
 
 
     }
+
+    @Test
+    public void getOfferTest() {
+        /*
+         * ATTENTION IL FAUT REGARDER L'AJOUT DANS LA BASE DE DONNÉES POUR COMPRENDRE CE QUI SE PASSE
+         */
+
+        PersonController userController = new PersonController();
+        // Test s'il y a un utilisateur dans la base de données avec l'email john.doe@example.com
+        User user = (User) userController.getPersonByEmail("john.doe@example.com");
+        if (user != null) {
+            userController.delete(user);
+        } else {
+            user = new User("John", "Doe", "john.doe@example.com", "password", new Address("1 rue du test"));
+        }
+
+        userController.insert(user);
+
+        // Créer un produit
+        Product product = new Product(user, "Product Test", 100.0, PriceType.EURO_PER_WEEK);
+
+        // Insérer le produit dans la base de données
+        OfferController offerController = new OfferController();
+        offerController.insert(product);
+
+        // Récupérer le produit
+        Product product2 = (Product) offerController.getOfferById(product.getId());
+
+        // Vérifier que le produit récupéré est le même que celui inséré
+
+        assertEquals(product.getId(), product2.getId());
+        assertEquals(product.getUser().getId(), product2.getUser().getId());
+        assertEquals(product.getTitle(), product2.getTitle());
+        assertEquals(product.getDescription(), product2.getDescription());
+        assertEquals(product.getPrice(), product2.getPrice());
+        assertEquals(product.getPriceType(), product2.getPriceType());
+        assertEquals(product.getCategory(), product2.getCategory());
+        assertEquals(product.getBrand(), product2.getBrand());
+        assertEquals(product.getModel(), product2.getModel());
+        assertEquals(product.getCondition(), product2.getCondition());
+        assertEquals(product.getYear(), product2.getYear());
+
+    }
+
 }

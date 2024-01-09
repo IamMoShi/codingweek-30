@@ -1,11 +1,19 @@
 package eu.telecomnancy.codinglate.database.dataController.offer;
 
 import eu.telecomnancy.codinglate.database.DbConnection;
+import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
+import eu.telecomnancy.codinglate.database.dataObject.enums.PriceType;
+import eu.telecomnancy.codinglate.database.dataObject.enums.ProductCategory;
+import eu.telecomnancy.codinglate.database.dataObject.enums.ProductCondition;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Offer;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Product;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Service;
+import eu.telecomnancy.codinglate.database.dataObject.user.Person;
+import eu.telecomnancy.codinglate.database.dataObject.user.User;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class OfferController {
 
@@ -235,6 +243,119 @@ public class OfferController {
         }
     }
 
+    private Product createProduct(ResultSet resultSet) throws SQLException {
+        int id = resultSet.getInt("id");
+        int userId = resultSet.getInt("user");
+        String title = resultSet.getString("title");
+        String description = resultSet.getString("description");
+        double price = resultSet.getDouble("price");
+        PriceType priceType = PriceType.values()[resultSet.getInt("priceType")];
 
+        LocalDate startingDate = null;
+        if (resultSet.getObject("startingDate") == null) {
+            System.out.println("Starting date is null");
+
+        } else {
+            startingDate = resultSet.getObject("startingDate", LocalDate.class);
+        }
+
+        LocalDate endingDate = null;
+        if (resultSet.getObject("endingDate") == null) {
+            System.out.println("Ending date is null");
+        } else {
+            endingDate = resultSet.getObject("endingDate", LocalDate.class);
+        }
+
+        ProductCategory category = ProductCategory.values()[resultSet.getInt("category")];
+        String brand = resultSet.getString("brand");
+        String model = resultSet.getString("model");
+
+        ProductCondition condition = null;
+        if (resultSet.getObject("condition") == null) {
+            System.out.println("Condition is null");
+        } else {
+            condition = ProductCondition.values()[resultSet.getInt("condition")];
+        }
+
+        int conditionOrdinal = resultSet.getInt("condition");
+        int year = resultSet.getInt("year");
+
+        PersonController userController = new PersonController();
+        Person person = userController.getPersonById(userId);
+
+        // Check if the person is a user
+        if (!(person instanceof User user)) {
+            System.out.println("L'utilisateur avec l'ID " + userId + " n'existe pas.");
+            return null;
+        }
+
+
+        return new Product(id, user, title, description, price, priceType, startingDate, endingDate, category, brand, model, year, condition, new ArrayList<>());
+    }
+
+
+    private Service createService(ResultSet resultSet) throws SQLException {
+        int id = resultSet.getInt("id");
+        int userId = resultSet.getInt("user");
+        String title = resultSet.getString("title");
+        String description = resultSet.getString("description");
+        double price = resultSet.getDouble("price");
+        PriceType priceType = PriceType.values()[resultSet.getInt("priceType")];
+
+        LocalDate startingDate = null;
+        if (resultSet.getObject("startingDate") == null) {
+            System.out.println("Starting date is null");
+
+        } else {
+            startingDate = resultSet.getObject("startingDate", LocalDate.class);
+        }
+
+        LocalDate endingDate = null;
+        if (resultSet.getObject("endingDate") == null) {
+            System.out.println("Ending date is null");
+        } else {
+            endingDate = resultSet.getObject("endingDate", LocalDate.class);
+        }
+
+        PersonController userController = new PersonController();
+        Person person = userController.getPersonById(userId);
+
+        // Vérifier si la personne est un utilisateur
+        if (!(person instanceof User user)) {
+            System.out.println("L'utilisateur avec l'ID " + userId + " n'existe pas.");
+            return null;
+        }
+
+        return new Service(id, user, title, description, price, priceType, startingDate, endingDate);
+    }
+
+
+    public Offer getOfferById(int offerId) {
+        Offer offer = null;
+        try (Connection conn = DbConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM offer WHERE id = ?")) {
+
+            pstmt.setInt(1, offerId);
+
+            try (ResultSet resultSet = pstmt.executeQuery()) {
+                if (resultSet.next()) {
+                    int userId = resultSet.getInt("user");
+                    int categoryOrdinal = resultSet.getInt("category");
+
+                    if (categoryOrdinal == 0) {
+                        // Il s'agit d'un service
+                        offer = createService(resultSet);
+                    } else {
+                        // Il s'agit d'un produit
+                        offer = createProduct(resultSet);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Gérer les erreurs de manière appropriée, par exemple, en lançant une exception personnalisée
+        }
+        return offer;
+    }
 
 }
