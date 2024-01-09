@@ -108,7 +108,7 @@ public class ServiceCreator {
 
 
             //if nothing is filled
-            if(title.isBlank() || description.isBlank() || price.isNaN() ){
+            if(title.isBlank() || price.isNaN() ){
 
                 addNewLabel(gridPane, "Informations Manquantes!");
 
@@ -122,15 +122,25 @@ public class ServiceCreator {
                 Person currentUser = personcontroller.getCurrentUser();
                 if(currentUser instanceof User){
                     User user = (User) currentUser;
-                    Service service = new Service(user.getId(),user,title,description,price,priceType,StartDate,EndDate);
+                    Service service = new Service(user,title,price,priceType);
+
+                    if(!description.isEmpty()){
+                        service.setDescription(description);
+                    }
+
+                    //add start date to offer if filled
+                    if(!StartDate.isEqual(LocalDate.of(1, 1, 1))){
+                        service.setStartingDate(StartDate);
+                    }
+
+                    //add end date to offer if filled and start date is already defined
+                    if(!EndDate.isEqual(LocalDate.of(1, 1, 1)) && !StartDate.isEqual(LocalDate.of(1, 1, 1))){
+                        service.setEndingDate(EndDate);
+                    }
+
                     OfferController offercontroller = new OfferController();
                     offercontroller.insert(service);
-
                 }
-
-                //SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
-                //Scene scene = sceneManager.createSceneProfil(personcontroller);
-                //sceneManager.switchScene(scene);
 
             }
         });
