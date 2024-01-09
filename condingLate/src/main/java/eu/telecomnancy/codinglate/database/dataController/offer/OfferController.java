@@ -212,6 +212,29 @@ public class OfferController {
         }
     }
 
+    public void delete(Offer offer) {
+        delete(offer.getId());
+    }
+
+    public void delete(int offerId) {
+        try (Connection conn = DbConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement("DELETE FROM offer WHERE id = ?")) {
+
+            pstmt.setInt(1, offerId);
+
+            int rowsDeleted = pstmt.executeUpdate();
+
+            if (rowsDeleted > 0) {
+                System.out.println("Offre avec l'ID " + offerId + " supprimée avec succès.");
+            } else {
+                System.out.println("Aucune offre avec l'ID " + offerId + " trouvée.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Gérer les erreurs de manière appropriée, par exemple, en lançant une exception personnalisée
+        }
+    }
+
 
 
 }

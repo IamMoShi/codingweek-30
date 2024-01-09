@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="Ajout d'un produit à la base de donnée fait">
+    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="Update d'un produit et d'une offre dans la base de données implémenté et testé">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodingWeekDatabase.db" beforeDir="false" afterPath="$PROJECT_DIR$/CodingWeekDatabase.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/offer/OfferController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/offer/OfferController.java" afterDir="false" />
@@ -92,8 +92,10 @@
     "Gradle.AddressTest.testInsertAddress.executor": "Debug",
     "Gradle.AddressTest.testUpdateAddress.executor": "Run",
     "Gradle.DataObject.executor": "Run",
+    "Gradle.OfferControllerTest.deleteOffer.executor": "Run",
     "Gradle.OfferControllerTest.executor": "Run",
     "Gradle.OfferControllerTest.testInsertProduct.executor": "Run",
+    "Gradle.OfferControllerTest.testUpdateProduct.executor": "Run",
     "Gradle.OfferControllerTest.testUpdateService.executor": "Run",
     "Gradle.condingLate [:App.main()].executor": "Run",
     "Gradle.condingLate [:HelloApplication.main()].executor": "Run",
@@ -131,44 +133,7 @@
       <recent name="C:\Users\moshi\Documents\projets\codingLate\codingweek-30\condingLate\src\main\java\eu\telecomnancy\codinglate\database\dataObject\enums" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.OfferControllerTest.testUpdateService">
-    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="eu.telecomnancy.codinglate.App" />
-      <module name="codingLate.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="eu.telecomnancy.codinglate.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="AddressTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;eu.telecomnancy.codinglate.database.controller.AddressTest&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Gradle.OfferControllerTest.deleteOffer">
     <configuration name="OfferControllerTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -193,6 +158,30 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
+    <configuration name="OfferControllerTest.deleteOffer" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;eu.telecomnancy.codinglate.database.controller.OfferControllerTest.deleteOffer&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration name="OfferControllerTest.testInsertProduct" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -207,6 +196,30 @@
             <option value=":test" />
             <option value="--tests" />
             <option value="&quot;eu.telecomnancy.codinglate.database.controller.OfferControllerTest.testInsertProduct&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="OfferControllerTest.testUpdateProduct" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;eu.telecomnancy.codinglate.database.controller.OfferControllerTest.testUpdateProduct&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -264,20 +277,20 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Application.App" />
       <item itemvalue="Gradle.condingLate [run]" />
       <item itemvalue="Gradle.OfferControllerTest" />
+      <item itemvalue="Gradle.OfferControllerTest.deleteOffer" />
       <item itemvalue="Gradle.OfferControllerTest.testInsertProduct" />
+      <item itemvalue="Gradle.OfferControllerTest.testUpdateProduct" />
       <item itemvalue="Gradle.OfferControllerTest.testUpdateService" />
-      <item itemvalue="Gradle.AddressTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.OfferControllerTest.deleteOffer" />
+        <item itemvalue="Gradle.OfferControllerTest.testUpdateProduct" />
         <item itemvalue="Gradle.OfferControllerTest.testUpdateService" />
         <item itemvalue="Gradle.OfferControllerTest" />
         <item itemvalue="Gradle.OfferControllerTest.testInsertProduct" />
-        <item itemvalue="Gradle.AddressTest" />
-        <item itemvalue="Application.App" />
       </list>
     </recent_temporary>
   </component>
@@ -297,7 +310,7 @@
       <option name="presentableId" value="Default" />
       <updated>1704698704827</updated>
       <workItem from="1704698705755" duration="21649000" />
-      <workItem from="1704791960968" duration="7970000" />
+      <workItem from="1704791960968" duration="8271000" />
     </task>
     <task id="LOCAL-00001" summary="Base app">
       <option name="closed" value="true" />
@@ -395,7 +408,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704806456593</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Update d'un produit et d'une offre dans la base de données implémenté et testé">
+      <option name="closed" value="true" />
+      <created>1704807025911</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1704807025911</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -426,6 +447,7 @@
     <MESSAGE value="insert Service codé et testé" />
     <MESSAGE value="Code de l'ajout d'un produit à la base de donnée. Test pas encore fini mais besoin de pull" />
     <MESSAGE value="Ajout d'un produit à la base de donnée fait" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ajout d'un produit à la base de donnée fait" />
+    <MESSAGE value="Update d'un produit et d'une offre dans la base de données implémenté et testé" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update d'un produit et d'une offre dans la base de données implémenté et testé" />
   </component>
 </project>

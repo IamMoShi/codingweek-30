@@ -1,4 +1,5 @@
 package eu.telecomnancy.codinglate.database.controller;
+
 import eu.telecomnancy.codinglate.database.dataController.offer.OfferController;
 import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
 import eu.telecomnancy.codinglate.database.dataObject.enums.ProductCondition;
@@ -108,6 +109,7 @@ public class OfferControllerTest {
         offerController.update(service);
 
     }
+
     @Test
     public void testUpdateProduct() {
         /*
@@ -152,4 +154,33 @@ public class OfferControllerTest {
         offerController.update(product);
     }
 
+    @Test
+    public void deleteOffer() {
+        /*
+         * ATTENTION IL FAUT REGARDER L'AJOUT DANS LA BASE DE DONNÉES POUR COMPRENDRE CE QUI SE PASSE
+         */
+
+        PersonController userController = new PersonController();
+        // Test s'il y a un utilisateur dans la base de données avec l'email john.doe@example.com
+        User user = (User) userController.getPersonByEmail("john.doe@example.com");
+        if (user != null) {
+            userController.delete(user);
+        } else {
+            user = new User("John", "Doe", "john.doe@example.com", "password", new Address("1 rue du test"));
+        }
+
+        userController.insert(user);
+
+        // Créer un produit
+        Product product = new Product(user, "Product Test", 100.0, PriceType.EURO_PER_WEEK);
+
+        // Insérer le produit dans la base de données
+        OfferController offerController = new OfferController();
+        offerController.insert(product);
+
+        // Supprimer le produit
+        offerController.delete(product);
+
+
+    }
 }
