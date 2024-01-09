@@ -72,7 +72,13 @@ public class LoginCreator {
         PersonController personcontroller = PersonController.getInstance();
 
         if(personcontroller.VerifierBase(email,password)){
-            System.out.print("Utilisateur inscrit!");
+            PersonController.getInstance();
+            personcontroller.setCurrentUser(personcontroller.getPersonByemail(email));
+
+            //SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
+            //Scene scene = sceneManager.createSceneProfil(personcontroller);
+            //sceneManager.switchScene(scene);
+
         }
 
 

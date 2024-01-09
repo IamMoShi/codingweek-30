@@ -13,11 +13,21 @@ public class PersonController {
 
     private static PersonController instance = null;
 
+    private Person CurrentUser;
+
     public static PersonController getInstance() {
         if (instance == null) {
             instance = new PersonController();
         }
         return instance;
+    }
+
+    public Person getCurrentUser(){
+        return CurrentUser;
+    }
+
+    public void setCurrentUser(Person currentUser){
+        this.CurrentUser=currentUser;
     }
 
     public void insert(Person person) {
@@ -226,6 +236,62 @@ public class PersonController {
         return utilisateurTrouve;
 
     }
+
+    public Person getPersonByemail(String email) {
+        Person person = null;
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = DbConnection.connect();
+            String sql = "SELECT * FROM user WHERE email = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, email);
+
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                int id = rs.getInt("id");
+                String firstname = rs.getString("firstname");
+                String lastname = rs.getString("lastname");
+                String password = rs.getString("password");
+                String phone = rs.getString("phone");
+                float balance = rs.getFloat("balance");
+                int adminValue = rs.getInt("admin");
+
+                Address address = null; // Vous devez obtenir l'adresse à partir de la base de données si nécessaire
+
+                if (adminValue == 1) {
+                    // L'utilisateur est un administrateur
+                    person = new Admin(id, firstname, lastname, email, password, phone, balance, address);
+                } else {
+                    // L'utilisateur est un utilisateur standard
+                    person = new User(id, firstname, lastname, email, password, phone, balance, address);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Gérer les erreurs de manière appropriée, par exemple, en lançant une exception personnalisée
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return person;
+    }
+
 
 
 }
