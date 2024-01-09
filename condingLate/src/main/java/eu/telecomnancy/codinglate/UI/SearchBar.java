@@ -64,11 +64,28 @@ public class SearchBar extends HBox {
         userButton.initializeButton();
         getChildren().add(userButton);
         ContextMenu contextMenu = new ContextMenu();
-        MenuItem item1 = new MenuItem("Profil");
-        MenuItem item3 = new MenuItem("Messagerie");
-        MenuItem item2 = new MenuItem("Déconnexion");
+        MenuItem profil = new MenuItem("Profil");
+        profil.setOnAction(e -> {
+            SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
+            Scene scene = sceneManager.createSceneProfil();
+            sceneManager.switchScene(scene);
+        });
+        MenuItem message = new MenuItem("Messagerie");
+        message.setOnAction(e -> {
+            SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
+            Scene scene = sceneManager.createMessageScene();
+            sceneManager.switchScene(scene);
+        });
 
-        contextMenu.getItems().addAll(item1, item2);
+        MenuItem deconnexion = new MenuItem("Déconnexion");
+        deconnexion.setOnAction(e -> {
+            SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
+            Scene scene = sceneManager.createScenePresentation();
+            sceneManager.switchScene(scene);
+        });
+
+        contextMenu.getItems().addAll(profil,  message,deconnexion);
+
         userButton.setOnMouseClicked(e -> {
             contextMenu.show(userButton, e.getScreenX() - userButton.getHeight(), e.getScreenY() + userButton.getHeight());
         });
