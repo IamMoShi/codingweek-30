@@ -114,5 +114,104 @@ public class OfferController {
         }
     }
 
+    public void update(Service service) {
+        if (service.getId() == -1) {
+            System.out.println("Service non trouvé dans la base de données.");
+            return;
+        }
+
+        try (Connection conn = DbConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement(
+                     "UPDATE offer SET title = ?, description = ?, price = ?, priceType = ?, " +
+                             "startingDate = ?, endingDate = ? WHERE id = ?")) {
+
+            pstmt.setString(1, service.getTitle());
+            pstmt.setString(2, service.getDescription());
+            pstmt.setDouble(3, service.getPrice());
+            pstmt.setInt(4, service.getPriceType().ordinal());
+            pstmt.setObject(5, service.getStartingDate(), Types.DATE);
+            pstmt.setObject(6, service.getEndingDate(), Types.DATE);
+            pstmt.setInt(7, service.getId());
+
+            int rowsUpdated = pstmt.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                System.out.println("Service updated successfully.");
+            } else {
+                System.out.println("Aucune mise à jour effectuée.");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Gérer les erreurs de manière appropriée, par exemple, en lançant une exception personnalisée
+        }
+    }
+
+    public void update(Product product) {
+        if (product.getId() == -1) {
+            System.out.println("Le produit doit être inséré dans la base de données avant la mise à jour.");
+            return;
+        }
+
+        try (Connection conn = DbConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement(
+                     "UPDATE offer SET user=?, title=?, description=?, price=?, priceType=?, startingDate=?, endingDate=?, category=?, brand=?, model=?, condition=?, year=? WHERE id=?")) {
+
+            pstmt.setInt(1, product.getUser().getId());
+            pstmt.setString(2, product.getTitle());
+            pstmt.setString(3, product.getDescription());
+            pstmt.setDouble(4, product.getPrice());
+            pstmt.setInt(5, product.getPriceType().ordinal());
+
+            if (product.getStartingDate() != null) {
+                pstmt.setObject(6, product.getStartingDate());
+            } else {
+                pstmt.setNull(6, Types.DATE);
+            }
+
+            if (product.getEndingDate() != null) {
+                pstmt.setObject(7, product.getEndingDate());
+            } else {
+                pstmt.setNull(7, Types.DATE);
+            }
+
+            pstmt.setInt(8, product.getCategory().ordinal()); // Category for Product
+
+            if (product.getBrand() != null) {
+                pstmt.setString(9, product.getBrand());
+            } else {
+                pstmt.setNull(9, Types.VARCHAR);
+            }
+
+            if (product.getModel() != null) {
+                pstmt.setString(10, product.getModel());
+            } else {
+                pstmt.setNull(10, Types.VARCHAR);
+            }
+
+            if (product.getCondition() != null) {
+                pstmt.setInt(11, product.getCondition().ordinal());
+            } else {
+                pstmt.setNull(11, Types.INTEGER);
+            }
+
+            pstmt.setInt(12, product.getYear());
+            pstmt.setInt(13, product.getId());
+
+            int rowsUpdated = pstmt.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                System.out.println("Product updated successfully with ID " + product.getId());
+            } else {
+                System.out.println("La mise à jour a échoué. Aucun produit trouvé avec cet ID.");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Gérer les erreurs de manière appropriée, par exemple, en lançant une exception personnalisée
+        }
+    }
+
+
 
 }

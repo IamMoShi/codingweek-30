@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="Code de l'ajout d'un produit à la base de donnée. Test pas encore fini mais besoin de pull">
+    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="Ajout d'un produit à la base de donnée fait">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodingWeekDatabase.db" beforeDir="false" afterPath="$PROJECT_DIR$/CodingWeekDatabase.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/LoginCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/LoginCreator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/user/PersonController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/user/PersonController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/offer/OfferController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/offer/OfferController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/eu/telecomnancy/codinglate/database/controller/OfferControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/eu/telecomnancy/codinglate/database/controller/OfferControllerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -95,6 +94,7 @@
     "Gradle.DataObject.executor": "Run",
     "Gradle.OfferControllerTest.executor": "Run",
     "Gradle.OfferControllerTest.testInsertProduct.executor": "Run",
+    "Gradle.OfferControllerTest.testUpdateService.executor": "Run",
     "Gradle.condingLate [:App.main()].executor": "Run",
     "Gradle.condingLate [:HelloApplication.main()].executor": "Run",
     "Gradle.condingLate [dependencies].executor": "Run",
@@ -131,7 +131,7 @@
       <recent name="C:\Users\moshi\Documents\projets\codingLate\codingweek-30\condingLate\src\main\java\eu\telecomnancy\codinglate\database\dataObject\enums" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.OfferControllerTest.testInsertProduct">
+  <component name="RunManager" selected="Gradle.OfferControllerTest.testUpdateService">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="eu.telecomnancy.codinglate.App" />
       <module name="codingLate.main" />
@@ -159,30 +159,6 @@
             <option value=":test" />
             <option value="--tests" />
             <option value="&quot;eu.telecomnancy.codinglate.database.controller.AddressTest&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="AddressTest.testInsertAddress" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;eu.telecomnancy.codinglate.database.controller.AddressTest.testInsertAddress&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -241,6 +217,30 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
+    <configuration name="OfferControllerTest.testUpdateService" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;eu.telecomnancy.codinglate.database.controller.OfferControllerTest.testUpdateService&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration name="condingLate [run]" type="GradleRunConfiguration" factoryName="Gradle" nameIsGenerated="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -268,16 +268,16 @@
       <item itemvalue="Gradle.condingLate [run]" />
       <item itemvalue="Gradle.OfferControllerTest" />
       <item itemvalue="Gradle.OfferControllerTest.testInsertProduct" />
+      <item itemvalue="Gradle.OfferControllerTest.testUpdateService" />
       <item itemvalue="Gradle.AddressTest" />
-      <item itemvalue="Gradle.AddressTest.testInsertAddress" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.OfferControllerTest.testInsertProduct" />
+        <item itemvalue="Gradle.OfferControllerTest.testUpdateService" />
         <item itemvalue="Gradle.OfferControllerTest" />
+        <item itemvalue="Gradle.OfferControllerTest.testInsertProduct" />
         <item itemvalue="Gradle.AddressTest" />
         <item itemvalue="Application.App" />
-        <item itemvalue="Gradle.AddressTest.testInsertAddress" />
       </list>
     </recent_temporary>
   </component>
@@ -297,7 +297,7 @@
       <option name="presentableId" value="Default" />
       <updated>1704698704827</updated>
       <workItem from="1704698705755" duration="21649000" />
-      <workItem from="1704791960968" duration="7434000" />
+      <workItem from="1704791960968" duration="7970000" />
     </task>
     <task id="LOCAL-00001" summary="Base app">
       <option name="closed" value="true" />
@@ -387,7 +387,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704805934099</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Ajout d'un produit à la base de donnée fait">
+      <option name="closed" value="true" />
+      <created>1704806456593</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1704806456593</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -417,6 +425,7 @@
     <MESSAGE value="update database" />
     <MESSAGE value="insert Service codé et testé" />
     <MESSAGE value="Code de l'ajout d'un produit à la base de donnée. Test pas encore fini mais besoin de pull" />
-    <option name="LAST_COMMIT_MESSAGE" value="Code de l'ajout d'un produit à la base de donnée. Test pas encore fini mais besoin de pull" />
+    <MESSAGE value="Ajout d'un produit à la base de donnée fait" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ajout d'un produit à la base de donnée fait" />
   </component>
 </project>
