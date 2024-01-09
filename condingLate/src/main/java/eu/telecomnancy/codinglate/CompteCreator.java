@@ -1,6 +1,8 @@
     package eu.telecomnancy.codinglate;
 
 
+    import eu.telecomnancy.codinglate.UI.CustomPasswordField;
+    import eu.telecomnancy.codinglate.UI.CustomTextField;
     import eu.telecomnancy.codinglate.UI.FormButton;
     import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
     import eu.telecomnancy.codinglate.database.dataObject.user.Address;
@@ -52,37 +54,23 @@
         private void addUIControls(GridPane gridPane) {
             // Add controls to the gridPane
 
-            Label FirstnameLabel = new Label("Prénom:");
-            TextField FirstnameField = new TextField();
-            gridPane.add(FirstnameLabel, 0, 0);
-            gridPane.add(FirstnameField, 1, 0);
+            CustomTextField firstNameField = new CustomTextField("Prénom");
+            gridPane.add(firstNameField, 1, 0);
 
-            Label LastnameLabel = new Label("Nom:");
-            TextField LastnameField = new TextField();
-            gridPane.add(LastnameLabel, 0, 1);
-            gridPane.add(LastnameField, 1, 1);
+            CustomTextField lastNameField = new CustomTextField("Nom");
+            gridPane.add(lastNameField, 1, 1);
 
-            Label emailLabel = new Label("email:");
-            TextField emailField = new TextField();
-            gridPane.add(emailLabel, 0, 2);
+            CustomTextField emailField = new CustomTextField("Email");
             gridPane.add(emailField, 1, 2);
 
-            Label phoneLabel = new Label("téléphone:");
-            TextField phoneField = new TextField();
-            gridPane.add(phoneLabel, 0, 3);
+            CustomTextField phoneField = new CustomTextField("Téléphone");
             gridPane.add(phoneField, 1, 3);
 
-            Label AdressLabel = new Label("Adress:");
-            TextField AdressField = new TextField();
-            gridPane.add(AdressLabel, 0, 4);
-            gridPane.add(AdressField, 1, 4);
+            CustomTextField addressField = new CustomTextField("Adresse");
+            gridPane.add(addressField, 1, 4);
 
-
-            Label passwordLabel = new Label("Mot de Passe:");
-            TextField passwordField = new TextField();
-            gridPane.add(passwordLabel, 0, 5);
+            CustomPasswordField passwordField = new CustomPasswordField("Mot de Passe");
             gridPane.add(passwordField, 1, 5);
-
 
             FormButton submitButton = new FormButton("submitButton", "S'inscrire");
             submitButton.initializeButton();
@@ -92,16 +80,15 @@
             // Event handling for the submit button
             submitButton.setOnAction(e -> {
 
-                String firstName = FirstnameField.getText();
-                String lastName = LastnameField.getText();
+                String firstName = firstNameField.getText();
+                String lastName = lastNameField.getText();
                 String email = emailField.getText();
                 String phone = phoneField.getText();
 
-                String address = AdressField.getText();
+                String address = addressField.getText();
+                Address adress = new Address(address);
                 String password = passwordField.getText();
 
-
-                Address adress = new Address(address);
 
                 //if nothing is filled
                 if(lastName.isBlank() || firstName.isBlank() || email.isBlank() || phone.isBlank() || address.isBlank() || password.isBlank()){
@@ -110,6 +97,24 @@
 
                 }
 
+
+                //if the email is not valid
+                PersonController personController = PersonController.getInstance();
+                if(!personController.isEmailUsed(email)){
+                    addNewLabel(gridPane, "Email déjà utilisé!");
+                }
+
+                if(!isValidEmail(email)){
+                    addNewLabel(gridPane, "Email non valide!");
+                }
+
+
+
+
+                //if the phone number is not valid
+                if(!isValidPhoneNumber(phone)){
+                    addNewLabel(gridPane, "Numéro de téléphone non valide!");
+                }
 
 
                 if(!isAscii(firstName) && !isAscii(lastName)){
@@ -124,9 +129,13 @@
 
                 else{
                     User newperson = new User(firstName, lastName, email, password, adress);
+                    newperson.setPhone(phone);
                     PersonController personcontroller = PersonController.getInstance();
+
                     personcontroller.insert((Person) newperson);
+
                     personcontroller.setCurrentUser(newperson);
+                    System.out.println("User created");
                     //SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
                     //Scene scene = sceneManager.createSceneProfil(personcontroller);
                     //sceneManager.switchScene(scene);
@@ -152,7 +161,28 @@
             return true;
         }
 
+        private boolean isValidEmail(String email) {
+            // Utilisation d'une expression régulière pour valider l'e-mail
+            String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+            return email.matches(emailRegex);
+        }
 
+
+
+            public static boolean isValidPhoneNumber(String phoneNumber) {
+                // Vérifier si le numéro de téléphone ne contient que des chiffres
+                if (phoneNumber.matches("\\d+")) {
+                    return true;
+                }
+                // Vérifier si le numéro de téléphone commence par un plus (+) suivi de chiffres
+                else if (phoneNumber.matches("\\+\\d+")) {
+                    return true;
+                }
+                // Le numéro de téléphone n'est pas valide
+                else {
+                    return false;
+                }
+            }
 
         private void addNewLabel(GridPane root, String str) {
 

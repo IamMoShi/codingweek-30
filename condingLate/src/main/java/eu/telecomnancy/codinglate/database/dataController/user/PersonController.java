@@ -164,6 +164,44 @@ public class PersonController {
         return person;
     }
 
+
+    public boolean isEmailUsed(String email) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        boolean emailUsed = false;
+
+        try {
+            conn = DbConnection.connect();
+
+            String sql = "SELECT * FROM user WHERE email = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, email);
+
+            rs = pstmt.executeQuery();
+
+            // Vérifier si l'e-mail existe dans la base de données
+            if (rs.next()) {
+                emailUsed = true;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(); // Gérer l'exception selon vos besoins
+        } finally {
+            // Fermer les ressources (ResultSet, PreparedStatement et Connection)
+            try {
+                if (rs != null) rs.close();
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace(); // Gérer l'exception selon vos besoins
+            }
+        }
+
+        return emailUsed;
+    }
+
+
     public void delete(Person person) {
         deletePersonById(person.getId());
     }
