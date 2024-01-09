@@ -1,36 +1,43 @@
 package eu.telecomnancy.codinglate;
 
+import eu.telecomnancy.codinglate.UI.CustomPasswordField;
+import eu.telecomnancy.codinglate.UI.CustomTextField;
+import eu.telecomnancy.codinglate.UI.FormButton;
 import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
-import javafx.scene.control.Button;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.PasswordField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 
-public class LoginCreator {
+public class LoginCreator extends HBox{
 
     private VBox vbox;
+    private Stage stage;
 
     public VBox getVbox() {
         return this.vbox;
     }
 
-
-    public LoginCreator() {
+    public LoginCreator(Stage stage) {
+        this.stage = stage;
         this.vbox = createFormPane();
         addUIControls((GridPane) vbox.getChildren().get(0));
+        addBottomMessage(vbox, stage);
     }
-
 
     private VBox createFormPane() {
         VBox vbox = new VBox();
         vbox.setSpacing(10);
-        vbox.setAlignment(javafx.geometry.Pos.CENTER);
-        vbox.setStyle("-fx-background-color: #336699;");
+        vbox.setAlignment(Pos.CENTER);
 
         GridPane gridPane = new GridPane();
-        gridPane.setStyle("-fx-background-color: red;");
-        gridPane.setAlignment(javafx.geometry.Pos.CENTER);
+        gridPane.setAlignment(Pos.CENTER);
         gridPane.setHgap(5);
         gridPane.setVgap(5);
 
@@ -40,45 +47,52 @@ public class LoginCreator {
     }
 
     private void addUIControls(GridPane gridPane) {
-        // Add controls to the gridPane
+        // Ajouter des contrôles à la grille
 
-        Label emailLabel = new Label("Email:");
-        TextField emailField = new TextField();
-        gridPane.add(emailLabel, 0, 0);
+        CustomTextField emailField = new CustomTextField("Email");
         gridPane.add(emailField, 1, 0);
 
+        CustomPasswordField passwordField = new CustomPasswordField("Mot de passe");
+        gridPane.add(passwordField, 1, 1);
 
-        Label PasswordLabel = new Label("Password:");
-        TextField PasswordField = new TextField();
-        gridPane.add(PasswordLabel, 0, 1);
-        gridPane.add(PasswordField, 1, 1);
+        FormButton submitButton = new FormButton("Submit", "Se connecter");
+        submitButton.initializeButton();
+        submitButton.setPrefWidth(200);
+        gridPane.add(submitButton, 1, 2);
 
+        // Gestion d'événements pour le bouton de soumission
+        submitButton.setOnAction(e -> {
+            String email = emailField.getText();
+            String password = passwordField.getText();
+            PersonController personController = PersonController.getInstance();
 
-    Button submitButton = new Button("Se Connecter");
+            if (personController.VerifierBase(email, password)) {
+                PersonController.getInstance();
+                personController.setCurrentUser(personController.getPersonByEmail(email));
+                System.out.println("Connexion réussie");
 
-    // Event handling for the submit button
-        submitButton.setOnAction(e ->
-
-    {
-        String email = emailField.getText();
-        String password = PasswordField.getText();
-        PersonController personcontroller = PersonController.getInstance();
-
-        if(personcontroller.VerifierBase(email,password)){
-            PersonController.getInstance();
-            personcontroller.setCurrentUser(personcontroller.getPersonByEmail(email));
-
-            //SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
-            //Scene scene = sceneManager.createSceneProfil(personcontroller);
-            //sceneManager.switchScene(scene);
-
-        }
-
-
-    });
-
+                SceneManager sceneManager = new SceneManager(stage);
+                Scene scene = sceneManager.createSceneDisplayProduct();
+                sceneManager.switchScene(scene);
+            }
+        });
     }
 
+    private void addBottomMessage(VBox vbox,Stage stage) {
+        HBox bottomMessage = new HBox();
+        bottomMessage.setAlignment(Pos.CENTER);
+        bottomMessage.setSpacing(10);
 
+        Label messageLabel = new Label("Vous n'avez pas de compte ?");
+        Hyperlink signupLink = new Hyperlink("Inscrivez-vous ici");
+        signupLink.setOnAction(e -> {
+            SceneManager sceneManager = new SceneManager(stage);
+            Scene scene = sceneManager.createSceneCompteCreator();
+            sceneManager.switchScene(scene);
+        });
 
+        bottomMessage.getChildren().addAll(messageLabel, signupLink);
+
+        vbox.getChildren().add(bottomMessage);
+    }
 }
