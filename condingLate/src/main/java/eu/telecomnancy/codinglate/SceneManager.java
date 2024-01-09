@@ -2,7 +2,9 @@ package eu.telecomnancy.codinglate;
 
 import eu.telecomnancy.codinglate.UI.CustomListCell;
 import eu.telecomnancy.codinglate.UI.SearchBar;
+import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
 import eu.telecomnancy.codinglate.database.dataObject.message.Message;
+import eu.telecomnancy.codinglate.database.dataObject.user.Person;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
@@ -108,13 +110,13 @@ public class SceneManager {
         root.setCenter(scrollPane);
 
         Scene scene = new Scene(root, 1000, 600);
-        scene.getStylesheets().add("eu/telecomnancy/codinglate/css/ui/searchBar.css");
-        scene.getStylesheets().add("eu/telecomnancy/codinglate/css/ui/scrollPane.css");
+        scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
+        scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/scrollPane.css").toString());
         return scene;
     }
 
     private ImageView createArticleTile() {
-        Image image = new Image("eu/telecomnancy/codinglate/icon/user.png");
+        Image image = new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/picture/sharingeconomy.jpg"));
         ImageView imageView = new ImageView(image);
         imageView.setPreserveRatio(true);
 
@@ -122,32 +124,6 @@ public class SceneManager {
         imageView.minWidth(200);
         return imageView;
 
-    }
-
-
-    public Scene createSceneCompteCreator() {
-        SearchBar searchBar = new SearchBar();
-
-        BorderPane root = new BorderPane();
-
-        VBox layout = new VBox(10);
-        layout.setPadding(new Insets(0));
-        layout.getChildren().add(searchBar);
-
-        root.setTop(layout);
-
-
-        // Créez une nouvelle instance de CompteCreator
-        CompteCreator compteCreator = new CompteCreator();
-        VBox gridPane = compteCreator.getVbox();
-
-        // Ajoutez le formulaire à la scène
-
-        root.setCenter(gridPane);
-        Scene scene = new Scene(root, 800, 500);
-        scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
-
-        return scene;
     }
 
 
@@ -165,19 +141,21 @@ public class SceneManager {
         VBox vbox = new VBox();
         vbox.setSpacing(10);
 
+        Person person = PersonController.getInstance().getCurrentUser();
+        if (person != null) {
+            GridPane gridPane = new GridPane();
+            gridPane.setPadding(new Insets(10, 40, 10, 40));
+            gridPane.setStyle("-fx-font-size: 20px;");
+            gridPane.setAlignment(Pos.CENTER_LEFT);
+            gridPane.add(new Text("Nom : " + person.getLastname()), 0, 0);
+            gridPane.add(new Text("Prénom : " + person.getFirstname()), 0, 1);
+            gridPane.add(new Text("Email : " + person.getEmail()), 0, 2);
+            gridPane.add(new Text("Téléphone : " + person.getPhone()), 0, 3);
+            //gridPane.add(new Text("Adresse : " + person.getAddress().getAddress() ),  0, 4);
+            gridPane.add(new Text("Solde : " + person.getBalance()), 0, 5);
 
-        GridPane gridPane = new GridPane();
-        gridPane.setPadding(new Insets(10, 40, 10, 40));
-        gridPane.setStyle("-fx-font-size: 20px;");
-        gridPane.setAlignment(Pos.CENTER_LEFT);
-        gridPane.add(new Text("Nom : "), 0, 0);
-        gridPane.add(new Text("Prénom : "), 0, 1);
-        gridPane.add(new Text("Email : "), 0, 2);
-        gridPane.add(new Text("Téléphone : "), 0, 3);
-        gridPane.add(new Text("Adresse : "), 0, 4);
-        gridPane.add(new Text("Solde : "), 0, 5);
-
-        root.setCenter(gridPane);
+            root.setCenter(gridPane);
+        }
 
         Image image = new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/icon/user.png"));
         ImageView imageView = new ImageView(image);
@@ -249,11 +227,45 @@ public class SceneManager {
 
         root.setTop(layout);
 
+        Stage stage = (Stage) this.primaryStage;
+        System.out.println(stage);
+
+        // Créez une nouvelle instance de LoginCreator
+        LoginCreator loginCreator = new LoginCreator(stage);
+        VBox gridPane = loginCreator.getVbox();
+
+        // Ajoutez le formulaire à la scène
+        root.setCenter(gridPane);
+
+
         Scene scene = new Scene(root, 1000, 600);
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
         return scene;
+    }
+
+    public Scene createSceneCompteCreator() {
+        SearchBar searchBar = new SearchBar();
+
+        BorderPane root = new BorderPane();
+
+        VBox layout = new VBox(10);
+        layout.setPadding(new Insets(0));
+        layout.getChildren().add(searchBar);
+
+        root.setTop(layout);
 
 
+        // Créez une nouvelle instance de CompteCreator
+        CompteCreator compteCreator = new CompteCreator();
+        VBox gridPane = compteCreator.getVbox();
+
+        // Ajoutez le formulaire à la scène
+
+        root.setCenter(gridPane);
+        Scene scene = new Scene(root, 800, 500);
+        scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
+
+        return scene;
     }
 
 }
