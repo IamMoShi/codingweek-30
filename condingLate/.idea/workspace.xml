@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="implementation de getById pour les offres et test">
+    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="implementation de GetProductsByName">
+      <change afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/offer/BookingDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/eu/telecomnancy/codinglate/database/controller/BookingDAOTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodingWeekDatabase.db" beforeDir="false" afterPath="$PROJECT_DIR$/CodingWeekDatabase.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/offer/OfferController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/offer/OfferController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/eu/telecomnancy/codinglate/database/controller/OfferControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/eu/telecomnancy/codinglate/database/controller/OfferControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -312,7 +312,7 @@
       <option name="presentableId" value="Default" />
       <updated>1704698704827</updated>
       <workItem from="1704698705755" duration="21649000" />
-      <workItem from="1704791960968" duration="11499000" />
+      <workItem from="1704791960968" duration="13672000" />
     </task>
     <task id="LOCAL-00001" summary="Base app">
       <option name="closed" value="true" />
@@ -434,7 +434,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704808150104</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="implementation de GetProductsByName">
+      <option name="closed" value="true" />
+      <created>1704810519398</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1704810519398</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -468,6 +476,7 @@
     <MESSAGE value="Update d'un produit et d'une offre dans la base de données implémenté et testé" />
     <MESSAGE value="delete offre fonctionne" />
     <MESSAGE value="implementation de getById pour les offres et test" />
-    <option name="LAST_COMMIT_MESSAGE" value="implementation de getById pour les offres et test" />
+    <MESSAGE value="implementation de GetProductsByName" />
+    <option name="LAST_COMMIT_MESSAGE" value="implementation de GetProductsByName" />
   </component>
 </project>
