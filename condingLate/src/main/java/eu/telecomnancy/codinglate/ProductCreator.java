@@ -177,7 +177,7 @@ public class ProductCreator {
                         ProductCondition condition = setProductCondition(ProductCategoryBox.getValue());
                         product.setCondition(condition);
                     }
-
+                    */
 
                     OfferController offercontroller = new OfferController();
                     offercontroller.insert(product);
