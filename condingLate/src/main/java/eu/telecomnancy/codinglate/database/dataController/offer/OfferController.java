@@ -293,7 +293,6 @@ public class OfferController {
         return new Product(id, user, title, description, price, priceType, startingDate, endingDate, category, brand, model, year, condition, new ArrayList<>());
     }
 
-
     private Service createService(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("id");
         int userId = resultSet.getInt("user");
@@ -329,7 +328,6 @@ public class OfferController {
         return new Service(id, user, title, description, price, priceType, startingDate, endingDate);
     }
 
-
     public Offer getOfferById(int offerId) {
         Offer offer = null;
         try (Connection conn = DbConnection.connect();
@@ -357,5 +355,32 @@ public class OfferController {
         }
         return offer;
     }
+
+    public ArrayList<Product> getProductsByName(String name) {
+        ArrayList<Product> products = new ArrayList<>();
+        try (Connection conn = DbConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM offer WHERE LOWER(title) LIKE ? AND service = 0")) {
+
+            pstmt.setString(1, "%" + name.toLowerCase() + "%");
+
+            try (ResultSet resultSet = pstmt.executeQuery()) {
+                int i = 0;
+                while (resultSet.next()) {
+                    Product product = createProduct(resultSet);
+                    if (product != null) {
+                        products.add(product);
+                    }
+                    i++;
+                }
+                System.out.println(i + " produits trouvés.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Gérer les erreurs de manière appropriée, par exemple, en lançant une exception personnalisée
+        }
+        return products;
+    }
+
+
 
 }

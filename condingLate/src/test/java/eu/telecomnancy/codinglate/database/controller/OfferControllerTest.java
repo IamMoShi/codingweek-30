@@ -12,6 +12,8 @@ import eu.telecomnancy.codinglate.database.dataObject.enums.ProductCategory;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class OfferControllerTest {
@@ -224,6 +226,50 @@ public class OfferControllerTest {
         assertEquals(product.getModel(), product2.getModel());
         assertEquals(product.getCondition(), product2.getCondition());
         assertEquals(product.getYear(), product2.getYear());
+
+    }
+
+    @Test
+    public void testGetProductsByName() {
+        /*
+         * ATTENTION IL FAUT REGARDER L'AJOUT DANS LA BASE DE DONNÉES POUR COMPRENDRE CE QUI SE PASSE
+         */
+
+        PersonController userController = new PersonController();
+        // Test s'il y a un utilisateur dans la base de données avec l'email john.doe@example.com
+        User user = (User) userController.getPersonByEmail("john.doe@example.com");
+        if (user != null) {
+            userController.delete(user);
+        } else {
+            user = new User("John", "Doe", "john.doe@example.com", "password", new Address("1 rue du test"));
+        }
+
+        userController.insert(user);
+
+        Product product1 = new Product(user, "Baleine", 100.0, PriceType.EURO_PER_WEEK);
+        Product product2 = new Product(user, "Grosse Baleine", 100.0, PriceType.EURO_PER_DAY);
+        Product product3 = new Product(user, "Baleine Bleue", 100.0, PriceType.EURO_PER_HOUR);
+        Product product4 = new Product(user, "Baleine12", 100.0, PriceType.EURO_PER_WEEK);
+        Product product5 = new Product(user, "Balai", 100.0, PriceType.EURO_PER_WEEK);
+
+        OfferController offerController = new OfferController();
+        offerController.insert(product1);
+        offerController.insert(product2);
+        offerController.insert(product3);
+        offerController.insert(product4);
+        offerController.insert(product5);
+
+        // Récupérer les produits dont le nom contient "baleine"
+        ArrayList<Product> products = offerController.getProductsByName("baleine");
+
+        for (Product product : products) {
+            System.out.println(product.getTitle());
+        }
+
+        // Vérifier que les produits récupérés sont les bons
+        for (Product product : products) {
+            assertTrue(product.getTitle().contains("baleine"));
+        }
 
     }
 
