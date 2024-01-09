@@ -21,21 +21,9 @@ public class App extends Application {
 
         this.sceneManager = new SceneManager(stage);
 
-        Scene scene = sceneManager.createSceneProductCreator();
+        Scene scene = sceneManager.createScenePresentation();
         sceneManager.switchScene(scene);
 
-        PersonController userController = new PersonController();
-        // Test s'il y a un utilisateur dans la base de données avec l'email john.doe@example.com
-        User user = (User) userController.getPersonByEmail("leo.fornoff@telecomnancy.eu");
-        if (user != null) {
-            userController.delete(user);
-        } else {
-            user = new User("Leo", "Fornoff", "leo.fornoff@telecomnancy.eu", "password", new Address("1 rue de la paix"));
-        }
-
-        userController.insert(user);
-
-        PersonController.getInstance().setCurrentUser(user);
 
     }
 

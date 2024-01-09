@@ -129,11 +129,13 @@ public class ProductCreator {
             LocalDate EndDate = endDatePicker.getValue();
             String brand = brandField.getText();
             String model = ModelField.getText();
-            //int year = Integer.parseInt(yearField.getText());
 
-            if(ConditionBox.getValue() != null) {
-                ProductCondition condition = setProductCondition(ProductCategoryBox.getValue());
+            if( yearField.getText().isBlank()){
+                yearField.setText("0");
             }
+            int year = Integer.parseInt(yearField.getText());
+            System.out.println(year);
+
 
             //if nothing is filled
             if(title.isBlank() || price.isNaN() ){
@@ -159,12 +161,12 @@ public class ProductCreator {
 
 
                     //add start date to offer if filled
-                    if(!StartDate.isEqual(LocalDate.of(1, 1, 1))){
+                    if(StartDate!= null && !StartDate.isEqual(LocalDate.of(1, 1, 1))){
                         product.setStartingDate(StartDate);
                     }
 
                     //add end date to offer if filled and start date is already defined
-                    if(!EndDate.isEqual(LocalDate.of(1, 1, 1)) && !StartDate.isEqual(LocalDate.of(1, 1, 1))){
+                    if(EndDate!= null && !EndDate.isEqual(LocalDate.of(1, 1, 1)) && !StartDate.isEqual(LocalDate.of(1, 1, 1))){
                         product.setEndingDate(EndDate);
                     }
 
@@ -174,10 +176,13 @@ public class ProductCreator {
                     }
 
                     if(!ConditionBox.getValue().isBlank()) {
-                        ProductCondition condition = setProductCondition(ProductCategoryBox.getValue());
+                        ProductCondition condition = setProductCondition(ConditionBox.getValue());
                         product.setCondition(condition);
                     }
-                    */
+                    product.setBrand(brand);
+                    product.setModel(model);
+                    product.setYear(year);
+
 
                     OfferController offercontroller = new OfferController();
                     offercontroller.insert(product);

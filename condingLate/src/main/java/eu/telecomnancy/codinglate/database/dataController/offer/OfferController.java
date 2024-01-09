@@ -94,7 +94,7 @@ public class OfferController {
             if (product.getCondition() == null) {
                 pstmt.setNull(11, Types.INTEGER);
             } else {
-                pstmt.setNull(11, Types.DATE);
+                pstmt.setObject(11, Types.INTEGER);
             }
 
             pstmt.setInt(12, product.getYear()); // year (not null int)
