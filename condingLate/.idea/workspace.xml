@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="Ajout du jar du jour">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/codingLate-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/RELEASE_DAY_2.jar" afterDir="false" />
-    </list>
+    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="Avec un nom correct c'est mieux. Précision dans le README.md" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -303,7 +300,7 @@
       <updated>1704698704827</updated>
       <workItem from="1704698705755" duration="21649000" />
       <workItem from="1704791960968" duration="16061000" />
-      <workItem from="1704824792349" duration="1129000" />
+      <workItem from="1704824792349" duration="1430000" />
     </task>
     <task id="LOCAL-00001" summary="Base app">
       <option name="closed" value="true" />
@@ -473,7 +470,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704825706225</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Avec un nom correct c'est mieux. Précision dans le README.md">
+      <option name="closed" value="true" />
+      <created>1704826009161</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1704826009161</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -512,6 +517,7 @@
     <MESSAGE value="Correction ajout utilisateur avec adresses, modification de la table user pour ajouter le champ address" />
     <MESSAGE value="La page d'ajout des services est en bonne voie de fonctionnement" />
     <MESSAGE value="Ajout du jar du jour" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ajout du jar du jour" />
+    <MESSAGE value="Avec un nom correct c'est mieux. Précision dans le README.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="Avec un nom correct c'est mieux. Précision dans le README.md" />
   </component>
 </project>
