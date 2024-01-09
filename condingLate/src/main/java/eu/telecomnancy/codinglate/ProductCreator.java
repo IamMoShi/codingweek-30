@@ -131,29 +131,24 @@ public class ProductCreator {
             Double price = Double.valueOf(priceField.getText());
             String priceTypestr = TypePriceBox.getValue();
             PriceType priceType = setPriceType(priceTypestr);
-            LocalDate StartDate = startDatePicker.getValue();
-            LocalDate EndDate = endDatePicker.getValue();
-            String brand = brandField.getText();
-            String model = ModelField.getText();
-            int year = Integer.getInteger(yearField.getText());
-            if(!ConditionBox.getValue().isBlank()) {
+            //LocalDate StartDate = startDatePicker.getValue();
+            //LocalDate EndDate = endDatePicker.getValue();
+            //String brand = brandField.getText();
+            //String model = ModelField.getText();
+            //int year = Integer.getInteger(yearField.getText());
+            if(ConditionBox.getValue() != null) {
                 ProductCondition condition = setProductCondition(ProductCategoryBox.getValue());
             }
 
-
-
-
             //if nothing is filled
-            if(title.isBlank() || description.isBlank() || price.isNaN() ){
+            if(title.isBlank() || price.isNaN() ){
 
                 addNewLabel(gridPane, "Informations Manquantes!");
 
             }
 
-
-
             else{
-
+                System.out.println("title: " + title);
                 PersonController personcontroller = PersonController.getInstance();
                 Person currentUser = personcontroller.getCurrentUser();
 
@@ -167,6 +162,7 @@ public class ProductCreator {
                         product.setDescription(description);
                     }
 
+                    /*
                     //add start date to offer if filled
                     if(!StartDate.isEqual(LocalDate.of(1, 1, 1))){
                         product.setStartingDate(StartDate);
@@ -176,7 +172,7 @@ public class ProductCreator {
                     if(!EndDate.isEqual(LocalDate.of(1, 1, 1)) && !StartDate.isEqual(LocalDate.of(1, 1, 1))){
                         product.setEndingDate(EndDate);
                     }
-
+                    */
                     if(!ProductCategoryBox.getValue().isBlank()) {
                         ProductCategory productCategory = setProductCategry(ProductCategoryBox.getValue());
                         product.setCategory(productCategory);

@@ -268,6 +268,29 @@ public class SceneManager {
         return scene;
     }
 
+
+    public Scene createSceneProductCreator() {
+        SearchBar searchBar = new SearchBar();
+
+        BorderPane root = new BorderPane();
+
+        VBox layout = new VBox(10);
+        layout.setPadding(new Insets(0));
+        layout.getChildren().add(searchBar);
+
+        root.setTop(layout);
+
+        ProductCreator compteCreator = new ProductCreator();
+        VBox gridPane = compteCreator.getVbox();
+
+        // Ajoutez le formulaire à la scène
+
+        root.setCenter(gridPane);
+        Scene scene = new Scene(root, 800, 500);
+        scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
+        return scene;
+
+    }
 }
 
 

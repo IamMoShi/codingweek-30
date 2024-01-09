@@ -18,7 +18,7 @@ public class App extends Application {
 
         this.sceneManager = new SceneManager(stage);
 
-        Scene scene = sceneManager.createScenePresentation();
+        Scene scene = sceneManager.createSceneProductCreator();
         sceneManager.switchScene(scene);
     }
 
