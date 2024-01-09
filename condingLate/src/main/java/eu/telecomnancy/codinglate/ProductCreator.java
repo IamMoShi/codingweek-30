@@ -1,5 +1,8 @@
 package eu.telecomnancy.codinglate;
 
+import eu.telecomnancy.codinglate.UI.CustomChoiceBox;
+import eu.telecomnancy.codinglate.UI.CustomDatePicker;
+import eu.telecomnancy.codinglate.UI.CustomTextField;
 import eu.telecomnancy.codinglate.UI.FormButton;
 import eu.telecomnancy.codinglate.database.dataController.offer.OfferController;
 import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
@@ -51,68 +54,59 @@ public class ProductCreator {
     private void addUIControls(GridPane gridPane) {
         // Add controls to the gridPane
 
-        Label TitleLabel = new Label("title:");
-        TextField TitleField = new TextField();
-        gridPane.add(TitleLabel, 0, 0);
+        CustomTextField TitleField = new CustomTextField("Titre");
         gridPane.add(TitleField, 1, 0);
 
-        Label DescriptionLabel = new Label("description:");
-        TextField DescriptionField = new TextField();
-        gridPane.add(DescriptionLabel, 0, 1);
+        CustomTextField DescriptionField = new CustomTextField("Description");
         gridPane.add(DescriptionField, 1, 1);
 
-        Label priceLabel = new Label("prix:");
-        TextField priceField = new TextField();
-        gridPane.add(priceLabel, 0, 2);
+        CustomTextField priceField = new CustomTextField("Prix");
         gridPane.add(priceField, 1, 2);
 
 
-        Label TypepriceLabel = new Label("Type de prix:");
-        ChoiceBox<String> TypePriceBox = new ChoiceBox<>(
+        CustomChoiceBox TypePriceBox = new CustomChoiceBox(
                 FXCollections.observableArrayList("EURO_PER_HOUR","EURO_PER_DAY","EURO_PER_WEEK", "EURO_PER_MONTH")
         );
-        gridPane.add(TypepriceLabel, 0, 3);
+        TypePriceBox.getItems().add("Type de prix");
+        TypePriceBox.setValue("Type de prix");
+
         gridPane.add(TypePriceBox, 1, 3);
 
-        Label ProductCategoryLabel = new Label("Type de produit:");
-        ChoiceBox<String> ProductCategoryBox = new ChoiceBox<>(
+
+        CustomChoiceBox ProductCategoryBox = new CustomChoiceBox(
                 FXCollections.observableArrayList("AUTO", "GARDEN", "HOME", "MULTIMEDIA", "SPORT", "OTHER")
         );
-        gridPane.add(ProductCategoryLabel, 0, 4);
+        ProductCategoryBox.getItems().add("Type de produit");
+        ProductCategoryBox.setValue("Type de produit");
+
+
         gridPane.add(ProductCategoryBox, 1, 4);
 
 
-        Label startDateLabel = new Label("Début de l'offre:");
-        DatePicker startDatePicker = new DatePicker();
-        gridPane.add(startDateLabel, 0, 5);
+        CustomDatePicker startDatePicker = new CustomDatePicker("Début de l'offre:");
         gridPane.add(startDatePicker, 1, 5);
 
-        Label endDateLabel = new Label("Fin de l'offre:");
-        DatePicker endDatePicker = new DatePicker();
-        gridPane.add(endDateLabel, 0, 6);
+        CustomDatePicker endDatePicker = new CustomDatePicker("Fin de l'offre:");
         gridPane.add(endDatePicker, 1, 6);
 
-        Label BrandLabel = new Label("Marque:");
-        TextField brandField = new TextField();
-        gridPane.add(BrandLabel, 0, 7);
+        CustomTextField brandField = new CustomTextField("Marque");
         gridPane.add(brandField, 1, 7);
 
-        Label ModelLabel = new Label("Modèle:");
-        TextField ModelField = new TextField();
-        gridPane.add(ModelLabel, 0, 8);
+        CustomTextField ModelField = new CustomTextField("Modèle");
         gridPane.add(ModelField, 1, 8);
 
-        Label yearLabel = new Label("Année:");
-        TextField yearField = new TextField();
-        gridPane.add(yearLabel, 0, 9);
+        CustomTextField yearField = new CustomTextField("Année");
         gridPane.add(yearField, 1, 9);
 
-        Label ConditionLabel = new Label("état du produit:");
-        ChoiceBox<String> ConditionBox = new ChoiceBox<>(
+        CustomChoiceBox ConditionBox = new CustomChoiceBox(
                 FXCollections.observableArrayList("NEW", "GOOD", "USED", "REFURBISHED")
         );
-        gridPane.add(ConditionLabel, 0, 10);
+
+        ConditionBox.getItems().add("état du produit");
+        ConditionBox.setValue("état du produit");
+
         gridPane.add(ConditionBox, 1, 10);
+
 
 
 
@@ -131,11 +125,12 @@ public class ProductCreator {
             Double price = Double.valueOf(priceField.getText());
             String priceTypestr = TypePriceBox.getValue();
             PriceType priceType = setPriceType(priceTypestr);
-            //LocalDate StartDate = startDatePicker.getValue();
-            //LocalDate EndDate = endDatePicker.getValue();
-            //String brand = brandField.getText();
-            //String model = ModelField.getText();
-            //int year = Integer.getInteger(yearField.getText());
+            LocalDate StartDate = startDatePicker.getValue();
+            LocalDate EndDate = endDatePicker.getValue();
+            String brand = brandField.getText();
+            String model = ModelField.getText();
+            //int year = Integer.parseInt(yearField.getText());
+
             if(ConditionBox.getValue() != null) {
                 ProductCondition condition = setProductCondition(ProductCategoryBox.getValue());
             }
@@ -162,7 +157,7 @@ public class ProductCreator {
                         product.setDescription(description);
                     }
 
-                    /*
+
                     //add start date to offer if filled
                     if(!StartDate.isEqual(LocalDate.of(1, 1, 1))){
                         product.setStartingDate(StartDate);
@@ -172,7 +167,7 @@ public class ProductCreator {
                     if(!EndDate.isEqual(LocalDate.of(1, 1, 1)) && !StartDate.isEqual(LocalDate.of(1, 1, 1))){
                         product.setEndingDate(EndDate);
                     }
-                    */
+
                     if(!ProductCategoryBox.getValue().isBlank()) {
                         ProductCategory productCategory = setProductCategry(ProductCategoryBox.getValue());
                         product.setCategory(productCategory);
@@ -192,7 +187,7 @@ public class ProductCreator {
             }
         });
 
-        gridPane.add(submitButton, 0, 6, 2, 6);
+        gridPane.add(submitButton, 1, 11, 2, 6);
 
 
     }
