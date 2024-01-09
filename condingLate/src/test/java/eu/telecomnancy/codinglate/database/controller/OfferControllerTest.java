@@ -1,10 +1,12 @@
 package eu.telecomnancy.codinglate.database.controller;
 import eu.telecomnancy.codinglate.database.dataController.offer.OfferController;
 import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
+import eu.telecomnancy.codinglate.database.dataObject.offer.Product;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Service;
 import eu.telecomnancy.codinglate.database.dataObject.user.Address;
 import eu.telecomnancy.codinglate.database.dataObject.user.User;
 import eu.telecomnancy.codinglate.database.dataObject.enums.PriceType;
+import eu.telecomnancy.codinglate.database.dataObject.enums.ProductCategory;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,5 +31,29 @@ public class OfferControllerTest {
         assertNotEquals(-1, service.getId());
         assertEquals(service.getUser().getId(), user.getId());
         assertEquals("service test", service.getTitle());
+    }
+
+    @Test
+    public void testInsertProduct() {
+        PersonController userController = new PersonController();
+        // Test s'il y a un utilisateur dans la base de données avec l'email john.doe@example.com
+
+        // Créer un utilisateur
+        User user = new User("John", "Doe", "john.doe@example.com", "password", new Address("123 Rue de la Test"));
+        PersonController userController = new PersonController();
+        userController.insert(user);
+
+        // Créer un produit
+        Product product = new Product(user, "Product Test", 100.0, PriceType.EURO_PER_WEEK);
+
+
+        OfferController offerController = new OfferController();
+        // Insérer le produit dans la base de données
+        offerController.insert(product);
+
+        // Vérifier que l'ID du produit a été attribué par la base de données
+        assertNotEquals(-1, product.getId());
+        assertEquals(user.getId(), product.getUser().getId());
+        assertEquals("Product Test", product.getTitle());
     }
 }
