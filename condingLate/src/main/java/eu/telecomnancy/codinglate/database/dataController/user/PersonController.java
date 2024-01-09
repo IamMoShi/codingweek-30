@@ -237,7 +237,7 @@ public class PersonController {
 
     }
 
-    public Person getPersonByemail(String email) {
+    public Person getPersonByEmail(String email) {
         Person person = null;
         Connection conn = null;
         PreparedStatement pstmt = null;

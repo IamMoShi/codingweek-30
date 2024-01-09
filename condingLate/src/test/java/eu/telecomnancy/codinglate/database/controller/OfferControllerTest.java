@@ -6,7 +6,7 @@ import eu.telecomnancy.codinglate.database.dataObject.offer.Service;
 import eu.telecomnancy.codinglate.database.dataObject.user.Address;
 import eu.telecomnancy.codinglate.database.dataObject.user.User;
 import eu.telecomnancy.codinglate.database.dataObject.enums.PriceType;
-import eu.telecomnancy.codinglate.database.dataObject.enums.ProductCategory;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,9 +15,15 @@ public class OfferControllerTest {
 
     @Test
     public void testInsertService() {
-        // Créer un utilisateur
-        User user = new User("John", "Doe", "john.doe12@example.com", "password", new Address("123 Rue de la Test"));
         PersonController userController = new PersonController();
+        // Test s'il y a un utilisateur dans la base de données avec l'email john.doe@example.com
+        User user = (User) userController.getPersonByEmail("john.doe@example.com");
+        if (user != null) {
+            userController.delete(user);
+        } else {
+            user = new User("John", "Doe", "john.doe@example.com", "password", new Address("1 rue du test"));
+        }
+
         userController.insert(user);
 
         // Créer un service
@@ -37,10 +43,13 @@ public class OfferControllerTest {
     public void testInsertProduct() {
         PersonController userController = new PersonController();
         // Test s'il y a un utilisateur dans la base de données avec l'email john.doe@example.com
+        User user = (User) userController.getPersonByEmail("john.doe@example.com");
+        if (user != null) {
+            userController.delete(user);
+        } else {
+            user = new User("John", "Doe", "john.doe@example.com", "password", new Address("1 rue du test"));
+        }
 
-        // Créer un utilisateur
-        User user = new User("John", "Doe", "john.doe@example.com", "password", new Address("123 Rue de la Test"));
-        PersonController userController = new PersonController();
         userController.insert(user);
 
         // Créer un produit
@@ -54,6 +63,6 @@ public class OfferControllerTest {
         // Vérifier que l'ID du produit a été attribué par la base de données
         assertNotEquals(-1, product.getId());
         assertEquals(user.getId(), product.getUser().getId());
-        assertEquals("Product Test", product.getTitle());
+        assertEquals("product test", product.getTitle());
     }
 }

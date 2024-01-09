@@ -1,18 +1,11 @@
 package eu.telecomnancy.codinglate;
 
-import eu.telecomnancy.codinglate.database.DbConnection;
 import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
-import eu.telecomnancy.codinglate.database.dataObject.user.Person;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 public class LoginCreator {
 
@@ -73,7 +66,7 @@ public class LoginCreator {
 
         if(personcontroller.VerifierBase(email,password)){
             PersonController.getInstance();
-            personcontroller.setCurrentUser(personcontroller.getPersonByemail(email));
+            personcontroller.setCurrentUser(personcontroller.getPersonByEmail(email));
 
             //SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
             //Scene scene = sceneManager.createSceneProfil(personcontroller);

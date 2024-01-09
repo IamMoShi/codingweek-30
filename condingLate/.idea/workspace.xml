@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="insert Service codé et testé">
+    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="Code de l'ajout d'un produit à la base de donnée. Test pas encore fini mais besoin de pull">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodingWeekDatabase.db" beforeDir="false" afterPath="$PROJECT_DIR$/CodingWeekDatabase.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/offer/OfferController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/offer/OfferController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/LoginCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/LoginCreator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/user/PersonController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/user/PersonController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/eu/telecomnancy/codinglate/database/controller/OfferControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/eu/telecomnancy/codinglate/database/controller/OfferControllerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -296,7 +297,7 @@
       <option name="presentableId" value="Default" />
       <updated>1704698704827</updated>
       <workItem from="1704698705755" duration="21649000" />
-      <workItem from="1704791960968" duration="6908000" />
+      <workItem from="1704791960968" duration="7434000" />
     </task>
     <task id="LOCAL-00001" summary="Base app">
       <option name="closed" value="true" />
@@ -378,7 +379,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704805201931</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Code de l'ajout d'un produit à la base de donnée. Test pas encore fini mais besoin de pull">
+      <option name="closed" value="true" />
+      <created>1704805934099</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1704805934099</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -407,6 +416,7 @@
     <MESSAGE value="J'espère que j'ai tout" />
     <MESSAGE value="update database" />
     <MESSAGE value="insert Service codé et testé" />
-    <option name="LAST_COMMIT_MESSAGE" value="insert Service codé et testé" />
+    <MESSAGE value="Code de l'ajout d'un produit à la base de donnée. Test pas encore fini mais besoin de pull" />
+    <option name="LAST_COMMIT_MESSAGE" value="Code de l'ajout d'un produit à la base de donnée. Test pas encore fini mais besoin de pull" />
   </component>
 </project>
