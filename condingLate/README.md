@@ -1,5 +1,19 @@
 # CODING WEEK 2024
 
+## Pour lancer l'app 
+
+### Gradle
+
+Dans le dossier condingLate lancer la commande ./gradlew run
+
+### Intellij
+
+Lancer la classe Main.java
+
+### A partir du jar
+
+Un jar est disponible chaque jour à la source du projet.
+
 ---
 ## Points importants 
 
