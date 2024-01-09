@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="Correction ajout utilisateur avec adresses, modification de la table user pour ajouter le champ address">
+    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="La page d'ajout des services est en bonne voie de fonctionnement">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodingWeekDatabase.db" beforeDir="false" afterPath="$PROJECT_DIR$/CodingWeekDatabase.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/ProductCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/ProductCreator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -307,6 +305,7 @@
       <updated>1704698704827</updated>
       <workItem from="1704698705755" duration="21649000" />
       <workItem from="1704791960968" duration="16061000" />
+      <workItem from="1704824792349" duration="796000" />
     </task>
     <task id="LOCAL-00001" summary="Base app">
       <option name="closed" value="true" />
@@ -452,7 +451,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704813348638</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="La page d'ajout des services est en bonne voie de fonctionnement">
+      <option name="closed" value="true" />
+      <created>1704818529290</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1704818529290</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -489,6 +496,7 @@
     <MESSAGE value="implementation de GetProductsByName" />
     <MESSAGE value="insertion de booking avec BookingDAO" />
     <MESSAGE value="Correction ajout utilisateur avec adresses, modification de la table user pour ajouter le champ address" />
-    <option name="LAST_COMMIT_MESSAGE" value="Correction ajout utilisateur avec adresses, modification de la table user pour ajouter le champ address" />
+    <MESSAGE value="La page d'ajout des services est en bonne voie de fonctionnement" />
+    <option name="LAST_COMMIT_MESSAGE" value="La page d'ajout des services est en bonne voie de fonctionnement" />
   </component>
 </project>
