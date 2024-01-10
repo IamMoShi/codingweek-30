@@ -103,7 +103,7 @@ public abstract class Offer extends DataObject {
 
     public void setEndingDate(LocalDate endingDate) {
         this.endingDate = endingDate;
-    }*
+    }
 
     public void setImages(ArrayList<ProductImage> images) {
         this.images = images;
