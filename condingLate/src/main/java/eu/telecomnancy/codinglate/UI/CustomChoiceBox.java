@@ -13,7 +13,6 @@ public class CustomChoiceBox extends ChoiceBox<String> {
     }
 
     private void initialize() {
-        this.setStyle("-fx-text-fill: black; -fx-font-size: 16px;");
-        this.setStyle("-fx-arc-width: 20; -fx-arc-height: 20;");
+        this.setStyle("-fx-text-fill: black; -fx-font-size: 16px; -fx-pref-width: 230px;");
     }
 }

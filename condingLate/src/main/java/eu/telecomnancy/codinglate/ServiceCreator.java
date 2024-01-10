@@ -1,6 +1,6 @@
 package eu.telecomnancy.codinglate;
 
-import eu.telecomnancy.codinglate.UI.FormButton;
+import eu.telecomnancy.codinglate.UI.*;
 import eu.telecomnancy.codinglate.database.dataController.offer.OfferController;
 import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
 import eu.telecomnancy.codinglate.database.dataObject.enums.PriceType;
@@ -12,7 +12,9 @@ import javafx.collections.FXCollections;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -53,99 +55,118 @@ public class ServiceCreator {
     private void addUIControls(GridPane gridPane) {
         // Add controls to the gridPane
 
-        Label TitleLabel = new Label("title:");
-        TextField TitleField = new TextField();
-        gridPane.add(TitleLabel, 0, 0);
-        gridPane.add(TitleField, 1, 0);
+        CustomTextField TitleField = new CustomTextField("Titre");
+        gridPane.add(TitleField, 0, 0);
 
-        Label DescriptionLabel = new Label("description:");
-        TextField DescriptionField = new TextField();
-        gridPane.add(DescriptionLabel, 0, 1);
-        gridPane.add(DescriptionField, 1, 1);
+        CustomTextField DescriptionField = new CustomTextField("Description");
+        gridPane.add(DescriptionField, 0, 1);
 
-        Label priceLabel = new Label("prix:");
-        TextField priceField = new TextField();
-        gridPane.add(priceLabel, 0, 2);
-        gridPane.add(priceField, 1, 2);
+       CustomTextField priceField = new CustomTextField("Prix");
+        gridPane.add(priceField, 0, 2);
 
 
-        Label TypepriceLabel = new Label("Type de prix:");
-        ChoiceBox<String> TypePriceBox = new ChoiceBox<>(
+        CustomChoiceBox TypePriceBox = new CustomChoiceBox(
                 FXCollections.observableArrayList("EURO_PER_HOUR","EURO_PER_DAY","EURO_PER_WEEK", "EURO_PER_MONTH")
         );
-        gridPane.add(TypepriceLabel, 0, 3);
-        gridPane.add(TypePriceBox, 1, 3);
+        gridPane.add(TypePriceBox, 0, 3);
 
 
-        Label startDateLabel = new Label("Début de l'offre:");
-        DatePicker startDatePicker = new DatePicker();
+        CustomDatePicker startDatePicker = new CustomDatePicker("Début de l'offre");
         gridPane.add(startDatePicker, 0, 4);
-        gridPane.add(startDatePicker, 1, 4);
 
-        Label endDateLabel = new Label("Fin de l'offre:");
-        DatePicker endDatePicker = new DatePicker();
+
+        CustomDatePicker endDatePicker = new CustomDatePicker("Fin de l'offre");
         gridPane.add(endDatePicker, 0, 5);
-        gridPane.add(endDatePicker, 1, 5);
 
+
+        SearchBarButton chooseImage = new SearchBarButton("chooseImage","Choisir une image");
+        chooseImage.initializeButton();
+        gridPane.add(chooseImage,0,6);
+
+        chooseImage.setOnAction(event -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Choisir une image");
+
+            // Filtrez les fichiers pour ne montrer que les images
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.gif", "*.bmp");
+            fileChooser.getExtensionFilters().add(extFilter);
+
+            // Affichez la boîte de dialogue de choix de fichier
+            File selectedFile = fileChooser.showOpenDialog(null);
+
+            if (selectedFile != null) {
+                // Vous pouvez utiliser le chemin du fichier sélectionné comme nécessaire
+                String imagePath = selectedFile.getAbsolutePath();
+                // Vous pouvez faire quelque chose avec le chemin de l'image ici
+                System.out.println("Image choisie : " + imagePath);
+            }
+        });
 
         FormButton submitButton = new FormButton("submitButton", "Mettre l'Offre en ligne");
         submitButton.initializeButton();
+
         submitButton.setPrefWidth(240);
 
 
         // Event handling for the submit button
         submitButton.setOnAction(e -> {
 
-
             String title = TitleField.getText();
             String description = DescriptionField.getText();
-            Double price = Double.valueOf(priceField.getText());
-            String priceTypestr = TypePriceBox.getValue();
-            PriceType priceType = setPriceType(priceTypestr);
-            LocalDate StartDate = startDatePicker.getValue();
-            LocalDate EndDate = endDatePicker.getValue();
-
-
-
-            //if nothing is filled
-            if(title.isBlank() || price.isNaN() ){
-
-                addNewLabel(gridPane, "Informations Manquantes!");
-
+            String priceText = priceField.getText();
+            if (priceText.isBlank()){
+                addNewLabel(gridPane,"Le champs du prix est vide");
+                return;
             }
+            try {
+                Double price = Double.valueOf(priceText);
+                String priceTypestr = TypePriceBox.getValue();
+                PriceType priceType = setPriceType(priceTypestr);
+                LocalDate StartDate = startDatePicker.getValue();
+                LocalDate EndDate = endDatePicker.getValue();
 
+                //if nothing is filled
+                if(title.isBlank() || price.isNaN() ){
+                    addNewLabel(gridPane, "Informations Manquantes!");
+                }
+                else{
 
+                    PersonController personcontroller = PersonController.getInstance();
+                    Person currentUser = personcontroller.getCurrentUser();
+                    if(currentUser instanceof User){
+                        User user = (User) currentUser;
+                        Service service = new Service(user,title,price,priceType);
+                        if(!description.isEmpty()){
+                            service.setDescription(description);
+                        }
+                        //add start date to offer if filled
+                        if(StartDate!= null && !StartDate.isEqual(LocalDate.of(1, 1, 1))){
+                            service.setStartingDate(StartDate);
+                        }
 
-            else{
+                        //add end date to offer if filled and start date is already defined
+                        if(EndDate!= null && !EndDate.isEqual(LocalDate.of(1, 1, 1)) && !StartDate.isEqual(LocalDate.of(1, 1, 1))){
+                            service.setEndingDate(EndDate);
+                        }
 
-                PersonController personcontroller = PersonController.getInstance();
-                Person currentUser = personcontroller.getCurrentUser();
-                if(currentUser instanceof User){
-                    User user = (User) currentUser;
-                    Service service = new Service(user,title,price,priceType);
-
-                    if(!description.isEmpty()){
-                        service.setDescription(description);
+                        OfferController offercontroller = new OfferController();
+                        offercontroller.insert(service);
                     }
 
-                    //add start date to offer if filled
-                    if(!StartDate.isEqual(LocalDate.of(1, 1, 1))){
-                        service.setStartingDate(StartDate);
-                    }
-
-                    //add end date to offer if filled and start date is already defined
-                    if(!EndDate.isEqual(LocalDate.of(1, 1, 1)) && !StartDate.isEqual(LocalDate.of(1, 1, 1))){
-                        service.setEndingDate(EndDate);
-                    }
-
-                    OfferController offercontroller = new OfferController();
-                    offercontroller.insert(service);
                 }
 
+
+
+            } catch (NumberFormatException exception){
+                addNewLabel(gridPane,"Format de prix invalide !");
             }
+
+
+
+
         });
 
-        gridPane.add(submitButton, 0, 6, 2, 6);
+        gridPane.add(submitButton, 0, 7, 2, 6);
 
 
     }

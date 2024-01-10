@@ -7,6 +7,8 @@ import eu.telecomnancy.codinglate.database.dataObject.message.Message;
 import eu.telecomnancy.codinglate.database.dataObject.user.Person;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.control.ComboBox;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -19,6 +21,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -86,13 +89,45 @@ public class SceneManager {
         BorderPane root = new BorderPane();
         // Mise en page de la scène
         VBox layout = new VBox(10);
-        layout.setPadding(new Insets(0));
+        layout.setPadding(new Insets(10));
         layout.getChildren().add(searchBar);
 
+        TilePane filtersPane = new TilePane();
+        filtersPane.setPadding(new Insets(10, 0, 10, 0));
+        filtersPane.setHgap(10);
+        filtersPane.setVgap(10);
+
+        // Ajouter ComboBox pour la sélection du produit
+        productComboBox = new ComboBox<>();
+        productComboBox.getItems().addAll("Produit", "Service");
+        productComboBox.setValue("Produit");
+        productComboBox.setOnAction(event -> handleProductSelection(productComboBox.getValue()));
+
+        // Initialiser les ComboBox spécifiques au produit
+        categoryComboBox = new ComboBox<>();
+        brandComboBox = new ComboBox<>();
+        modelComboBox = new ComboBox<>();
+        conditionComboBox = new ComboBox<>();
+        conditionComboBox.getItems().addAll("Neuf", "Occasion");
+        conditionComboBox.setValue("Neuf");
+        yearComboBox = new ComboBox<>();
+
+        // Ajouter des labels pour chaque ComboBox
+        filtersPane.getChildren().addAll(
+                new Label("Type de produit:"), productComboBox,
+                new Label("Catégorie:"), categoryComboBox,
+                new Label("Marque:"), brandComboBox,
+                new Label("Modèle:"), modelComboBox,
+                new Label("Condition:"), conditionComboBox,
+                new Label("Année:"), yearComboBox
+        );
+
+        layout.getChildren().add(filtersPane);
         root.setTop(layout);
+
         TilePane tilePane = new TilePane();
         tilePane.setFocusTraversable(true);
-        tilePane.setPadding(new Insets(30));
+        tilePane.setPadding(new Insets(10));
         tilePane.setHgap(10);
         tilePane.setVgap(10);
 
@@ -100,18 +135,15 @@ public class SceneManager {
             tilePane.getChildren().add(createArticleTile());
         }
 
-
         // Créer un ScrollPane et y ajouter la TilePane
         ScrollPane scrollPane = new ScrollPane(tilePane);
         scrollPane.getStyleClass().add("scroll-pane");
         scrollPane.setFitToWidth(true);
 
-
         root.setCenter(scrollPane);
 
         Scene scene = new Scene(root, 1000, 600);
-        scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
-        scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/scrollPane.css").toString());
+        // Ajoutez vos stylesheets ici
         return scene;
     }
 
@@ -123,8 +155,29 @@ public class SceneManager {
         imageView.setFitWidth(200);
         imageView.minWidth(200);
         return imageView;
-
     }
+
+    private void handleProductSelection(String selectedProduct, ) {
+        // Logique pour gérer la sélection du type de produit (produit ou service)
+
+        if ("Produit".equals(selectedProduct)) {
+            // Afficher les ComboBox et labels spécifiques au produit
+            categoryComboBox.setVisible(true);
+            brandComboBox.setVisible(true);
+            modelComboBox.setVisible(true);
+            conditionComboBox.setVisible(true);
+            yearComboBox.setVisible(true);
+        } else {
+            // Cacher les ComboBox et labels spécifiques au produit
+            categoryComboBox.setVisible(false);
+            brandComboBox.setVisible(false);
+            modelComboBox.setVisible(false);
+            conditionComboBox.setVisible(false);
+            yearComboBox.setVisible(false);
+        }
+        // Vous devrez ajouter une logique similaire pour gérer la sélection d'autres ComboBox
+    }
+}
 
 
     public Scene createSceneProfil() {
@@ -282,6 +335,29 @@ public class SceneManager {
 
         ProductCreator compteCreator = new ProductCreator();
         VBox gridPane = compteCreator.getVbox();
+
+        // Ajoutez le formulaire à la scène
+
+        root.setCenter(gridPane);
+        Scene scene = new Scene(root, 800, 500);
+        scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
+        return scene;
+
+    }
+
+    public Scene createSceneServiceCreator() {
+        SearchBar searchBar = new SearchBar();
+
+        BorderPane root = new BorderPane();
+
+        VBox layout = new VBox(10);
+        layout.setPadding(new Insets(0));
+        layout.getChildren().add(searchBar);
+
+        root.setTop(layout);
+
+        ServiceCreator serviceCreator = new ServiceCreator();
+        VBox gridPane = serviceCreator.getVbox();
 
         // Ajoutez le formulaire à la scène
 
