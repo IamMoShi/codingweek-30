@@ -1,13 +1,13 @@
 package eu.telecomnancy.codinglate;
 
-import eu.telecomnancy.codinglate.UI.CustomListCell;
-import eu.telecomnancy.codinglate.UI.CustomTextField;
-import eu.telecomnancy.codinglate.UI.SearchBar;
+import eu.telecomnancy.codinglate.UI.*;
+import eu.telecomnancy.codinglate.database.dataController.offer.BookingDAO;
 import eu.telecomnancy.codinglate.database.dataController.offer.OfferController;
 import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
 import eu.telecomnancy.codinglate.database.dataObject.enums.ProductCategory;
 import eu.telecomnancy.codinglate.database.dataObject.enums.ProductCondition;
 import eu.telecomnancy.codinglate.database.dataObject.message.Message;
+import eu.telecomnancy.codinglate.database.dataObject.offer.Booking;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Offer;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Product;
 import eu.telecomnancy.codinglate.database.dataObject.user.Person;
@@ -111,16 +111,14 @@ public class SceneManager {
         productComboBox.setValue("Type de produit");
 
 
-
         // Initialiser les ComboBox spécifiques au produit
         ComboBox<String> categoryComboBox = new ComboBox<>();
-        categoryComboBox.getItems().addAll("Auto","Jardin","Maison","Multimedia","Sport","Autre");
+        categoryComboBox.getItems().addAll("Auto", "Jardin", "Maison", "Multimedia", "Sport", "Autre");
         CustomTextField brandComboBox = new CustomTextField("Marque");
         CustomTextField modelComboBox = new CustomTextField("Modèle");
         ComboBox<String> conditionComboBox = new ComboBox<>();
-        conditionComboBox.getItems().addAll("Neuf", "Bon","Reconditionné","Utilisé");
+        conditionComboBox.getItems().addAll("Neuf", "Bon", "Reconditionné", "Utilisé");
         CustomTextField yearComboBox = new CustomTextField("Année");
-
 
 
         // Ajouter des labels pour chaque ComboBox
@@ -129,7 +127,7 @@ public class SceneManager {
                 new Label("Catégorie:"), categoryComboBox,
                 brandComboBox, modelComboBox,
                 new Label("Condition:"), conditionComboBox,
-                 yearComboBox
+                yearComboBox
         );
 
 
@@ -148,37 +146,31 @@ public class SceneManager {
         tilePane.setVgap(10);
 
         productComboBox.setOnAction(event -> {
-            handleProductSelection(root,tilePane,productComboBox.getValue(),categoryComboBox,brandComboBox,modelComboBox,conditionComboBox,yearComboBox);
+            handleProductSelection(root, tilePane, productComboBox.getValue(), categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
         });
 
         categoryComboBox.setOnAction(event -> {
-            handleProductSelection(root,tilePane,productComboBox.getValue(),categoryComboBox,brandComboBox,modelComboBox,conditionComboBox,yearComboBox);
+            handleProductSelection(root, tilePane, productComboBox.getValue(), categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
         });
 
         conditionComboBox.setOnAction(event -> {
-            handleProductSelection(root,tilePane,productComboBox.getValue(),categoryComboBox,brandComboBox,modelComboBox,conditionComboBox,yearComboBox);
+            handleProductSelection(root, tilePane, productComboBox.getValue(), categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
         });
 
         brandComboBox.setOnAction(event -> {
-            handleProductSelection(root,tilePane,productComboBox.getValue(),categoryComboBox,brandComboBox,modelComboBox,conditionComboBox,yearComboBox);
+            handleProductSelection(root, tilePane, productComboBox.getValue(), categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
         });
 
         modelComboBox.setOnAction(event -> {
-            handleProductSelection(root,tilePane,productComboBox.getValue(),categoryComboBox,brandComboBox,modelComboBox,conditionComboBox,yearComboBox);
+            handleProductSelection(root, tilePane, productComboBox.getValue(), categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
         });
 
         yearComboBox.setOnAction(event -> {
-            handleProductSelection(root,tilePane,productComboBox.getValue(),categoryComboBox,brandComboBox,modelComboBox,conditionComboBox,yearComboBox);
+            handleProductSelection(root, tilePane, productComboBox.getValue(), categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
         });
 
 
-
-
-
         root.setTop(layout);
-
-
-
 
 
         // Créer un ScrollPane et y ajouter la TilePane
@@ -197,26 +189,41 @@ public class SceneManager {
         return scene;
     }
 
-    private VBox createOfferTile(Offer offer) {
+    private VBox createOfferTile(Offer offer, TilePane tilePane) {
         Label titleLabel = new Label(offer.getTitle());
         Label descriptionLabel = new Label(offer.getDescription());
         Label priceLabel = new Label("Prix : " + offer.getPrice() + " " + offer.getPriceType());
         Label dateLabel = new Label("Date de début : " + offer.getStartingDate() + " / Date de fin : " + offer.getEndingDate());
+
         VBox tileLayout = new VBox(5);
         tileLayout.getChildren().addAll(titleLabel, descriptionLabel, priceLabel, dateLabel);
+
         VBox tile = new VBox(5);
         tile.getChildren().add(tileLayout);
+
+        // Ajouter un gestionnaire d'événements pour le clic sur la tuile
+        tile.setOnMouseClicked(event -> handleTileClick(offer, tilePane));
+
         return tile;
     }
+
+    private void handleTileClick(Offer offer, TilePane tilePane) {
+        // Action à effectuer lorsqu'une tuile est cliquée
+        System.out.println("Tuile cliquée : " + offer.getTitle());
+        SceneManager sceneManager = new SceneManager((Stage) tilePane.getScene().getWindow());
+        Scene scene = sceneManager.createSceneProduct(offer);
+        sceneManager.switchScene(scene);
+    }
+
 
     private void updateTilePane(TilePane tilePane, ArrayList<Offer> offers) {
         tilePane.getChildren().clear();
         for (Offer offer : offers) {
-            tilePane.getChildren().add(createOfferTile(offer));
+            tilePane.getChildren().add(createOfferTile(offer, tilePane));
         }
     }
 
-    private void handleProductSelection(BorderPane root, TilePane tilePane,String selectedProduct, ComboBox<String> categoryComboBox, CustomTextField brandComboBox,
+    private void handleProductSelection(BorderPane root, TilePane tilePane, String selectedProduct, ComboBox<String> categoryComboBox, CustomTextField brandComboBox,
                                         CustomTextField modelComboBox, ComboBox<String> conditionComboBox, CustomTextField yearComboBox) {
         // Logique pour gérer la sélection du type de produit (produit ou service)
         if ("Produit".equals(selectedProduct)) {
@@ -237,18 +244,15 @@ public class SceneManager {
             ProductCondition condition = EnumConverter.convertConditionToInt(conditionString);
 
 
-
-
-
             String year = yearComboBox.getText();
-            if (year == null){
+            if (year == null) {
                 year = "0";
             }
 
 
             OfferController offerController = new OfferController();
-            ArrayList<Offer> listOffres = offerController.getOfferByParameters(true,categorie,brand,model,condition,parseYear(year));
-            updateTilePane(tilePane,listOffres);
+            ArrayList<Offer> listOffres = offerController.getOfferByParameters(true, categorie, brand, model, condition, parseYear(year));
+            updateTilePane(tilePane, listOffres);
 
 
         } else {
@@ -260,8 +264,8 @@ public class SceneManager {
             yearComboBox.setVisible(false);
 
             OfferController offerController = new OfferController();
-            ArrayList<Offer> listoffres = offerController.getOfferByParameters(false,null,"","",null,0);
-            updateTilePane(tilePane,listoffres);
+            ArrayList<Offer> listoffres = offerController.getOfferByParameters(false, null, "", "", null, 0);
+            updateTilePane(tilePane, listoffres);
         }
         // Vous devrez ajouter une logique similaire pour gérer la sélection d'autres ComboBox
     }
@@ -274,8 +278,6 @@ public class SceneManager {
             return 0;
         }
     }
-
-
 
 
     public Scene createSceneProfil() {
@@ -466,7 +468,7 @@ public class SceneManager {
 
     }
 
-    public Scene createSceneSearch(){
+    public Scene createSceneSearch() {
 
         SearchBar searchBar = new SearchBar();
 
@@ -483,6 +485,134 @@ public class SceneManager {
         return scene;
 
     }
+
+
+    // ... (autres méthodes existantes)
+
+    public Scene createSceneProduct(Offer offer) {
+        SearchBar searchBar = new SearchBar();
+
+        BorderPane root = new BorderPane();
+        VBox layout = new VBox(10);
+        layout.setPadding(new Insets(0));
+        layout.getChildren().add(searchBar);
+
+        // Créer une boîte horizontale pour afficher l'utilisateur à gauche et les détails du produit au centre
+        HBox productBox = new HBox(10);
+        productBox.setPadding(new Insets(10));
+
+        // Afficher les informations de l'utilisateur à gauche
+        VBox userBox = new VBox(5);
+        Label userLabel = new Label("Utilisateur : " + offer.getUser().getFirstname() + " " + offer.getUser().getLastname());
+        SearchBarButton messageButton = new SearchBarButton("Envoyer un message", "Envoyer un message");
+        messageButton.initializeButton();
+
+        messageButton.setOnAction(event -> {
+            SceneManager sceneManager = new SceneManager((Stage) productBox.getScene().getWindow());
+            Scene scene = sceneManager.createMessageScene();
+            sceneManager.switchScene(scene);
+        });
+
+
+        // Ajouter d'autres détails de l'utilisateur si nécessaire
+        userBox.getChildren().addAll(userLabel);
+        productBox.getChildren().add(userBox);
+        userBox.getChildren().add(messageButton);
+
+        // Afficher les détails du produit au centre
+        VBox productDetailsBox = new VBox(10);
+        Label titleLabel = new Label("Titre : " + offer.getTitle());
+        Label descriptionLabel = new Label("Description : " + offer.getDescription());
+        Label priceLabel = new Label("Prix : " + offer.getPrice() + " " + offer.getPriceType());
+        if (offer.getStartingDate() != null && offer.getEndingDate() != null) {
+            priceLabel = new Label("Prix : " + offer.getPrice() + " " + offer.getPriceType() + " / Date de début : " + offer.getStartingDate() + " / Date de fin : " + offer.getEndingDate());
+            productDetailsBox.getChildren().add(priceLabel);
+        }
+
+        // Vous pouvez ajouter d'autres informations du produit ici
+        FormButton submitButton = new FormButton("submit","Reserver cette offre");
+        submitButton.initializeButton();
+
+
+        submitButton.setOnAction(event -> {
+            Booking booking = new Booking(offer, (User)PersonController.getInstance().getCurrentUser(), LocalDate.now(), LocalDate.now());
+            BookingDAO bookingDAO = new BookingDAO();
+            bookingDAO.insert(booking);
+
+        });
+
+
+
+        // Ajouter une image si disponible
+        if (!offer.getImages().isEmpty()) {
+            ImageView imageView = new ImageView(offer.getImages().get(0)); // Utilisez la première image comme exemple
+            imageView.setFitHeight(100); // Ajustez la hauteur de l'image selon vos besoins
+            imageView.setPreserveRatio(true);
+            productDetailsBox.getChildren().add(imageView);
+        }
+
+        // Ajouter les labels au conteneur des détails du produit
+        productDetailsBox.getChildren().addAll(titleLabel, descriptionLabel, priceLabel,submitButton);
+        productBox.getChildren().add(productDetailsBox);
+
+        // Ajouter la boîte du produit à la mise en page principale
+        layout.getChildren().add(productBox);
+
+
+
+
+
+
+
+
+
+        root.setTop(layout);
+
+        Scene scene = new Scene(root, 1000, 600);
+        // Ajouter vos stylesheets ici si nécessaire
+        scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
+
+        return scene;
+    }
+
+    public Scene createSceneMyBookings() {
+        SearchBar searchBar = new SearchBar();
+
+        BorderPane root = new BorderPane();
+        VBox layout = new VBox(10);
+        layout.setPadding(new Insets(0));
+        layout.getChildren().add(searchBar);
+
+        if (PersonController.getInstance().getCurrentUser() != null) {
+            User user = (User) PersonController.getInstance().getCurrentUser();
+            int userId = user.getId();
+            BookingDAO bookingDAO = new BookingDAO();
+            ArrayList<Booking> bookings = bookingDAO.getBookingsByUser(userId);
+
+            // Créer une liste de réservations
+            ListView<String> bookingsListView = new ListView<>();
+            bookingsListView.setPrefHeight(400);
+
+            // Ajouter les réservations à la liste
+            for (Booking booking : bookings) {
+                String bookingInfo = "Offer: " + booking.getOffer().getTitle() +
+                        ", Starting Date: " + booking.getStartingDate() +
+                        ", Ending Date: " + booking.getEndingDate() +
+                        ", Status: " + booking.getStatus();
+                bookingsListView.getItems().add(bookingInfo);
+            }
+
+            // Ajouter la liste de réservations à la mise en page
+            layout.getChildren().add(bookingsListView);
+        }
+
+        root.setTop(layout);
+        Scene scene = new Scene(root, 1000, 600);
+        scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
+        return scene;
+    }
+
 }
+
 
 

@@ -1,9 +1,15 @@
 package eu.telecomnancy.codinglate.database.dataController.offer;
 
 import eu.telecomnancy.codinglate.database.DbConnection;
+import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
+import eu.telecomnancy.codinglate.database.dataObject.enums.BookingStatus;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Booking;
+import eu.telecomnancy.codinglate.database.dataObject.offer.Offer;
+import eu.telecomnancy.codinglate.database.dataObject.user.User;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class BookingDAO {
     public void insert(Booking booking) {
@@ -48,5 +54,54 @@ public class BookingDAO {
             // Gérer les erreurs de manière appropriée, par exemple, en lançant une exception personnalisée
         }
     }
+
+    private Booking createBooking(ResultSet rs) {
+        Booking booking = null;
+        try {
+            int id = rs.getInt("id");
+            int offerId = rs.getInt("offer");
+            Offer offer = new OfferController().getOfferById(offerId);
+            int userId = rs.getInt("user");
+            User user = (User) new PersonController().getPersonById(userId);
+            LocalDate startingDate = null;
+            if (rs.getObject("startingDate") != null) startingDate = rs.getObject("startingDate", LocalDate.class);
+            LocalDate endingDate = null;
+            if (rs.getObject("endingDate") != null) endingDate = rs.getObject("endingDate", LocalDate.class);
+            BookingStatus status = BookingStatus.values()[rs.getInt("status")];
+            booking = new Booking(id, offer, user, startingDate, endingDate, status);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+
+        }
+        return booking;
+    }
+
+    public  ArrayList<Booking> getBookingsByUser(int userId) {
+        ArrayList<Booking> bookings = new ArrayList<>();
+
+        try (Connection conn = DbConnection.connect();
+             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM booking WHERE user = ?")) {
+
+            stmt.setInt(1, userId);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Booking booking = createBooking(rs);
+                    if (booking != null) bookings.add(booking);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return bookings;
+    }
+
+
+
+
+
+
+
 
 }

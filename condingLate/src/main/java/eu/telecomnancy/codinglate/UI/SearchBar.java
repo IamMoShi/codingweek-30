@@ -1,6 +1,7 @@
 package eu.telecomnancy.codinglate.UI;
 
 import eu.telecomnancy.codinglate.SceneManager;
+import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -35,6 +36,7 @@ public class SearchBar extends HBox {
         searchField.setMaxHeight(30);
         searchField.setMaxWidth(200);
         searchField.getStyleClass().add("search-field");
+
         getChildren().add(searchField);
 
         Image searchIcon = new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/icon/search.png")    );
@@ -49,47 +51,79 @@ public class SearchBar extends HBox {
         HBox.setHgrow(spacer2, javafx.scene.layout.Priority.ALWAYS);
         getChildren().add(spacer2);
 
+        if (PersonController.getInstance().getCurrentUser() == null) {
+            SearchBarButton searchButton = new SearchBarButton("searchButton", "Se connecter");
+            searchButton.initializeButton();
+            getChildren().add(searchButton);
+            searchButton.setOnMouseClicked(e -> {
 
-        SearchBarButton searchButton = new SearchBarButton("searchButton", "Se connecter");
-        searchButton.initializeButton();
-        getChildren().add(searchButton);
-        searchButton.setOnMouseClicked(e -> {
+                SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
+                Scene scene = sceneManager.createSceneConnexion();
+                sceneManager.switchScene(scene);
 
-            SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
-            Scene scene = sceneManager.createSceneConnexion();
-            sceneManager.switchScene(scene);
+            });
+        }
 
-        });
 
-        IconButton userButton = new IconButton("userButton", "", "/eu/telecomnancy/codinglate/icon/user.png");
-        userButton.initializeButton();
-        getChildren().add(userButton);
-        ContextMenu contextMenu = new ContextMenu();
-        MenuItem profil = new MenuItem("Profil");
-        profil.setOnAction(e -> {
-            SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
-            Scene scene = sceneManager.createSceneProfil();
-            sceneManager.switchScene(scene);
-        });
-        MenuItem message = new MenuItem("Messagerie");
-        message.setOnAction(e -> {
-            SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
-            Scene scene = sceneManager.createMessageScene();
-            sceneManager.switchScene(scene);
-        });
 
-        MenuItem deconnexion = new MenuItem("Déconnexion");
-        deconnexion.setOnAction(e -> {
-            SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
-            Scene scene = sceneManager.createScenePresentation();
-            sceneManager.switchScene(scene);
-        });
 
-        contextMenu.getItems().addAll(profil,  message,deconnexion);
+        if (PersonController.getInstance().getCurrentUser() != null) {
+            SearchBarButton searchButton = new SearchBarButton("searchButton", "Ajouter une annonce");
+            searchButton.initializeButton();
+            getChildren().add(searchButton);
+            ContextMenu contextMenuAnnouncement = new ContextMenu();
+            MenuItem produit = new MenuItem("Produit");
+            MenuItem service = new MenuItem("Service");
+            produit.setOnAction(e -> {
+                SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
+                Scene scene = sceneManager.createSceneProductCreator();
+                sceneManager.switchScene(scene);
+            });
 
-        userButton.setOnMouseClicked(e -> {
-            contextMenu.show(userButton, e.getScreenX() - userButton.getHeight(), e.getScreenY() + userButton.getHeight());
-        });
+            service.setOnAction(e -> {
+                SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
+                Scene scene = sceneManager.createSceneServiceCreator();
+                sceneManager.switchScene(scene);
+            });
+
+
+            contextMenuAnnouncement.getItems().addAll(produit, service);
+
+            searchButton.setOnMouseClicked(e -> {
+                contextMenuAnnouncement.show(searchButton, e.getScreenX() - searchButton.getHeight(), e.getScreenY() + searchButton.getHeight());
+            });
+
+            IconButton userButton = new IconButton("userButton", "", "/eu/telecomnancy/codinglate/icon/user.png");
+            userButton.initializeButton();
+            getChildren().add(userButton);
+            ContextMenu contextMenu = new ContextMenu();
+            MenuItem profil = new MenuItem("Profil");
+            profil.setOnAction(e -> {
+                SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
+                Scene scene = sceneManager.createSceneProfil();
+                sceneManager.switchScene(scene);
+            });
+            MenuItem message = new MenuItem("Messagerie");
+            message.setOnAction(e -> {
+                SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
+                Scene scene = sceneManager.createMessageScene();
+                sceneManager.switchScene(scene);
+            });
+
+            MenuItem deconnexion = new MenuItem("Déconnexion");
+            deconnexion.setOnAction(e -> {
+                PersonController.getInstance().setCurrentUser(null);
+                SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
+                Scene scene = sceneManager.createScenePresentation();
+                sceneManager.switchScene(scene);
+            });
+
+            contextMenu.getItems().addAll(profil, message, deconnexion);
+
+            userButton.setOnMouseClicked(e -> {
+                contextMenu.show(userButton, e.getScreenX() - userButton.getHeight(), e.getScreenY() + userButton.getHeight());
+            });
+        }
 
 
         getStyleClass().add("search-bar");
