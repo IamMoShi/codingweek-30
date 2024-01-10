@@ -1,6 +1,7 @@
 package eu.telecomnancy.codinglate;
 
 import eu.telecomnancy.codinglate.UI.CustomListCell;
+import eu.telecomnancy.codinglate.UI.CustomTextField;
 import eu.telecomnancy.codinglate.UI.SearchBar;
 import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
 import eu.telecomnancy.codinglate.database.dataObject.message.Message;
@@ -21,7 +22,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.awt.*;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -89,7 +90,7 @@ public class SceneManager {
         BorderPane root = new BorderPane();
         // Mise en page de la scène
         VBox layout = new VBox(10);
-        layout.setPadding(new Insets(10));
+        layout.setPadding(new Insets(0));
         layout.getChildren().add(searchBar);
 
         TilePane filtersPane = new TilePane();
@@ -98,31 +99,36 @@ public class SceneManager {
         filtersPane.setVgap(10);
 
         // Ajouter ComboBox pour la sélection du produit
-        productComboBox = new ComboBox<>();
+        ComboBox<String> productComboBox = new ComboBox<>();
         productComboBox.getItems().addAll("Produit", "Service");
-        productComboBox.setValue("Produit");
-        productComboBox.setOnAction(event -> handleProductSelection(productComboBox.getValue()));
+
+
 
         // Initialiser les ComboBox spécifiques au produit
-        categoryComboBox = new ComboBox<>();
-        brandComboBox = new ComboBox<>();
-        modelComboBox = new ComboBox<>();
-        conditionComboBox = new ComboBox<>();
-        conditionComboBox.getItems().addAll("Neuf", "Occasion");
-        conditionComboBox.setValue("Neuf");
-        yearComboBox = new ComboBox<>();
+        ComboBox<String> categoryComboBox = new ComboBox<>();
+        categoryComboBox.getItems().addAll("Auto","Jardin","Maison","Multimedia","Sport","Autre");
+        CustomTextField brandComboBox = new CustomTextField("Marque");
+        CustomTextField modelComboBox = new CustomTextField("Modèle");
+        ComboBox<String> conditionComboBox = new ComboBox<>();
+        conditionComboBox.getItems().addAll("Neuf", "Bon","Reconditionné","Utilisé");
+        CustomTextField yearComboBox = new CustomTextField("Année");
+
+
 
         // Ajouter des labels pour chaque ComboBox
         filtersPane.getChildren().addAll(
                 new Label("Type de produit:"), productComboBox,
                 new Label("Catégorie:"), categoryComboBox,
-                new Label("Marque:"), brandComboBox,
-                new Label("Modèle:"), modelComboBox,
+                brandComboBox, modelComboBox,
                 new Label("Condition:"), conditionComboBox,
-                new Label("Année:"), yearComboBox
+                 yearComboBox
         );
 
         layout.getChildren().add(filtersPane);
+
+        productComboBox.setOnAction(event -> {
+            handleProductSelection(productComboBox.getValue(),categoryComboBox,brandComboBox,modelComboBox,conditionComboBox,yearComboBox);
+        });
         root.setTop(layout);
 
         TilePane tilePane = new TilePane();
@@ -131,9 +137,7 @@ public class SceneManager {
         tilePane.setHgap(10);
         tilePane.setVgap(10);
 
-        for (int i = 0; i < 10; i++) {
-            tilePane.getChildren().add(createArticleTile());
-        }
+
 
         // Créer un ScrollPane et y ajouter la TilePane
         ScrollPane scrollPane = new ScrollPane(tilePane);
@@ -144,10 +148,15 @@ public class SceneManager {
 
         Scene scene = new Scene(root, 1000, 600);
         // Ajoutez vos stylesheets ici
+        scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
+
+
+        // Retourner les ComboBox dans un objet Filtres
         return scene;
     }
 
     private ImageView createArticleTile() {
+
         Image image = new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/picture/sharingeconomy.jpg"));
         ImageView imageView = new ImageView(image);
         imageView.setPreserveRatio(true);
@@ -157,9 +166,9 @@ public class SceneManager {
         return imageView;
     }
 
-    private void handleProductSelection(String selectedProduct, ) {
+    private void handleProductSelection(String selectedProduct, ComboBox<String> categoryComboBox, CustomTextField brandComboBox,
+                                        CustomTextField modelComboBox, ComboBox<String> conditionComboBox, CustomTextField yearComboBox) {
         // Logique pour gérer la sélection du type de produit (produit ou service)
-
         if ("Produit".equals(selectedProduct)) {
             // Afficher les ComboBox et labels spécifiques au produit
             categoryComboBox.setVisible(true);
@@ -177,7 +186,8 @@ public class SceneManager {
         }
         // Vous devrez ajouter une logique similaire pour gérer la sélection d'autres ComboBox
     }
-}
+
+
 
 
     public Scene createSceneProfil() {
