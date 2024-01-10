@@ -39,9 +39,10 @@ public class MessagingList {
 
     private void handleListViewClick(MouseEvent event) {
         String selectedUser = UserYouHadAConversationWith.getSelectionModel().getSelectedItem();
-        int index = UserYouHadAConversationWith.getEditingIndex();
+        int index = UserYouHadAConversationWith.getSelectionModel().getSelectedIndex();
+
         if (selectedUser != null) {
-            MessageField messageField = new MessageField(MessageUserWithSelectedUserFromUserList, index);
+            MessageField messageField = new MessageField(MessageUserWithSelectedUserFromUserList, index, selectedUser);
             borderPane.setCenter(messageField.getBorderPane());
         }
     }

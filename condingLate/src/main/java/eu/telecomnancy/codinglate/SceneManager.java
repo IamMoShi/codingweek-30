@@ -331,11 +331,8 @@ public class SceneManager {
 
     public Scene createMessageScene() {
 
-
-
         //récupérer l'utilisateur courant
-        PersonController personController=new PersonController();
-        Person currentuser = personController.getCurrentUser();
+        Person currentuser = PersonController.getInstance().getCurrentUser();
 
         //faire la liste de toutes les conversations de l'utilisateur courant
         MessageController messageController = new MessageController();
@@ -343,20 +340,22 @@ public class SceneManager {
 
         ListView<String> UserYouHadAConversationWith = new ListView<>();
         UserYouHadAConversationWith = messageController.getListofFriends();
-        //UserYouHadAConversationWith.setCellFactory(param -> new CustomListCell());
+        UserYouHadAConversationWith.setCellFactory(param -> new CustomListCell());
 
         //récupérer toutes les personnes ayant une conversation avec l'utilisateur courant
         List<Person> persons = new ArrayList<>();
         persons = messageController.getFriends();
 
-        for(Person person : persons){
 
+
+        for(Person person : persons){
+            //System.out.print(person.getFirstname());
             List<Message> conversation = new ArrayList<>();
             conversation = messageController.getConversation(currentuser.getEmail(),person.getEmail());
+
             MessageUserWithSelectedUserFromUserList.add(conversation);
 
         }
-
 
 
         //Message message3 = new Message(0, null, null, "Bonjour", LocalDate.of(2021, 1, 1));
@@ -381,7 +380,6 @@ public class SceneManager {
         FormButton newConv = new FormButton("NewConvo","Nouvelle Conversation");
         newConv.initializeButton();
         root.setRight(newConv);
-
 
         newConv.setOnAction(event -> {
                     Stage stage = (Stage) this.primaryStage;

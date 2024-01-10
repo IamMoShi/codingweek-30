@@ -32,6 +32,7 @@ public class LoginCreator extends HBox{
     }
 
     private VBox createFormPane() {
+
         VBox vbox = new VBox();
         vbox.setSpacing(10);
         vbox.setAlignment(Pos.CENTER);
