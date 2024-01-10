@@ -33,12 +33,14 @@ public class SearchBar extends HBox {
 
         searchField.setPromptText("Entrer votre recherche");
         searchField.setPrefWidth(200);
-        searchField.setPrefHeight(30);
-        searchField.setMinHeight(30);
+        searchField.setPrefHeight(40);
+        searchField.setMinHeight(40);
         searchField.setMinWidth(200);
         searchField.setMaxHeight(30);
         searchField.setMaxWidth(200);
         searchField.getStyleClass().add("search-field");
+
+        searchField.setStyle("-fx-background-radius: 20; -fx-border-radius: 20;  -fx-font-size: 16px;");
 
         getChildren().add(searchField);
         searchField.setOnMouseClicked(e -> {
@@ -48,12 +50,6 @@ public class SearchBar extends HBox {
             return ;
         });
 
-        Image searchIcon = new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/icon/search.png")    );
-        assert searchIcon != null;
-        ImageView searchIconView = new ImageView(searchIcon);
-        searchIconView.setFitHeight(30);
-        searchIconView.setFitWidth(30);
-        getChildren().add(searchIconView);
 
 
         Region spacer2 = new Region();
