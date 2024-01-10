@@ -1,44 +1,47 @@
+
 package eu.telecomnancy.codinglate;
 
-import eu.telecomnancy.codinglate.UI.IconButton;
+import eu.telecomnancy.codinglate.UI.FormButton;
 import eu.telecomnancy.codinglate.database.dataObject.message.Message;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 
 import java.util.List;
 
 public class MessagingList {
 
-    private ListView<Message> lastMessageWithUserListView;
+    private ListView<String> UserYouHadAConversationWith;
 
-    private List<Message> MessageUserWithSelectedUserFromUserList;
+    private List<List<Message>> MessageUserWithSelectedUserFromUserList;
     private BorderPane borderPane;
 
-    public MessagingList(ListView<Message> lastMessageWithUserListView, List<Message> MessageUserWithSelectedUserFromUserList) {
-        this.lastMessageWithUserListView = lastMessageWithUserListView;
+    public MessagingList(List<List<Message>> MessageUserWithSelectedUserFromUserList, ListView<String> UserYouHadAConversationWith) {
+
         this.MessageUserWithSelectedUserFromUserList = MessageUserWithSelectedUserFromUserList;
 
-
+        this.UserYouHadAConversationWith=UserYouHadAConversationWith;
 
         this.borderPane = new BorderPane();
 
         // Enregistrez le gestionnaire d'événements pour les clics sur la ListView
-        lastMessageWithUserListView.setOnMouseClicked(this::handleListViewClick);
+        UserYouHadAConversationWith.setOnMouseClicked(this::handleListViewClick);
 
 
 
-        borderPane.setLeft(lastMessageWithUserListView);
+        borderPane.setLeft(UserYouHadAConversationWith);
+
+
 
 
     }
 
     private void handleListViewClick(MouseEvent event) {
-        Message selectedMessage = lastMessageWithUserListView.getSelectionModel().getSelectedItem();
-        if (selectedMessage != null) {
-            MessageField messageField = new MessageField(MessageUserWithSelectedUserFromUserList);
+        String selectedUser = UserYouHadAConversationWith.getSelectionModel().getSelectedItem();
+        int index = UserYouHadAConversationWith.getEditingIndex();
+        if (selectedUser != null) {
+            MessageField messageField = new MessageField(MessageUserWithSelectedUserFromUserList, index);
             borderPane.setCenter(messageField.getBorderPane());
         }
     }
