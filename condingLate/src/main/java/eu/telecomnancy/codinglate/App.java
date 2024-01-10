@@ -30,7 +30,7 @@ public class App extends Application {
         }
         PersonController.getInstance().setCurrentUser(user);
 
-        Scene scene = sceneManager.createSceneMyBookings();
+        Scene scene = sceneManager.createSceneDisplayProduct();
         sceneManager.switchScene(scene);
 
 
