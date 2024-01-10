@@ -5,7 +5,7 @@ import eu.telecomnancy.codinglate.database.dataObject.StringControlled;
 import eu.telecomnancy.codinglate.database.dataObject.enums.PriceType;
 import eu.telecomnancy.codinglate.database.dataObject.user.User;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 
@@ -16,12 +16,12 @@ public abstract class Offer extends DataObject {
     private String description;
     private double price;
     private PriceType priceType;
-    private LocalDate startingDate;
-    private LocalDate endingDate;
+    private LocalDateTime startingDate;
+    private LocalDateTime endingDate;
 
     private ArrayList<String> images;
 
-    public Offer(int id, User user, String title, String description, double price, PriceType priceType, LocalDate startingDate, LocalDate endingDate, ArrayList<String> images) {
+    public Offer(int id, User user, String title, String description, double price, PriceType priceType, LocalDateTime startingDate, LocalDateTime endingDate, ArrayList<String> images) {
         setId(id);
         setUser(user);
         setTitle(title);
@@ -59,11 +59,11 @@ public abstract class Offer extends DataObject {
         return priceType;
     }
 
-    public LocalDate getStartingDate() {
+    public LocalDateTime getStartingDate() {
         return startingDate;
     }
 
-    public LocalDate getEndingDate() {
+    public LocalDateTime getEndingDate() {
         return endingDate;
     }
 
@@ -97,11 +97,11 @@ public abstract class Offer extends DataObject {
         this.priceType = priceType;
     }
 
-    public void setStartingDate(LocalDate startingDate) {
+    public void setStartingDate(LocalDateTime startingDate) {
         this.startingDate = startingDate;
     }
 
-    public void setEndingDate(LocalDate endingDate) {
+    public void setEndingDate(LocalDateTime endingDate) {
         this.endingDate = endingDate;
     }
 

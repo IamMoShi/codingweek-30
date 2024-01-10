@@ -12,6 +12,7 @@ import eu.telecomnancy.codinglate.database.dataObject.offer.Offer;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Product;
 import eu.telecomnancy.codinglate.database.dataObject.user.Person;
 import eu.telecomnancy.codinglate.database.dataObject.user.User;
+import eu.telecomnancy.codinglate.UI.SearchContent;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ComboBox;
@@ -29,7 +30,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -341,8 +342,8 @@ public class SceneManager {
 
         //POur avoir un exemple de listMessage
         List<Message> MessageUserWithSelectedUserFromUserList = new ArrayList<>();
-        Message message3 = new Message(0, null, null, "Bonjour", LocalDate.of(2021, 1, 1));
-        Message message4 = new Message(0, null, null, "Bonjourno", LocalDate.of(2021, 1, 2));
+        Message message3 = new Message(0, null, null, "Bonjour", LocalDateTime.of(2021, 1, 1, 0, 0));
+        Message message4 = new Message(0, null, null, "Bonjourno", LocalDateTime.of(2021, 1, 2, 0, 0));
 
         MessageUserWithSelectedUserFromUserList.add(message3);
         MessageUserWithSelectedUserFromUserList.add(message4);
@@ -479,7 +480,7 @@ public class SceneManager {
         layout.getChildren().add(searchBar);
 
         root.setTop(layout);
-
+        root.setCenter(new SearchContent());
         Scene scene = new Scene(root, 1000, 600);
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
         return scene;
@@ -535,7 +536,7 @@ public class SceneManager {
 
 
         submitButton.setOnAction(event -> {
-            Booking booking = new Booking(offer, (User)PersonController.getInstance().getCurrentUser(), LocalDate.now(), LocalDate.now());
+            Booking booking = new Booking(offer, (User)PersonController.getInstance().getCurrentUser(), LocalDateTime.now(), LocalDateTime.now());
             BookingDAO bookingDAO = new BookingDAO();
             bookingDAO.insert(booking);
 

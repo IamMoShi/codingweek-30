@@ -21,7 +21,8 @@ public class App extends Application {
 
         this.sceneManager = new SceneManager(stage);
 
-
+        Scene scene = sceneManager.createScenePresentation();
+        sceneManager.switchScene(scene);
 
         User user =(User) PersonController.getInstance().getPersonByEmail("neyenselise@gmail.com");
         if (user == null){
@@ -29,9 +30,6 @@ public class App extends Application {
             PersonController.getInstance().insert(user);
         }
         PersonController.getInstance().setCurrentUser(user);
-
-        Scene scene = sceneManager.createSceneDisplayProduct();
-        sceneManager.switchScene(scene);
 
 
     }

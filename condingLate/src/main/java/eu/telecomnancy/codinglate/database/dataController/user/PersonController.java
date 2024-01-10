@@ -307,8 +307,7 @@ public class PersonController {
                 String phone = rs.getString("phone");
                 float balance = rs.getFloat("balance");
                 int adminValue = rs.getInt("admin");
-
-                Address address = null; // Vous devez obtenir l'adresse à partir de la base de données si nécessaire
+                Address address = new AddressController().getAddressById(rs.getInt("address"));
 
                 if (adminValue == 1) {
                     // L'utilisateur est un administrateur

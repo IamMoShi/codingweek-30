@@ -38,6 +38,12 @@ public class SearchBar extends HBox {
         searchField.getStyleClass().add("search-field");
 
         getChildren().add(searchField);
+        searchField.setOnMouseClicked(e -> {
+            SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
+            Scene scene = sceneManager.createSceneSearch();
+            sceneManager.switchScene(scene);
+            return ;
+        });
 
         Image searchIcon = new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/icon/search.png")    );
         assert searchIcon != null;
