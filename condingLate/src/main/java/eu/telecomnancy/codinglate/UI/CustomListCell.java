@@ -10,6 +10,8 @@ public class CustomListCell extends ListCell<Message>{
     @Override
     protected void updateItem(Message item, boolean empty) {
         super.updateItem(item, empty);
+        setPrefWidth(400);
+        setPrefHeight(45);
         if(item==null || empty){
             setText(null);
             HBox customLayout = new HBox();
