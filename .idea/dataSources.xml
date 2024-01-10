@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="CodingWeekDatabase" uuid="6d9bab96-d690-4820-b965-36239ab0b525">
+    <data-source source="LOCAL" name="CodingWeekDatabase" uuid="935e40b7-93c9-4191-a7b1-3383ca5d8b30">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:C:\Users\neyen\Documents\Pro\TN2A\CodingWeek_3\codingweek-30\condingLate\CodingWeekDatabase.db</jdbc-url>
+      <jdbc-additional-properties>
+        <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
+      </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
       <libraries>
         <library>

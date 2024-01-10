@@ -18,12 +18,15 @@ public class SearchBar extends HBox {
 
     public SearchBar() {
 
-        Image logo = new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/icon/logo_hands.png")    );
-        assert logo != null;
-        ImageView logoView = new ImageView(logo);
-        logoView.setFitHeight(40);
-        logoView.setFitWidth(40);
-        getChildren().add(logoView);
+
+        IconButton logoButton = new IconButton("logoButton", "" ,"/eu/telecomnancy/codinglate/icon/logo_hands.png");
+        logoButton.initializeButton();
+        getChildren().add(logoButton);
+        logoButton.setOnMouseClicked(e -> {
+            SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
+            Scene scene = sceneManager.createScenePresentation();
+            sceneManager.switchScene(scene);
+        });
 
 
         searchField = new TextField();
