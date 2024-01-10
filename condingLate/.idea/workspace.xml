@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="Changement de LocalDate vers LocalDateTime">
+    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="Oublie de changement dans BookingDAO">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/offer/BookingDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/offer/BookingDAO.java" afterDir="false" />
     </list>
@@ -293,7 +293,7 @@
       <workItem from="1704791960968" duration="16061000" />
       <workItem from="1704824792349" duration="10552000" />
       <workItem from="1704899052136" duration="115000" />
-      <workItem from="1704899182046" duration="1455000" />
+      <workItem from="1704899182046" duration="2520000" />
     </task>
     <task id="LOCAL-00001" summary="Base app">
       <option name="closed" value="true" />
@@ -527,7 +527,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704899848640</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="Oublie de changement dans BookingDAO">
+      <option name="closed" value="true" />
+      <created>1704901195358</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1704901195358</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -546,7 +554,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="begin UML diagrams" />
     <MESSAGE value="dataclasses implementation without setter and getters" />
     <MESSAGE value="Start implementing constructor, setters and getters for classes of data" />
     <MESSAGE value="implementing constructor, setters and getters for classes of data" />
@@ -571,6 +578,7 @@
     <MESSAGE value="Ajout de la méthode getOfferByParameters" />
     <MESSAGE value="Création de la page de recherche" />
     <MESSAGE value="Changement de LocalDate vers LocalDateTime" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changement de LocalDate vers LocalDateTime" />
+    <MESSAGE value="Oublie de changement dans BookingDAO" />
+    <option name="LAST_COMMIT_MESSAGE" value="Oublie de changement dans BookingDAO" />
   </component>
 </project>
