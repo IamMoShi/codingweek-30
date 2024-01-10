@@ -6,6 +6,7 @@ import eu.telecomnancy.codinglate.database.dataObject.enums.PriceType;
 import eu.telecomnancy.codinglate.database.dataObject.user.User;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 
 public abstract class Offer extends DataObject {
@@ -18,7 +19,9 @@ public abstract class Offer extends DataObject {
     private LocalDate startingDate;
     private LocalDate endingDate;
 
-    public Offer(int id, User user, String title, String description, double price, PriceType priceType, LocalDate startingDate, LocalDate endingDate) {
+    private ArrayList<String> images;
+
+    public Offer(int id, User user, String title, String description, double price, PriceType priceType, LocalDate startingDate, LocalDate endingDate, ArrayList<String> images) {
         setId(id);
         setUser(user);
         setTitle(title);
@@ -27,6 +30,7 @@ public abstract class Offer extends DataObject {
         setPriceType(priceType);
         setStartingDate(startingDate);
         setEndingDate(endingDate);
+        setImages(images);
     }
 
     // Getters ------------------------------------------------------------------------------------
@@ -63,6 +67,10 @@ public abstract class Offer extends DataObject {
         return endingDate;
     }
 
+    public ArrayList<String> getImages() {
+        return images;
+    }
+
     // Setters ------------------------------------------------------------------------------------
 
     public void setId(int id) {
@@ -95,6 +103,10 @@ public abstract class Offer extends DataObject {
 
     public void setEndingDate(LocalDate endingDate) {
         this.endingDate = endingDate;
+    }
+
+    public void setImages(ArrayList<String> images) {
+        this.images = images;
     }
 
 }

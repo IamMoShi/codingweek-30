@@ -1,5 +1,20 @@
 # CODING WEEK 2024
 
+## Pour lancer l'app 
+
+### Gradle
+
+Dans le dossier condingLate lancer la commande ./gradlew run
+
+### Intellij
+
+Lancer la classe Main.java
+
+### A partir du jar
+
+Un jar est disponible chaque jour à la source du projet.
+
+---
 ## Points importants 
 
 
@@ -16,7 +31,7 @@
 - Système de recherche (par catégorie, par nom)
 - Système de notation
 
-
+---
 ## Apps similaires
 
 - Leboncoin
@@ -29,25 +44,63 @@
 - FormsFX
 - ValidatorFX
 
+---
+
 ## Membres du groupe
 
 - Fondrat Julie
 - Fornoff Léo
 - Neyens Elise
 
+---
 
+---
 ## Roadmap 08/01/2024
 
-### 08 janvier
+### Avancement par jour
 
-- Lancement du projet
-- Creation du repo
-- Creation du README.md
+#### Premier jour
+- Création du repo
+- Création du README.md
 - Choix du design de l'UI
 - Création de la base de données
-- Création des pages de connexion et d'inscription
-- Création de la page d'accueil
+- Création des premières pages de l'app (static)
+- Création des premières classes de données
 
+#### Deuxième jour
+
+- Création des pages de connexion, d'inscription et de profil
+- Création des premières méthodes de la DAO
+- Amélioration de la base de données
+- Front de la messagerie
+- Début de la création des formulaires de produits et services
+
+#### Troisième jour
+
+- Création des formulaires d'ajout de produits et de services
+- Mise en service de la messagerie
+- Affichage des produits et services sur la page 
+- Ajout de photo pour les produits et services
+- Création des formulaires de notation
+- Mise en service de la barre de recherche
+- Mise en service de la géolocalisation
+
+#### Quatrième jour
+
+- Mise en service du système de réservation
+- Mise en place des calendriers
+- Gestion de la partie administrateur du site
+- Débugage de l'app
+
+#### Cinquième jour
+
+- Jour tampon pour finir les tâches non terminées
+- Finition de l'app
+- Vidéo de présentation
+
+---
+
+---
 
 ## DAY 1 (Lundi 08 janvier 2024)
 
@@ -83,6 +136,21 @@
 - Continuer d'implémenter la DAO et de la tester
 
 
+### Tâches réalisées
+
+
+- Création des pages de connexion, d'inscription et de profil
+- Création des premières méthodes de la DAO
+- Amélioration de la base de données
+- Front de la messagerie
+- Début de la création des formulaires de produits et services
+
+
+### Difficultés rencontrées
+
+- Corrections de bugs sur la DAO
+- Problèmes avec les images qui ne s'affichent pas sur l'app quand on lance gradle run
+- Problèmes de suppression des utilisateurs dans la base de données lorsqu'ils ont encore des produits et des services.
 
 
 

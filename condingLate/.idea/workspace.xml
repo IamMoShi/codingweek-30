@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="Correction ajout utilisateur avec adresses, modification de la table user pour ajouter le champ address">
+    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="Insertion d'images dans la base de données">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodingWeekDatabase.db" beforeDir="false" afterPath="$PROJECT_DIR$/CodingWeekDatabase.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/ProductCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/ProductCreator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/offer/ImageOfferDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/offer/ImageOfferDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/Offer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/Offer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/Service.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,7 +141,7 @@
       <recent name="C:\Users\moshi\Documents\projets\codingLate\codingweek-30\condingLate\src\main\java\eu\telecomnancy\codinglate\database\dataObject\enums" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.App">
+  <component name="RunManager" selected="Gradle.condingLate [run]">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="eu.telecomnancy.codinglate.App" />
       <module name="codingLate.main" />
@@ -153,30 +154,6 @@
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
-    </configuration>
-    <configuration name="DataObject.address" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;eu.telecomnancy.codinglate.database.DataObject.address&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
     </configuration>
     <configuration name="DataObject.user" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
@@ -250,6 +227,28 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
+    <configuration name="condingLate [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="jar" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration name="condingLate [run]" type="GradleRunConfiguration" factoryName="Gradle" nameIsGenerated="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -275,18 +274,18 @@
     <list>
       <item itemvalue="Application.App" />
       <item itemvalue="Gradle.condingLate [run]" />
-      <item itemvalue="Gradle.DataObject.address" />
+      <item itemvalue="Gradle.condingLate [jar]" />
       <item itemvalue="Gradle.DataObject.user" />
       <item itemvalue="Gradle.RatingDAOTest" />
       <item itemvalue="Gradle.RatingDAOTest.testInsert" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.condingLate [jar]" />
         <item itemvalue="Gradle.RatingDAOTest" />
         <item itemvalue="Application.App" />
         <item itemvalue="Gradle.RatingDAOTest.testInsert" />
         <item itemvalue="Gradle.DataObject.user" />
-        <item itemvalue="Gradle.DataObject.address" />
       </list>
     </recent_temporary>
   </component>
@@ -307,6 +306,7 @@
       <updated>1704698704827</updated>
       <workItem from="1704698705755" duration="21649000" />
       <workItem from="1704791960968" duration="16061000" />
+      <workItem from="1704824792349" duration="4368000" />
     </task>
     <task id="LOCAL-00001" summary="Base app">
       <option name="closed" value="true" />
@@ -452,7 +452,63 @@
       <option name="project" value="LOCAL" />
       <updated>1704813348638</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="La page d'ajout des services est en bonne voie de fonctionnement">
+      <option name="closed" value="true" />
+      <created>1704818529290</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1704818529290</updated>
+    </task>
+    <task id="LOCAL-00020" summary="La page d'ajout des services est en bonne voie de fonctionnement">
+      <option name="closed" value="true" />
+      <created>1704825616044</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1704825616044</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Ajout du jar du jour">
+      <option name="closed" value="true" />
+      <created>1704825706225</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1704825706225</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Avec un nom correct c'est mieux. Précision dans le README.md">
+      <option name="closed" value="true" />
+      <created>1704826009161</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1704826009161</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Avec un nom correct c'est mieux. Précision dans le README.md">
+      <option name="closed" value="true" />
+      <created>1704826236087</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1704826236087</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Ajout des images pour les services, début de l'implémentation de la DAO pour les images d'offres">
+      <option name="closed" value="true" />
+      <created>1704876291846</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1704876291846</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Insertion d'images dans la base de données">
+      <option name="closed" value="true" />
+      <created>1704877094779</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1704877094779</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -489,6 +545,11 @@
     <MESSAGE value="implementation de GetProductsByName" />
     <MESSAGE value="insertion de booking avec BookingDAO" />
     <MESSAGE value="Correction ajout utilisateur avec adresses, modification de la table user pour ajouter le champ address" />
-    <option name="LAST_COMMIT_MESSAGE" value="Correction ajout utilisateur avec adresses, modification de la table user pour ajouter le champ address" />
+    <MESSAGE value="La page d'ajout des services est en bonne voie de fonctionnement" />
+    <MESSAGE value="Ajout du jar du jour" />
+    <MESSAGE value="Avec un nom correct c'est mieux. Précision dans le README.md" />
+    <MESSAGE value="Ajout des images pour les services, début de l'implémentation de la DAO pour les images d'offres" />
+    <MESSAGE value="Insertion d'images dans la base de données" />
+    <option name="LAST_COMMIT_MESSAGE" value="Insertion d'images dans la base de données" />
   </component>
 </project>

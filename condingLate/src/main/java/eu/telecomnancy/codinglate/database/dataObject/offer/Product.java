@@ -18,7 +18,6 @@ public class Product extends Offer {
     private String model;
     private int year;
     private ProductCondition condition;
-    private ArrayList<ProductImage> images;
 
     public Product(int id,
                    User user,
@@ -33,8 +32,8 @@ public class Product extends Offer {
                    String model,
                    int year,
                    ProductCondition condition,
-                   ArrayList<ProductImage> images) {
-        super(id, user, title, description, price, priceType, startingDate, endingDate);
+                   ArrayList<String> images) {
+        super(id, user, title, description, price, priceType, startingDate, endingDate, images);
         this.category = category;
         setBrand(brand);
         setModel(model);
@@ -44,7 +43,7 @@ public class Product extends Offer {
     }
 
     public Product(User user, String title, double price, PriceType priceType) {
-        super(-1, user, title, "", price, priceType, null, null);
+        super(-1, user, title, "", price, priceType, null, null, new ArrayList<>());
         setCategory(ProductCategory.OTHER);
         setBrand("");
         setModel("");
@@ -75,9 +74,6 @@ public class Product extends Offer {
         return condition;
     }
 
-    public ArrayList<ProductImage> getImages() {
-        return images;
-    }
 
     // Setters ------------------------------------------------------------------------------------
 
@@ -101,8 +97,6 @@ public class Product extends Offer {
         this.condition = condition;
     }
 
-    public void setImages(ArrayList<ProductImage> images) {
-        this.images = images;
-    }
+
 
 }

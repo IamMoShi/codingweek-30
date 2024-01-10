@@ -162,7 +162,9 @@ public class DataObject {
                 12.2,
                 PriceType.EURO_PER_DAY,
                 LocalDate.of(2023, 12, 24),
-                LocalDate.of(2024, 1, 1));
+                LocalDate.of(2024, 1, 1),
+                new ArrayList<>()
+        );
 
         assertEquals(12, service1.getId());
         assertEquals(user, service1.getUser());
