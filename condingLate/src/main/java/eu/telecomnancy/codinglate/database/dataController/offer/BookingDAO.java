@@ -8,7 +8,7 @@ import eu.telecomnancy.codinglate.database.dataObject.offer.Offer;
 import eu.telecomnancy.codinglate.database.dataObject.user.User;
 
 import java.sql.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class BookingDAO {
@@ -63,10 +63,10 @@ public class BookingDAO {
             Offer offer = new OfferController().getOfferById(offerId);
             int userId = rs.getInt("user");
             User user = (User) new PersonController().getPersonById(userId);
-            LocalDate startingDate = null;
-            if (rs.getObject("startingDate") != null) startingDate = rs.getObject("startingDate", LocalDate.class);
-            LocalDate endingDate = null;
-            if (rs.getObject("endingDate") != null) endingDate = rs.getObject("endingDate", LocalDate.class);
+            LocalDateTime startingDate = null;
+            if (rs.getObject("startingDate") != null) startingDate = rs.getObject("startingDate", LocalDateTime.class);
+            LocalDateTime endingDate = null;
+            if (rs.getObject("endingDate") != null) endingDate = rs.getObject("endingDate", LocalDateTime.class);
             BookingStatus status = BookingStatus.values()[rs.getInt("status")];
             booking = new Booking(id, offer, user, startingDate, endingDate, status);
         } catch (SQLException e) {
