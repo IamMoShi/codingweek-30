@@ -10,6 +10,8 @@ import eu.telecomnancy.codinglate.database.dataObject.offer.Product;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Service;
 import eu.telecomnancy.codinglate.database.dataObject.user.Person;
 import eu.telecomnancy.codinglate.database.dataObject.user.User;
+import eu.telecomnancy.codinglate.geolocation.Coordinates;
+import eu.telecomnancy.codinglate.geolocation.Geolocation;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -444,4 +446,33 @@ public class OfferController {
         return offers;
     }
 
+
+    public ArrayList<Offer> checkDistance(ArrayList<Offer> offers, Person person, int distance) {
+        if (person == null || person.getAddress() == null) {
+            System.out.println("L'utilisateur doit avoir une adresse pour vérifier la distance.");
+            return new ArrayList<>();
+        }
+
+        if (distance <= 0) {
+            System.out.println("La distance doit être supérieure à 0.");
+            return offers;
+        }
+
+
+        ArrayList<Offer> offersInRange = new ArrayList<>();
+
+        for (Offer offer : offers) {
+            if (offer.getUser() == null || offer.getUser().getAddress() == null) {
+                System.out.println("L'offre doit avoir une adresse pour vérifier la distance.");
+                continue;
+            } else {
+
+                if (Geolocation.getDistance(person, offer) <= distance) {
+                    offersInRange.add(offer);
+                }
+            }
+
+        }
+        return offersInRange;
+    }
 }

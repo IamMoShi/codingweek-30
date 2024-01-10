@@ -12,6 +12,7 @@ import eu.telecomnancy.codinglate.database.dataObject.offer.Offer;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Product;
 import eu.telecomnancy.codinglate.database.dataObject.user.Person;
 import eu.telecomnancy.codinglate.database.dataObject.user.User;
+import eu.telecomnancy.codinglate.UI.SearchContent;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ComboBox;
@@ -477,7 +478,7 @@ public class SceneManager {
         layout.getChildren().add(searchBar);
 
         root.setTop(layout);
-
+        root.setCenter(new SearchContent());
         Scene scene = new Scene(root, 1000, 600);
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
         return scene;
