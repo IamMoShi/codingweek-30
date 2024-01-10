@@ -16,6 +16,8 @@ public class App extends Application {
     private SceneManager sceneManager;
     @Override
     public void start(Stage stage) throws IOException {
+
+
         Image appIcon = new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/icon/logo_hands.png"));
         stage.getIcons().add(appIcon);
 
@@ -30,8 +32,6 @@ public class App extends Application {
             PersonController.getInstance().insert(user);
         }
         PersonController.getInstance().setCurrentUser(user);
-
-
     }
 
     public static void main(String[] args) {

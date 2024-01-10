@@ -536,7 +536,7 @@ public class SceneManager {
 
 
         submitButton.setOnAction(event -> {
-            Booking booking = new Booking(offer, (User)PersonController.getInstance().getCurrentUser(), LocalDate.now(), LocalDate.now());
+            Booking booking = new Booking(offer, (User)PersonController.getInstance().getCurrentUser(), LocalDateTime.now(), LocalDateTime.now());
             BookingDAO bookingDAO = new BookingDAO();
             bookingDAO.insert(booking);
 
@@ -580,6 +580,7 @@ public class SceneManager {
         SearchBar searchBar = new SearchBar();
 
         BorderPane root = new BorderPane();
+
         VBox layout = new VBox(10);
         layout.setPadding(new Insets(0));
         layout.getChildren().add(searchBar);
@@ -588,14 +589,24 @@ public class SceneManager {
             User user = (User) PersonController.getInstance().getCurrentUser();
             int userId = user.getId();
             BookingDAO bookingDAO = new BookingDAO();
-            ArrayList<Booking> bookings = bookingDAO.getBookingsByUser(userId);
+            ArrayList<Booking> bookingsByUser = bookingDAO.getBookingsByUser(userId);
+            ArrayList<Booking> offersByUser = getBookingsForCurrentUser();
+
+
+
+            // Ajouter un label pour indiquer que c'est la section des réservations de l'utilisateur
+            Label titleLabel = new Label("Mes Réservations");
+            titleLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+
+            VBox.setMargin(titleLabel, new Insets(20, 0, 0, 30));
+            layout.getChildren().add(titleLabel);
 
             // Créer une liste de réservations
             ListView<String> bookingsListView = new ListView<>();
-            bookingsListView.setPrefHeight(400);
+            bookingsListView.setPrefHeight(200);
 
             // Ajouter les réservations à la liste
-            for (Booking booking : bookings) {
+            for (Booking booking : bookingsByUser) {
                 String bookingInfo = "Offer: " + booking.getOffer().getTitle() +
                         ", Starting Date: " + booking.getStartingDate() +
                         ", Ending Date: " + booking.getEndingDate() +
@@ -603,8 +614,34 @@ public class SceneManager {
                 bookingsListView.getItems().add(bookingInfo);
             }
 
-            // Ajouter la liste de réservations à la mise en page
+            VBox.setMargin(bookingsListView, new Insets(10, 10, 0, 10));
             layout.getChildren().add(bookingsListView);
+
+            Label titleMyreservation = new Label("Réservations sur mes offres");
+            titleMyreservation.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+
+            VBox.setMargin(titleMyreservation, new Insets(20, 0, 0, 30));
+            layout.getChildren().add(titleMyreservation);
+
+
+
+            // Créer une liste de réservations
+            ListView<String> bookingsOnmyOfferListView2 = new ListView<>();
+            bookingsOnmyOfferListView2.setPrefHeight(200);
+
+
+            // Ajouter les réservations à la liste
+            for (Booking booking : offersByUser) {
+                String bookingInfo = "Offer: " + booking.getOffer().getTitle() +
+                        ", Starting Date: " + booking.getStartingDate() +
+                        ", Ending Date: " + booking.getEndingDate() +
+                        ", Status: " + booking.getStatus();
+                bookingsOnmyOfferListView2.getItems().add(bookingInfo);
+            }
+            VBox.setMargin(bookingsOnmyOfferListView2, new Insets(10, 10, 0, 10));
+            layout.getChildren().add(bookingsOnmyOfferListView2);
+            // Ajouter la liste de réservations à la mise en page
+
         }
 
         root.setTop(layout);
@@ -613,6 +650,26 @@ public class SceneManager {
         return scene;
     }
 
+    public ArrayList<Booking> getBookingsForCurrentUser() {
+        BookingDAO bookingDAO = new BookingDAO();
+        ArrayList<Booking> allBookings = bookingDAO.getAllBooking(); // Supposons que vous ayez une méthode getBookings qui renvoie toutes les réservations
+        ArrayList<Booking> userBookings = new ArrayList<>();
+
+        if (PersonController.getInstance().getCurrentUser() != null) {
+            User currentUser = (User) PersonController.getInstance().getCurrentUser();
+            int currentUserId = currentUser.getId();
+
+            for (Booking booking : allBookings) {
+                // Vérifier si l'offre associée à la réservation a un utilisateur d'ID correspondant à l'utilisateur connecté
+                if (booking.getOffer().getUser().getId() == currentUserId) {
+                    userBookings.add(booking);
+                }
+            }
+        }
+
+        return userBookings;
+
+    }
 }
 
 
