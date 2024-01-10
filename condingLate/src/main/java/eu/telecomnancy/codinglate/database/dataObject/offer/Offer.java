@@ -19,9 +19,9 @@ public abstract class Offer extends DataObject {
     private LocalDate startingDate;
     private LocalDate endingDate;
 
-    private ArrayList<ProductImage> images;
+    private ArrayList<String> images;
 
-    public Offer(int id, User user, String title, String description, double price, PriceType priceType, LocalDate startingDate, LocalDate endingDate, ArrayList<ProductImage> images) {
+    public Offer(int id, User user, String title, String description, double price, PriceType priceType, LocalDate startingDate, LocalDate endingDate, ArrayList<String> images) {
         setId(id);
         setUser(user);
         setTitle(title);
@@ -67,7 +67,7 @@ public abstract class Offer extends DataObject {
         return endingDate;
     }
 
-    public ArrayList<ProductImage> getImages() {
+    public ArrayList<String> getImages() {
         return images;
     }
 
@@ -105,7 +105,7 @@ public abstract class Offer extends DataObject {
         this.endingDate = endingDate;
     }
 
-    public void setImages(ArrayList<ProductImage> images) {
+    public void setImages(ArrayList<String> images) {
         this.images = images;
     }
 

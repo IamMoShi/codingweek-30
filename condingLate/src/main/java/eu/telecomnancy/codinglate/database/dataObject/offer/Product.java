@@ -32,7 +32,7 @@ public class Product extends Offer {
                    String model,
                    int year,
                    ProductCondition condition,
-                   ArrayList<ProductImage> images) {
+                   ArrayList<String> images) {
         super(id, user, title, description, price, priceType, startingDate, endingDate, images);
         this.category = category;
         setBrand(brand);

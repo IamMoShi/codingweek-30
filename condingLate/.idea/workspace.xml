@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="Ajout des images pour les services, début de l'implémentation de la DAO pour les images d'offres">
+    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="Insertion d'images dans la base de données">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/offer/ImageOfferDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/offer/ImageOfferDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/Offer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/Offer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/Service.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -304,7 +306,7 @@
       <updated>1704698704827</updated>
       <workItem from="1704698705755" duration="21649000" />
       <workItem from="1704791960968" duration="16061000" />
-      <workItem from="1704824792349" duration="3984000" />
+      <workItem from="1704824792349" duration="4368000" />
     </task>
     <task id="LOCAL-00001" summary="Base app">
       <option name="closed" value="true" />
@@ -498,7 +500,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704876291846</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Insertion d'images dans la base de données">
+      <option name="closed" value="true" />
+      <created>1704877094779</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1704877094779</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -539,6 +549,7 @@
     <MESSAGE value="Ajout du jar du jour" />
     <MESSAGE value="Avec un nom correct c'est mieux. Précision dans le README.md" />
     <MESSAGE value="Ajout des images pour les services, début de l'implémentation de la DAO pour les images d'offres" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ajout des images pour les services, début de l'implémentation de la DAO pour les images d'offres" />
+    <MESSAGE value="Insertion d'images dans la base de données" />
+    <option name="LAST_COMMIT_MESSAGE" value="Insertion d'images dans la base de données" />
   </component>
 </project>

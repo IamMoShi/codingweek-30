@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Service extends Offer {
-    public Service(int id, User user, String title, String description, double price, PriceType priceType, LocalDate startingDate, LocalDate endingDate, ArrayList<ProductImage> images) {
+    public Service(int id, User user, String title, String description, double price, PriceType priceType, LocalDate startingDate, LocalDate endingDate, ArrayList<String> images) {
         super(id, user, title, description, price, priceType, startingDate, endingDate, images);
     }
 
