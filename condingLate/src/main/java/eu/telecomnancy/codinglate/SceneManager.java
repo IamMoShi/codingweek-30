@@ -536,7 +536,7 @@ public class SceneManager {
 
 
         submitButton.setOnAction(event -> {
-            Booking booking = new Booking(offer, (User)PersonController.getInstance().getCurrentUser(), LocalDate.now(), LocalDate.now());
+            Booking booking = new Booking(offer, (User)PersonController.getInstance().getCurrentUser(), LocalDateTime.now(), LocalDateTime.now());
             BookingDAO bookingDAO = new BookingDAO();
             bookingDAO.insert(booking);
 
