@@ -10,7 +10,9 @@ import eu.telecomnancy.codinglate.database.dataObject.user.Address;
 import eu.telecomnancy.codinglate.database.dataObject.user.User;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
+
+
+import java.time.LocalDateTime;
 
 public class BookingDAOTest {
     @Test
@@ -31,7 +33,7 @@ public class BookingDAOTest {
         OfferController offerController = new OfferController();
         offerController.insert(service);
 
-        Booking booking = new Booking(service, user, LocalDate.of(2024, 12, 2), LocalDate.of(2024, 12, 9));
+        Booking booking = new Booking(service, user, LocalDateTime.of(2024, 12, 9, 12, 0), LocalDateTime.of(2024, 12, 2, 12, 0));
         BookingDAO bookingDAO = new BookingDAO();
         bookingDAO.insert(booking);
 

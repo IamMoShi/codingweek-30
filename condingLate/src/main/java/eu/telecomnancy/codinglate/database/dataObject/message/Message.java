@@ -2,7 +2,7 @@ package eu.telecomnancy.codinglate.database.dataObject.message;
 
 import eu.telecomnancy.codinglate.database.dataObject.user.User;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Message {
 
@@ -11,9 +11,9 @@ public class Message {
     private User receiver;
 
     private String message;
-    private LocalDate date;
+    private LocalDateTime date;
 
-    public Message(int id, User sender, User receiver, String message, LocalDate date) {
+    public Message(int id, User sender, User receiver, String message, LocalDateTime date) {
         this.id = id;
         this.sender = sender;
         this.receiver = receiver;
@@ -40,7 +40,7 @@ public class Message {
         return message;
     }
 
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
@@ -62,7 +62,7 @@ public class Message {
         this.message = message;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

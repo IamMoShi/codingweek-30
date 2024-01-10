@@ -15,7 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 
 import java.io.File;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class ServiceCreator {
@@ -122,8 +122,8 @@ public class ServiceCreator {
                 Double price = Double.valueOf(priceText);
                 String priceTypestr = TypePriceBox.getValue();
                 PriceType priceType = setPriceType(priceTypestr);
-                LocalDate StartDate = startDatePicker.getValue();
-                LocalDate EndDate = endDatePicker.getValue();
+                LocalDateTime StartDate = startDatePicker.getValue().atStartOfDay();
+                LocalDateTime EndDate = endDatePicker.getValue().atStartOfDay();
 
                 //if nothing is filled
                 if(title.isBlank() || price.isNaN() ){
@@ -140,12 +140,12 @@ public class ServiceCreator {
                             service.setDescription(description);
                         }
                         //add start date to offer if filled
-                        if(StartDate!= null && !StartDate.isEqual(LocalDate.of(1, 1, 1))){
+                        if(StartDate!= null && !StartDate.isEqual(LocalDateTime.of(1, 1, 1, 0, 0))){
                             service.setStartingDate(StartDate);
                         }
 
                         //add end date to offer if filled and start date is already defined
-                        if(EndDate!= null && !EndDate.isEqual(LocalDate.of(1, 1, 1)) && !StartDate.isEqual(LocalDate.of(1, 1, 1))){
+                        if(EndDate!= null && !EndDate.isEqual(LocalDateTime.of(1, 1, 1, 0, 0)) && !StartDate.isEqual(LocalDateTime.of(1, 1, 1, 0, 0))){
                             service.setEndingDate(EndDate);
                         }
 

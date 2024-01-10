@@ -19,7 +19,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class ProductCreator {
@@ -125,8 +125,8 @@ public class ProductCreator {
             Double price = Double.valueOf(priceField.getText());
             String priceTypestr = TypePriceBox.getValue();
             PriceType priceType = setPriceType(priceTypestr);
-            LocalDate StartDate = startDatePicker.getValue();
-            LocalDate EndDate = endDatePicker.getValue();
+            LocalDateTime StartDate = startDatePicker.getValue().atStartOfDay();
+            LocalDateTime EndDate = endDatePicker.getValue().atStartOfDay();
             String brand = brandField.getText();
             String model = ModelField.getText();
 
@@ -161,12 +161,12 @@ public class ProductCreator {
 
 
                     //add start date to offer if filled
-                    if(StartDate!= null && !StartDate.isEqual(LocalDate.of(1, 1, 1))){
+                    if(StartDate!= null && !StartDate.isEqual(LocalDateTime.of(1, 1, 1, 0, 0))){
                         product.setStartingDate(StartDate);
                     }
 
                     //add end date to offer if filled and start date is already defined
-                    if(EndDate!= null && !EndDate.isEqual(LocalDate.of(1, 1, 1)) && !StartDate.isEqual(LocalDate.of(1, 1, 1))){
+                    if(EndDate!= null && !EndDate.isEqual(LocalDateTime.of(1, 1, 1, 0, 0)) && !StartDate.isEqual(LocalDateTime.of(1, 1, 1, 0, 0))){
                         product.setEndingDate(EndDate);
                     }
 

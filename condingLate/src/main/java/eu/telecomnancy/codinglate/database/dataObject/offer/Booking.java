@@ -4,19 +4,19 @@ import eu.telecomnancy.codinglate.database.dataObject.DataObject;
 import eu.telecomnancy.codinglate.database.dataObject.enums.BookingStatus;
 import eu.telecomnancy.codinglate.database.dataObject.user.User;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Booking extends DataObject {
     private int id;
     private Offer offer;
     private User user;
-    private LocalDate startingDate;
-    private LocalDate endingDate;
+    private LocalDateTime startingDate;
+    private LocalDateTime endingDate;
     private BookingStatus status;
 
     // CONSTRUCTORS -------------------------------------------------------------------------------
 
-    public Booking(int id, Offer offer, User user, LocalDate startingDate, LocalDate endingDate, BookingStatus status) {
+    public Booking(int id, Offer offer, User user, LocalDateTime startingDate, LocalDateTime endingDate, BookingStatus status) {
         setId(id);
         setOffer(offer);
         setUser(user);
@@ -25,7 +25,7 @@ public class Booking extends DataObject {
         setStatus(status);
     }
 
-    public Booking(Offer offer, User user, LocalDate startingDate, LocalDate endingDate) {
+    public Booking(Offer offer, User user, LocalDateTime startingDate, LocalDateTime endingDate) {
         this(-1, offer, user, startingDate, endingDate, BookingStatus.PENDING);
     }
 
@@ -43,11 +43,11 @@ public class Booking extends DataObject {
         return user;
     }
 
-    public LocalDate getStartingDate() {
+    public LocalDateTime getStartingDate() {
         return startingDate;
     }
 
-    public LocalDate getEndingDate() {
+    public LocalDateTime getEndingDate() {
         return endingDate;
     }
 
@@ -69,11 +69,11 @@ public class Booking extends DataObject {
         this.user = user;
     }
 
-    public void setStartingDate(LocalDate startingDate) {
+    public void setStartingDate(LocalDateTime startingDate) {
         this.startingDate = startingDate;
     }
 
-    public void setEndingDate(LocalDate endingDate) {
+    public void setEndingDate(LocalDateTime endingDate) {
         this.endingDate = endingDate;
     }
 

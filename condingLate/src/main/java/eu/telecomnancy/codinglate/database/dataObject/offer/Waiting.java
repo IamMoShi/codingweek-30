@@ -4,20 +4,20 @@ import eu.telecomnancy.codinglate.database.dataObject.DataObject;
 import eu.telecomnancy.codinglate.database.dataObject.enums.WaitingStatus;
 import eu.telecomnancy.codinglate.database.dataObject.user.User;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Waiting extends DataObject {
     private int id;
     private Offer offer;
     private User user;
-    private LocalDate askingDate;
-    private LocalDate startingDate;
-    private LocalDate endingDate;
+    private LocalDateTime askingDate;
+    private LocalDateTime startingDate;
+    private LocalDateTime endingDate;
     private WaitingStatus status;
 
     // CONSTRUCTORS -------------------------------------------------------------------------------
 
-    public Waiting(int id, Offer offer, User user, LocalDate askingDate, LocalDate startingDate, LocalDate endingDate, WaitingStatus status) {
+    public Waiting(int id, Offer offer, User user, LocalDateTime askingDate, LocalDateTime startingDate, LocalDateTime endingDate, WaitingStatus status) {
         setId(id);
         setOffer(offer);
         setUser(user);
@@ -27,7 +27,7 @@ public class Waiting extends DataObject {
         setStatus(status);
     }
 
-    public Waiting(Offer offer, User user, LocalDate askingDate, LocalDate startingDate, LocalDate endingDate) {
+    public Waiting(Offer offer, User user, LocalDateTime askingDate, LocalDateTime startingDate, LocalDateTime endingDate) {
         this(-1, offer, user, askingDate, startingDate, endingDate, WaitingStatus.PENDING);
     }
 
@@ -45,15 +45,15 @@ public class Waiting extends DataObject {
         return user;
     }
 
-    public LocalDate getAskingDate() {
+    public LocalDateTime getAskingDate() {
         return askingDate;
     }
 
-    public LocalDate getStartingDate() {
+    public LocalDateTime getStartingDate() {
         return startingDate;
     }
 
-    public LocalDate getEndingDate() {
+    public LocalDateTime getEndingDate() {
         return endingDate;
     }
 
@@ -75,15 +75,15 @@ public class Waiting extends DataObject {
         this.user = user;
     }
 
-    public void setAskingDate(LocalDate askingDate) {
+    public void setAskingDate(LocalDateTime askingDate) {
         this.askingDate = askingDate;
     }
 
-    public void setStartingDate(LocalDate startingDate) {
+    public void setStartingDate(LocalDateTime startingDate) {
         this.startingDate = startingDate;
     }
 
-    public void setEndingDate(LocalDate endingDate) {
+    public void setEndingDate(LocalDateTime endingDate) {
         this.endingDate = endingDate;
     }
 

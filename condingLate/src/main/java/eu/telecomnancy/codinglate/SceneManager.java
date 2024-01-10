@@ -30,7 +30,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -340,8 +340,8 @@ public class SceneManager {
 
         //POur avoir un exemple de listMessage
         List<Message> MessageUserWithSelectedUserFromUserList = new ArrayList<>();
-        Message message3 = new Message(0, null, null, "Bonjour", LocalDate.of(2021, 1, 1));
-        Message message4 = new Message(0, null, null, "Bonjourno", LocalDate.of(2021, 1, 2));
+        Message message3 = new Message(0, null, null, "Bonjour", LocalDateTime.of(2021, 1, 1, 0, 0));
+        Message message4 = new Message(0, null, null, "Bonjourno", LocalDateTime.of(2021, 1, 2, 0, 0));
 
         MessageUserWithSelectedUserFromUserList.add(message3);
         MessageUserWithSelectedUserFromUserList.add(message4);

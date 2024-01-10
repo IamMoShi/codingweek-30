@@ -8,7 +8,7 @@ import eu.telecomnancy.codinglate.database.dataObject.enums.PriceType;
 import eu.telecomnancy.codinglate.database.dataObject.user.User;
 
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 
@@ -25,8 +25,8 @@ public class Product extends Offer {
                    String description,
                    double price,
                    PriceType priceType,
-                   LocalDate startingDate,
-                   LocalDate endingDate,
+                   LocalDateTime startingDate,
+                   LocalDateTime endingDate,
                    ProductCategory category,
                    String brand,
                    String model,

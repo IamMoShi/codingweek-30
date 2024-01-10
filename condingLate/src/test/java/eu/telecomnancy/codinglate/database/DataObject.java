@@ -13,7 +13,7 @@ import eu.telecomnancy.codinglate.database.dataObject.enums.PriceType;
 
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class DataObject {
@@ -97,8 +97,8 @@ public class DataObject {
                 "Description",
                 12.2,
                 PriceType.EURO_PER_DAY,
-                LocalDate.of(2023, 12, 24),
-                LocalDate.of(2024, 1, 1),
+                LocalDateTime.of(2023, 12, 24, 0, 0),
+                LocalDateTime.of(2024, 1, 1, 0, 0),
                 ProductCategory.OTHER,
                 "Brand",
                 "Model",
@@ -112,8 +112,8 @@ public class DataObject {
         assertEquals("description", product2.getDescription());
         assertEquals(12.2, product2.getPrice());
         assertEquals(PriceType.EURO_PER_DAY, product2.getPriceType());
-        assertEquals(LocalDate.of(2023, 12, 24), product2.getStartingDate());
-        assertEquals(LocalDate.of(2024, 1, 1), product2.getEndingDate());
+        assertEquals(LocalDateTime.of(2023, 12, 24, 0, 0), product2.getStartingDate());
+        assertEquals(LocalDateTime.of(2024, 1, 1, 0, 0), product2.getEndingDate());
         assertEquals(ProductCategory.OTHER, product2.getCategory());
         assertEquals("brand", product2.getBrand());
         assertEquals("model", product2.getModel());
@@ -129,8 +129,8 @@ public class DataObject {
         product2.setDescription("Description2");
         product2.setPrice(13.4);
         product2.setPriceType(PriceType.EURO_PER_HOUR);
-        product2.setStartingDate(LocalDate.of(2023, 12, 25));
-        product2.setEndingDate(LocalDate.of(2024, 1, 2));
+        product2.setStartingDate(LocalDateTime.of(2023, 12, 25, 0, 0));
+        product2.setEndingDate(LocalDateTime.of(2024, 1, 2, 0, 0));
         product2.setCategory(ProductCategory.AUTO);
         product2.setBrand("Brand2");
         product2.setModel("Model2");
@@ -144,8 +144,8 @@ public class DataObject {
         assertEquals("description2", product2.getDescription());
         assertEquals(13.4, product2.getPrice());
         assertEquals(PriceType.EURO_PER_HOUR, product2.getPriceType());
-        assertEquals(LocalDate.of(2023, 12, 25), product2.getStartingDate());
-        assertEquals(LocalDate.of(2024, 1, 2), product2.getEndingDate());
+        assertEquals(LocalDateTime.of(2023, 12, 25, 0, 0), product2.getStartingDate());
+        assertEquals(LocalDateTime.of(2024, 1, 2, 0, 0), product2.getEndingDate());
         assertEquals(ProductCategory.AUTO, product2.getCategory());
         assertEquals("brand2", product2.getBrand());
         assertEquals("model2", product2.getModel());
@@ -161,8 +161,8 @@ public class DataObject {
                 "Description",
                 12.2,
                 PriceType.EURO_PER_DAY,
-                LocalDate.of(2023, 12, 24),
-                LocalDate.of(2024, 1, 1),
+                LocalDateTime.of(2023, 12, 24, 0, 0),
+                LocalDateTime.of(2024, 1, 1, 0, 0),
                 new ArrayList<>()
         );
 
@@ -172,8 +172,8 @@ public class DataObject {
         assertEquals("description", service1.getDescription());
         assertEquals(12.2, service1.getPrice());
         assertEquals(PriceType.EURO_PER_DAY, service1.getPriceType());
-        assertEquals(LocalDate.of(2023, 12, 24), service1.getStartingDate());
-        assertEquals(LocalDate.of(2024, 1, 1), service1.getEndingDate());
+        assertEquals(LocalDateTime.of(2023, 12, 24, 0, 0), service1.getStartingDate());
+        assertEquals(LocalDateTime.of(2024, 1, 1, 0, 0), service1.getEndingDate());
 
         Service service2 = new Service(user, "Service2", 10, PriceType.EURO_PER_WEEK);
 
@@ -192,8 +192,8 @@ public class DataObject {
         service2.setDescription("Description2");
         service2.setPrice(13.4);
         service2.setPriceType(PriceType.EURO_PER_HOUR);
-        service2.setStartingDate(LocalDate.of(2023, 12, 25));
-        service2.setEndingDate(LocalDate.of(2024, 1, 2));
+        service2.setStartingDate(LocalDateTime.of(2023, 12, 25, 0, 0));
+        service2.setEndingDate(LocalDateTime.of(2024, 1, 2, 0, 0));
 
         assertEquals(13, service2.getId());
         assertEquals(user2, service2.getUser());
@@ -201,8 +201,8 @@ public class DataObject {
         assertEquals("description2", service2.getDescription());
         assertEquals(13.4, service2.getPrice());
         assertEquals(PriceType.EURO_PER_HOUR, service2.getPriceType());
-        assertEquals(LocalDate.of(2023, 12, 25), service2.getStartingDate());
-        assertEquals(LocalDate.of(2024, 1, 2), service2.getEndingDate());
+        assertEquals(LocalDateTime.of(2023, 12, 25, 0, 0), service2.getStartingDate());
+        assertEquals(LocalDateTime.of(2024, 1, 2, 0, 0), service2.getEndingDate());
 
 
     }

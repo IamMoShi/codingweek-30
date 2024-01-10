@@ -14,7 +14,7 @@ import eu.telecomnancy.codinglate.geolocation.Coordinates;
 import eu.telecomnancy.codinglate.geolocation.Geolocation;
 
 import java.sql.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class OfferController {
@@ -253,19 +253,19 @@ public class OfferController {
         double price = resultSet.getDouble("price");
         PriceType priceType = PriceType.values()[resultSet.getInt("priceType")];
 
-        LocalDate startingDate = null;
+        LocalDateTime startingDate = null;
         if (resultSet.getObject("startingDate") == null) {
             System.out.println("Starting date is null");
 
         } else {
-            startingDate = resultSet.getObject("startingDate", LocalDate.class);
+            startingDate = resultSet.getObject("startingDate", LocalDateTime.class);
         }
 
-        LocalDate endingDate = null;
+        LocalDateTime endingDate = null;
         if (resultSet.getObject("endingDate") == null) {
             System.out.println("Ending date is null");
         } else {
-            endingDate = resultSet.getObject("endingDate", LocalDate.class);
+            endingDate = resultSet.getObject("endingDate", LocalDateTime.class);
         }
 
         ProductCategory category = ProductCategory.values()[resultSet.getInt("category")];
@@ -304,19 +304,19 @@ public class OfferController {
         double price = resultSet.getDouble("price");
         PriceType priceType = PriceType.values()[resultSet.getInt("priceType")];
 
-        LocalDate startingDate = null;
+        LocalDateTime startingDate = null;
         if (resultSet.getObject("startingDate") == null) {
             System.out.println("Starting date is null");
 
         } else {
-            startingDate = resultSet.getObject("startingDate", LocalDate.class);
+            startingDate = resultSet.getObject("startingDate", LocalDateTime.class);
         }
 
-        LocalDate endingDate = null;
+        LocalDateTime endingDate = null;
         if (resultSet.getObject("endingDate") == null) {
             System.out.println("Ending date is null");
         } else {
-            endingDate = resultSet.getObject("endingDate", LocalDate.class);
+            endingDate = resultSet.getObject("endingDate", LocalDateTime.class);
         }
 
         PersonController userController = new PersonController();

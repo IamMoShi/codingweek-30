@@ -4,14 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="Géolocalisation pour les distances faite avec l'API de google">
-      <change afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/UI/SearchContent.java" afterDir="false" />
+    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="Création de la page de recherche">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/ProductCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/ProductCreator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/SceneManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/SceneManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/UI/SearchBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/UI/SearchBar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/ServiceCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/ServiceCreator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/offer/OfferController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/offer/OfferController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/user/PersonController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/user/PersonController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/message/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/message/Message.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/Booking.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/Booking.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/Offer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/Offer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/Service.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/Waiting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataObject/offer/Waiting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/eu/telecomnancy/codinglate/database/DataObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/eu/telecomnancy/codinglate/database/DataObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/eu/telecomnancy/codinglate/database/controller/BookingDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/eu/telecomnancy/codinglate/database/controller/BookingDAOTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -298,6 +304,7 @@
       <workItem from="1704791960968" duration="16061000" />
       <workItem from="1704824792349" duration="10552000" />
       <workItem from="1704899052136" duration="115000" />
+      <workItem from="1704899182046" duration="631000" />
     </task>
     <task id="LOCAL-00001" summary="Base app">
       <option name="closed" value="true" />
@@ -515,7 +522,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704879552771</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Création de la page de recherche">
+      <option name="closed" value="true" />
+      <created>1704899197793</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1704899197793</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -534,7 +549,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Base app" />
     <MESSAGE value="BaseApp patch name mistake and updated README.md" />
     <MESSAGE value="begin UML diagrams" />
     <MESSAGE value="dataclasses implementation without setter and getters" />
@@ -559,6 +573,7 @@
     <MESSAGE value="Insertion d'images dans la base de données" />
     <MESSAGE value="Correction des listes d'images en liste de string représentant les url. Ajout de getImages(Offer offer) qui attribut les url des images de l'offre à partir de la base de données" />
     <MESSAGE value="Ajout de la méthode getOfferByParameters" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ajout de la méthode getOfferByParameters" />
+    <MESSAGE value="Création de la page de recherche" />
+    <option name="LAST_COMMIT_MESSAGE" value="Création de la page de recherche" />
   </component>
 </project>
