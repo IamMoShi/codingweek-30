@@ -381,6 +381,61 @@ public class OfferController {
         return products;
     }
 
+    public ArrayList<Offer> getOfferByParameters(Boolean service, ProductCategory category, String brand, String model, ProductCondition condition, int year) {
+        ArrayList<Offer> offers = new ArrayList<>();
+        StringBuilder query = new StringBuilder("SELECT * FROM offer WHERE 1=1");
 
+        if (service != null) {
+            query.append(" AND category = ").append(service ? 0 : 1);
+        }
+
+        if (category != null) {
+            query.append(" AND category = ").append(category.ordinal());
+        }
+
+        if (brand != null && !brand.isEmpty()) {
+            query.append(" AND brand = '").append(brand).append("'");
+        }
+
+        if (model != null && !model.isEmpty()) {
+            query.append(" AND model = '").append(model).append("'");
+        }
+
+        if (condition != null) {
+            query.append(" AND condition = ").append(condition.ordinal());
+        }
+
+        if (year > 1) {
+            query.append(" AND year = ").append(year);
+        }
+
+        try (Connection conn = DbConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement(query.toString())) {
+
+            try (ResultSet resultSet = pstmt.executeQuery()) {
+                while (resultSet.next()) {
+                    // Déterminez le type d'offre en fonction de la catégorie
+                    int categoryOrdinal = resultSet.getInt("category");
+                    Offer offer;
+                    if (categoryOrdinal == 0) {
+                        // Service
+                        offer = createService(resultSet);
+                    } else {
+                        // Product
+                        offer = createProduct(resultSet);
+                    }
+
+                    if (offer != null) {
+                        offers.add(offer);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Gérer les erreurs de manière appropriée, par exemple, en lançant une exception personnalisée
+        }
+
+        return offers;
+    }
 
 }
