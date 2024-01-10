@@ -8,6 +8,7 @@ module eu.telecomnancy.codinglate {
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
     requires org.xerial.sqlitejdbc;
+    requires com.google.gson;
 
     opens eu.telecomnancy.codinglate to javafx.fxml;
     exports eu.telecomnancy.codinglate;

@@ -57,7 +57,10 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 
 
-    implementation 'org.xerial:sqlite-jdbc:3.41.2.2' // La version peut varier
+    implementation 'org.xerial:sqlite-jdbc:3.41.2.2'
+
+    implementation('com.google.code.gson:gson:2.8.9')
+
 
 
 }
