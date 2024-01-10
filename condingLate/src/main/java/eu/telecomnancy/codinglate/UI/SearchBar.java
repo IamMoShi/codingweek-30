@@ -26,6 +26,7 @@ public class SearchBar extends HBox {
 
 
         searchField = new TextField();
+
         searchField.setPromptText("Entrer votre recherche");
         searchField.setPrefWidth(200);
         searchField.setPrefHeight(30);

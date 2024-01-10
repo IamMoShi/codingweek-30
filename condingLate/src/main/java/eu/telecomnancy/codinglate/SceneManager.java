@@ -3,9 +3,15 @@ package eu.telecomnancy.codinglate;
 import eu.telecomnancy.codinglate.UI.CustomListCell;
 import eu.telecomnancy.codinglate.UI.CustomTextField;
 import eu.telecomnancy.codinglate.UI.SearchBar;
+import eu.telecomnancy.codinglate.database.dataController.offer.OfferController;
 import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
+import eu.telecomnancy.codinglate.database.dataObject.enums.ProductCategory;
+import eu.telecomnancy.codinglate.database.dataObject.enums.ProductCondition;
 import eu.telecomnancy.codinglate.database.dataObject.message.Message;
+import eu.telecomnancy.codinglate.database.dataObject.offer.Offer;
+import eu.telecomnancy.codinglate.database.dataObject.offer.Product;
 import eu.telecomnancy.codinglate.database.dataObject.user.Person;
+import eu.telecomnancy.codinglate.database.dataObject.user.User;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ComboBox;
@@ -101,6 +107,8 @@ public class SceneManager {
         // Ajouter ComboBox pour la sélection du produit
         ComboBox<String> productComboBox = new ComboBox<>();
         productComboBox.getItems().addAll("Produit", "Service");
+        productComboBox.getItems().add("");
+        productComboBox.setValue("Type de produit");
 
 
 
@@ -124,18 +132,52 @@ public class SceneManager {
                  yearComboBox
         );
 
-        layout.getChildren().add(filtersPane);
 
-        productComboBox.setOnAction(event -> {
-            handleProductSelection(productComboBox.getValue(),categoryComboBox,brandComboBox,modelComboBox,conditionComboBox,yearComboBox);
-        });
-        root.setTop(layout);
+        categoryComboBox.setVisible(false);
+        brandComboBox.setVisible(false);
+        modelComboBox.setVisible(false);
+        conditionComboBox.setVisible(false);
+        yearComboBox.setVisible(false);
+
+        layout.getChildren().add(filtersPane);
 
         TilePane tilePane = new TilePane();
         tilePane.setFocusTraversable(true);
         tilePane.setPadding(new Insets(10));
         tilePane.setHgap(10);
         tilePane.setVgap(10);
+
+        productComboBox.setOnAction(event -> {
+            handleProductSelection(root,tilePane,productComboBox.getValue(),categoryComboBox,brandComboBox,modelComboBox,conditionComboBox,yearComboBox);
+        });
+
+        categoryComboBox.setOnAction(event -> {
+            handleProductSelection(root,tilePane,productComboBox.getValue(),categoryComboBox,brandComboBox,modelComboBox,conditionComboBox,yearComboBox);
+        });
+
+        conditionComboBox.setOnAction(event -> {
+            handleProductSelection(root,tilePane,productComboBox.getValue(),categoryComboBox,brandComboBox,modelComboBox,conditionComboBox,yearComboBox);
+        });
+
+        brandComboBox.setOnAction(event -> {
+            handleProductSelection(root,tilePane,productComboBox.getValue(),categoryComboBox,brandComboBox,modelComboBox,conditionComboBox,yearComboBox);
+        });
+
+        modelComboBox.setOnAction(event -> {
+            handleProductSelection(root,tilePane,productComboBox.getValue(),categoryComboBox,brandComboBox,modelComboBox,conditionComboBox,yearComboBox);
+        });
+
+        yearComboBox.setOnAction(event -> {
+            handleProductSelection(root,tilePane,productComboBox.getValue(),categoryComboBox,brandComboBox,modelComboBox,conditionComboBox,yearComboBox);
+        });
+
+
+
+
+
+        root.setTop(layout);
+
+
 
 
 
@@ -155,18 +197,26 @@ public class SceneManager {
         return scene;
     }
 
-    private ImageView createArticleTile() {
-
-        Image image = new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/picture/sharingeconomy.jpg"));
-        ImageView imageView = new ImageView(image);
-        imageView.setPreserveRatio(true);
-
-        imageView.setFitWidth(200);
-        imageView.minWidth(200);
-        return imageView;
+    private VBox createOfferTile(Offer offer) {
+        Label titleLabel = new Label(offer.getTitle());
+        Label descriptionLabel = new Label(offer.getDescription());
+        Label priceLabel = new Label("Prix : " + offer.getPrice() + " " + offer.getPriceType());
+        Label dateLabel = new Label("Date de début : " + offer.getStartingDate() + " / Date de fin : " + offer.getEndingDate());
+        VBox tileLayout = new VBox(5);
+        tileLayout.getChildren().addAll(titleLabel, descriptionLabel, priceLabel, dateLabel);
+        VBox tile = new VBox(5);
+        tile.getChildren().add(tileLayout);
+        return tile;
     }
 
-    private void handleProductSelection(String selectedProduct, ComboBox<String> categoryComboBox, CustomTextField brandComboBox,
+    private void updateTilePane(TilePane tilePane, ArrayList<Offer> offers) {
+        tilePane.getChildren().clear();
+        for (Offer offer : offers) {
+            tilePane.getChildren().add(createOfferTile(offer));
+        }
+    }
+
+    private void handleProductSelection(BorderPane root, TilePane tilePane,String selectedProduct, ComboBox<String> categoryComboBox, CustomTextField brandComboBox,
                                         CustomTextField modelComboBox, ComboBox<String> conditionComboBox, CustomTextField yearComboBox) {
         // Logique pour gérer la sélection du type de produit (produit ou service)
         if ("Produit".equals(selectedProduct)) {
@@ -176,6 +226,31 @@ public class SceneManager {
             modelComboBox.setVisible(true);
             conditionComboBox.setVisible(true);
             yearComboBox.setVisible(true);
+
+            String categorieString = categoryComboBox.getValue();
+            EnumConverter enumConverter = new EnumConverter();
+
+            ProductCategory categorie = EnumConverter.convertCategoryToInt(categorieString);
+            String brand = brandComboBox.getText();
+            String model = modelComboBox.getText();
+            String conditionString = conditionComboBox.getValue();
+            ProductCondition condition = EnumConverter.convertConditionToInt(conditionString);
+
+
+
+
+
+            String year = yearComboBox.getText();
+            if (year == null){
+                year = "0";
+            }
+
+
+            OfferController offerController = new OfferController();
+            ArrayList<Offer> listOffres = offerController.getOfferByParameters(true,categorie,brand,model,condition,parseYear(year));
+            updateTilePane(tilePane,listOffres);
+
+
         } else {
             // Cacher les ComboBox et labels spécifiques au produit
             categoryComboBox.setVisible(false);
@@ -183,8 +258,21 @@ public class SceneManager {
             modelComboBox.setVisible(false);
             conditionComboBox.setVisible(false);
             yearComboBox.setVisible(false);
+
+            OfferController offerController = new OfferController();
+            ArrayList<Offer> listoffres = offerController.getOfferByParameters(false,null,"","",null,0);
+            updateTilePane(tilePane,listoffres);
         }
         // Vous devrez ajouter une logique similaire pour gérer la sélection d'autres ComboBox
+    }
+
+    private int parseYear(String year) {
+        try {
+            return year.isEmpty() ? 0 : Integer.parseInt(year);
+        } catch (NumberFormatException e) {
+            System.err.println("Erreur de conversion de l'année en entier : " + e.getMessage());
+            return 0;
+        }
     }
 
 
@@ -373,6 +461,24 @@ public class SceneManager {
 
         root.setCenter(gridPane);
         Scene scene = new Scene(root, 800, 500);
+        scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
+        return scene;
+
+    }
+
+    public Scene createSceneSearch(){
+
+        SearchBar searchBar = new SearchBar();
+
+        BorderPane root = new BorderPane();
+        // Mise en page de la scène
+        VBox layout = new VBox(10);
+        layout.setPadding(new Insets(0));
+        layout.getChildren().add(searchBar);
+
+        root.setTop(layout);
+
+        Scene scene = new Scene(root, 1000, 600);
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
         return scene;
 

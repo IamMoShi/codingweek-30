@@ -274,6 +274,7 @@ public class OfferController {
         if (resultSet.getObject("condition") == null) {
             System.out.println("Condition is null");
         } else {
+            System.out.println(resultSet.getInt("condition"));
             condition = ProductCondition.values()[resultSet.getInt("condition")];
         }
 
@@ -386,7 +387,7 @@ public class OfferController {
         StringBuilder query = new StringBuilder("SELECT * FROM offer WHERE 1=1");
 
         if (service != null) {
-            query.append(" AND category = ").append(service ? 0 : 1);
+            query.append(" AND service = ").append(service ? 0 : 1);
         }
 
         if (category != null) {
@@ -409,10 +410,12 @@ public class OfferController {
             query.append(" AND year = ").append(year);
         }
 
+        System.out.println(query.toString());
         try (Connection conn = DbConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(query.toString())) {
 
             try (ResultSet resultSet = pstmt.executeQuery()) {
+                int i = 0;
                 while (resultSet.next()) {
                     // Déterminez le type d'offre en fonction de la catégorie
                     int categoryOrdinal = resultSet.getInt("category");
@@ -428,7 +431,10 @@ public class OfferController {
                     if (offer != null) {
                         offers.add(offer);
                     }
+
+                    i++;
                 }
+                System.out.println(i);
             }
         } catch (SQLException e) {
             e.printStackTrace();
