@@ -15,12 +15,17 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Objects;
+import java.util.UUID;
 
 public class ServiceCreator {
 
-
+    private ArrayList<String> urlTempsImages = new ArrayList<>();
 
     private VBox vbox;
 
@@ -56,32 +61,47 @@ public class ServiceCreator {
         // Add controls to the gridPane
 
         CustomTextField TitleField = new CustomTextField("Titre");
+        TitleField.getStyleClass().add("necessary");
         gridPane.add(TitleField, 0, 0);
 
         CustomTextField DescriptionField = new CustomTextField("Description");
         gridPane.add(DescriptionField, 0, 1);
 
        CustomTextField priceField = new CustomTextField("Prix");
+       priceField.getStyleClass().add("necessary");
         gridPane.add(priceField, 0, 2);
 
 
         CustomChoiceBox TypePriceBox = new CustomChoiceBox(
                 FXCollections.observableArrayList("EURO_PER_HOUR","EURO_PER_DAY","EURO_PER_WEEK", "EURO_PER_MONTH")
         );
+        TypePriceBox.getStyleClass().add("necessary");
         gridPane.add(TypePriceBox, 0, 3);
 
 
         CustomDatePicker startDatePicker = new CustomDatePicker("Début de l'offre");
         gridPane.add(startDatePicker, 0, 4);
 
+        CustomSpinner starthourspinner = new CustomSpinner(0, 24, 0, 1);
+        gridPane.add(starthourspinner, 0, 5);
+        CustomSpinner minutespinner = new CustomSpinner(0, 60, 0, 1);
+        gridPane.add(minutespinner, 0, 6);
+
 
         CustomDatePicker endDatePicker = new CustomDatePicker("Fin de l'offre");
-        gridPane.add(endDatePicker, 0, 5);
+        gridPane.add(endDatePicker, 0, 7);
+
+        CustomSpinner endhourspinner = new CustomSpinner(0, 24, 0, 1);
+        gridPane.add(endhourspinner, 0, 8);
+        CustomSpinner endminutespinner = new CustomSpinner(0, 60, 0, 1);
+        gridPane.add(endminutespinner, 0, 9);
+
 
 
         SearchBarButton chooseImage = new SearchBarButton("chooseImage","Choisir une image");
         chooseImage.initializeButton();
-        gridPane.add(chooseImage,0,6);
+        chooseImage.setPrefWidth(240);
+        gridPane.add(chooseImage,0,10);
 
         chooseImage.setOnAction(event -> {
             FileChooser fileChooser = new FileChooser();
@@ -95,10 +115,25 @@ public class ServiceCreator {
             File selectedFile = fileChooser.showOpenDialog(null);
 
             if (selectedFile != null) {
-                // Vous pouvez utiliser le chemin du fichier sélectionné comme nécessaire
-                String imagePath = selectedFile.getAbsolutePath();
-                // Vous pouvez faire quelque chose avec le chemin de l'image ici
-                System.out.println("Image choisie : " + imagePath);
+
+                try {
+                    String localImagePath = selectedFile.getAbsolutePath();
+
+                    // Définissez le répertoire de stockage
+                    String storageDirectory = "OfferImage/tmps"; // Changez le chemin selon vos besoins
+
+                    // Créez le chemin complet pour le répertoire de stockage
+                    String fullPath = storageDirectory + "/" + "image_user_n_" + PersonController.getInstance().getCurrentUser().getId() + "uuid=" + UUID.randomUUID() + ".jpg" ;
+
+                    // Copiez le fichier dans le répertoire de stockage
+                    Files.copy(selectedFile.toPath(), Paths.get(fullPath), StandardCopyOption.REPLACE_EXISTING);
+
+                    // Ajoutez le chemin d'accès local de l'image à la liste des images temporaires
+                    urlTempsImages.add(fullPath);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -106,7 +141,6 @@ public class ServiceCreator {
         submitButton.initializeButton();
 
         submitButton.setPrefWidth(240);
-
 
         // Event handling for the submit button
         submitButton.setOnAction(e -> {
@@ -122,8 +156,28 @@ public class ServiceCreator {
                 Double price = Double.valueOf(priceText);
                 String priceTypestr = TypePriceBox.getValue();
                 PriceType priceType = setPriceType(priceTypestr);
-                LocalDateTime StartDate = startDatePicker.getValue().atStartOfDay();
-                LocalDateTime EndDate = endDatePicker.getValue().atStartOfDay();
+
+                LocalDateTime StartDate = null;
+                if (startDatePicker.getValue() != null){
+                    int year = startDatePicker.getValue().getYear();
+                    int month = startDatePicker.getValue().getMonthValue();
+                    int day = startDatePicker.getValue().getDayOfMonth();
+                    int hour = starthourspinner.getValue();
+                    int minute = minutespinner.getValue();
+
+                    StartDate = LocalDateTime.of(year, month, day, hour, minute);
+                }
+
+                LocalDateTime EndDate = null;
+                if (endDatePicker.getValue() != null){
+                    int year = endDatePicker.getValue().getYear();
+                    int month = endDatePicker.getValue().getMonthValue();
+                    int day = endDatePicker.getValue().getDayOfMonth();
+                    int hour = endhourspinner.getValue();
+                    int minute = endminutespinner.getValue();
+
+                    EndDate = LocalDateTime.of(year, month, day, hour, minute);
+                }
 
                 //if nothing is filled
                 if(title.isBlank() || price.isNaN() ){
@@ -149,6 +203,9 @@ public class ServiceCreator {
                             service.setEndingDate(EndDate);
                         }
 
+                        ArrayList<String> imageUrls = saveImages();
+                        service.setImages(imageUrls);
+
                         OfferController offercontroller = new OfferController();
                         offercontroller.insert(service);
                     }
@@ -161,15 +218,39 @@ public class ServiceCreator {
                 addNewLabel(gridPane,"Format de prix invalide !");
             }
 
-
-
-
         });
 
-        gridPane.add(submitButton, 0, 7, 2, 6);
+        gridPane.add(submitButton, 0, 11, 2, 6);
 
 
     }
+
+     private ArrayList<String> saveImages() {
+        ArrayList<String> imageUrls = new ArrayList<>();
+        for (String tempImagePath : urlTempsImages) {
+            try {
+                // Téléchargez l'image à partir de l'URL
+                File file = new File(tempImagePath);
+                String newPath = "OfferImage/" + file.getName();
+
+                // Enregistrez l'image localement
+                Files.copy(file.toPath(), Paths.get(newPath), StandardCopyOption.REPLACE_EXISTING);
+                imageUrls.add(newPath);
+                deleteTempImage(tempImagePath);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return imageUrls;
+     }
+
+     private void deleteTempImage(String tempImagePath) {
+        try {
+            Files.deleteIfExists(Paths.get(tempImagePath));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+     }
 
     private boolean isAscii(String str) {
         return str.matches("\\A\\p{ASCII}*\\z");

@@ -43,8 +43,16 @@ public class SceneManager {
     }
 
     public void switchScene(Scene scene) {
-        this.primaryStage.setScene(scene);
-        this.primaryStage.show();
+        int minWidth = 1200;
+        int minHeight = 800;
+        double width = primaryStage.getWidth();
+        double height = primaryStage.getHeight();
+        primaryStage.setScene(scene);
+        primaryStage.setWidth(width);
+        primaryStage.setHeight(height);
+        primaryStage.setMinWidth(minWidth);
+        primaryStage.setMinHeight(minHeight);
+        primaryStage.show();
     }
 
     public Scene createScenePresentation() {

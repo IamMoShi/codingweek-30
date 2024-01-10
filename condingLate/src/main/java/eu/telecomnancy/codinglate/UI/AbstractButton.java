@@ -21,8 +21,8 @@ public abstract class AbstractButton extends Button {
         if (this.iconPath != null) {
             ImageView icon = new ImageView(new Image(getClass().getResourceAsStream(this.iconPath)));
 
-            icon.setFitHeight(20);
-            icon.setFitWidth(20);
+            icon.setFitHeight(50);
+            icon.setFitWidth(50);
             this.setGraphic(icon);
         }
 

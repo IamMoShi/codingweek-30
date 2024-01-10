@@ -125,8 +125,14 @@ public class SearchContent extends HBox {
         ToggleGroup toggleGroup = new ToggleGroup();
         ToggleButton service = new ToggleButton("Service");
         service.setToggleGroup(toggleGroup);
+        service.setMinHeight(50);
+        service.setMinWidth(150);
+        service.setFont(javafx.scene.text.Font.font("Arial", 20));
         ToggleButton product = new ToggleButton("Product");
         product.setToggleGroup(toggleGroup);
+        product.setMinHeight(50);
+        product.setMinWidth(150);
+        product.setFont(javafx.scene.text.Font.font("Arial", 20));
 
         toggleGroup.selectToggle(product);
 
@@ -202,7 +208,13 @@ public class SearchContent extends HBox {
 
     private void createDistanceField(GridPane gridPane) {
         TextField distanceField = new TextField();
-        distanceField.setPromptText("Distance maximale en km");
+        distanceField.setPromptText("Distance maximale km");
+        distanceField.setPrefWidth(200);
+        distanceField.setPrefHeight(50);
+        distanceField.setStyle("-fx-background-radius: 20; " +
+                "-fx-border-radius: 20;" +
+                "-fx-font-size: 18px;");
+
 
         distanceField.setOnAction(e -> {
             validateDistanceInput(distanceField);
