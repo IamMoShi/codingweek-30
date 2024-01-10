@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="Fonction de vérification des plages">
+    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="Les changements de scene n'impactent plus la taille de la fenetre">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodingWeekDatabase.db" beforeDir="false" afterPath="$PROJECT_DIR$/CodingWeekDatabase.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/SceneManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/SceneManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -293,7 +294,7 @@
       <workItem from="1704791960968" duration="16061000" />
       <workItem from="1704824792349" duration="10552000" />
       <workItem from="1704899052136" duration="115000" />
-      <workItem from="1704899182046" duration="4598000" />
+      <workItem from="1704899182046" duration="7541000" />
     </task>
     <task id="LOCAL-00001" summary="Base app">
       <option name="closed" value="true" />
@@ -551,7 +552,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704903260505</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Nettoyage de la base de données">
+      <option name="closed" value="true" />
+      <created>1704904505640</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1704904505640</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -570,8 +579,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Start implementing constructor, setters and getters for classes of data" />
-    <MESSAGE value="implementing constructor, setters and getters for classes of data" />
     <MESSAGE value="Correction des erreurs de merge" />
     <MESSAGE value="J'espère que j'ai tout" />
     <MESSAGE value="update database" />
@@ -595,6 +602,8 @@
     <MESSAGE value="Changement de LocalDate vers LocalDateTime" />
     <MESSAGE value="Oublie de changement dans BookingDAO" />
     <MESSAGE value="Fonction de vérification des plages" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fonction de vérification des plages" />
+    <MESSAGE value="Nettoyage de la base de données" />
+    <MESSAGE value="Les changements de scene n'impactent plus la taille de la fenetre" />
+    <option name="LAST_COMMIT_MESSAGE" value="Les changements de scene n'impactent plus la taille de la fenetre" />
   </component>
 </project>
