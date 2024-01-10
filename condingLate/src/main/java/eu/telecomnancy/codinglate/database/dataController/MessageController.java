@@ -12,9 +12,11 @@ import javafx.scene.control.ListView;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MessageController {
 
@@ -76,73 +78,46 @@ public class MessageController {
                 int id = rs.getInt("id");
                 String message = rs.getString("message");
 
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 
-                // Convertir la String en LocalDate
-                LocalDate localDate = LocalDate.parse(rs.getString("date"), formatter);
+                // Convertir la chaîne en LocalDateTime
+                LocalDateTime localDateTime = LocalDateTime.parse(rs.getString("date"), formatter);
 
-                Message msg = new Message(id,personController.getPersonByEmail(email1),personController.getPersonByEmail(email2),message,localDate);
+                Message msg = new Message(id,personController.getPersonByEmail(email1),personController.getPersonByEmail(email2),message,localDateTime);
+                messages.add(msg);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Gérer les erreurs de manière appropriée, par exemple, en lançant une exception personnalisée
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (pstmt != null) {
-                    pstmt.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }}
-}
+            rs.close();
+            pstmt.close();
 
-    //Affiche la liste des emails des utilisateurs avec qui l'utilisateur courant a eu une conversation
-    public ListView<String> getListofFriends(){
-        Person person = null;
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        ListView<String> list = new ListView<>();
-
-        try {
-            conn = DbConnection.connect();
-            String sql = "SELECT * FROM  WHERE id = ?";
+            sql = "SELECT * FROM message WHERE receiver = ? AND sender = ?";
             pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, userId);
+            pstmt.setString(1, email2);
+            pstmt.setString(2, email1);
 
             rs = pstmt.executeQuery();
 
             if (rs.next()) {
                 int id = rs.getInt("id");
-                String firstname = rs.getString("firstname");
-                String lastname = rs.getString("lastname");
-                String email = rs.getString("email");
-                String password = rs.getString("password");
-                String phone = rs.getString("phone");
-                float balance = rs.getFloat("balance");
-                int adminValue = rs.getInt("admin");
+                String message = rs.getString("message");
 
-                Address address = null; // Vous devez obtenir l'adresse à partir de la base de données si nécessaire
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 
-                if (adminValue == 1) {
-                    // L'utilisateur est un administrateur
-                    person = new Admin(id, firstname, lastname, email, password, phone, balance, address);
-                } else {
-                    // L'utilisateur est un utilisateur standard
-                    person = new User(id, firstname, lastname, email, password, phone, balance, address);
+                // Convertir la chaîne en LocalDateTime
+                LocalDateTime localDateTime = LocalDateTime.parse(rs.getString("date"), formatter);
+
+                Message msg = new Message(id,personController.getPersonByEmail(email1),personController.getPersonByEmail(email2),message,localDateTime);
+                if(!messages.contains(msg)){
+                    messages.add(msg);
                 }
+
             }
+
+
         } catch (SQLException e) {
             e.printStackTrace();
             // Gérer les erreurs de manière appropriée, par exemple, en lançant une exception personnalisée
-        } finally {
+        }
+        finally {
             try {
                 if (rs != null) {
                     rs.close();
@@ -157,60 +132,99 @@ public class MessageController {
                 e.printStackTrace();
             }
         }
+        return messages;
+    }
 
-        public List<Person> getFriends(){
-            Person person = null;
-            Connection conn = null;
-            PreparedStatement pstmt = null;
-            ResultSet rs = null;
+    //Retourne la liste des personnes avec qui l'utilisateur a une conversation
+    public List<Person> getFriends(){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        List<Person> persons = new ArrayList<>();
 
+        PersonController personController = new PersonController();
+        Person currentuser = personController.getCurrentUser();
+
+        try {
+            conn = DbConnection.connect();
+            String sql = "SELECT sender FROM message WHERE receiver = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, currentuser.getEmail());
+
+
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                String sender = rs.getString("sender");
+
+                Person person = personController.getPersonByEmail(sender);
+
+                if(!persons.contains(person)) {
+                    persons.add(person);
+                }
+
+            }
+            rs.close();
+            pstmt.close();
+
+            sql = "SELECT receiver FROM message WHERE sender = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, currentuser.getEmail());
+
+
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+
+                String receiver = rs.getString("receiver");
+
+                Person person = personController.getPersonByEmail(receiver);
+
+                if(!persons.contains(person)){
+                    persons.add(person);
+                }
+
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Gérer les erreurs de manière appropriée, par exemple, en lançant une exception personnalisée
+        }
+        finally {
             try {
-                conn = DbConnection.connect();
-                String sql = "SELECT * FROM user WHERE id = ?";
-                pstmt = conn.prepareStatement(sql);
-                pstmt.setInt(1, userId);
-
-                rs = pstmt.executeQuery();
-
-                if (rs.next()) {
-                    int id = rs.getInt("id");
-                    String firstname = rs.getString("firstname");
-                    String lastname = rs.getString("lastname");
-                    String email = rs.getString("email");
-                    String password = rs.getString("password");
-                    String phone = rs.getString("phone");
-                    float balance = rs.getFloat("balance");
-                    int adminValue = rs.getInt("admin");
-
-                    Address address = null; // Vous devez obtenir l'adresse à partir de la base de données si nécessaire
-
-                    if (adminValue == 1) {
-                        // L'utilisateur est un administrateur
-                        person = new Admin(id, firstname, lastname, email, password, phone, balance, address);
-                    } else {
-                        // L'utilisateur est un utilisateur standard
-                        person = new User(id, firstname, lastname, email, password, phone, balance, address);
-                    }
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
-                // Gérer les erreurs de manière appropriée, par exemple, en lançant une exception personnalisée
-            } finally {
-                try {
-                    if (rs != null) {
-                        rs.close();
-                    }
-                    if (pstmt != null) {
-                        pstmt.close();
-                    }
-                    if (conn != null) {
-                        conn.close();
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
             }
         }
-
+        return persons;
 
     }
+
+    //Retourne la liste des emails des utilisateurs avec qui l'utilisateur courant a eu une conversation
+    public ListView<String> getListofFriends() {
+        List<Person> persons = this.getFriends();
+
+        ListView<String> emaillist = new ListView<>();
+
+        List<String> emails = persons.stream()
+                .map(Person::getEmail)
+                .toList();
+
+        emaillist.getItems().addAll(emails);
+
+        return emaillist;
+
+    }
+
+
+}

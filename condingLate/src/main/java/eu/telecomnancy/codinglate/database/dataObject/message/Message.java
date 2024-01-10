@@ -1,5 +1,6 @@
 package eu.telecomnancy.codinglate.database.dataObject.message;
 
+import eu.telecomnancy.codinglate.database.dataObject.user.Person;
 import eu.telecomnancy.codinglate.database.dataObject.user.User;
 
 import java.time.LocalDateTime;
@@ -7,13 +8,13 @@ import java.time.LocalDateTime;
 public class Message {
 
     private int id;
-    private User sender;
-    private User receiver;
+    private Person sender;
+    private Person receiver;
 
     private String message;
     private LocalDateTime date;
 
-    public Message(int id, User sender, User receiver, String message, LocalDateTime date) {
+    public Message(int id, Person sender, Person receiver, String message, LocalDateTime date) {
         this.id = id;
         this.sender = sender;
         this.receiver = receiver;
@@ -28,11 +29,11 @@ public class Message {
         return id;
     }
 
-    public User getSender() {
+    public Person getSender() {
         return sender;
     }
 
-    public User getReceiver() {
+    public Person getReceiver() {
         return receiver;
     }
 
@@ -50,11 +51,11 @@ public class Message {
         this.id = id;
     }
 
-    public void setSender(User sender) {
+    public void setSender(Person sender) {
         this.sender = sender;
     }
 
-    public void setReceiver(User receiver) {
+    public void setReceiver(Person receiver) {
         this.receiver = receiver;
     }
 

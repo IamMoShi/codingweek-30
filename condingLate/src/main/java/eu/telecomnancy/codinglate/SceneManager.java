@@ -1,6 +1,7 @@
 package eu.telecomnancy.codinglate;
 
 import eu.telecomnancy.codinglate.UI.*;
+import eu.telecomnancy.codinglate.database.dataController.MessageController;
 import eu.telecomnancy.codinglate.database.dataController.offer.BookingDAO;
 import eu.telecomnancy.codinglate.database.dataController.offer.OfferController;
 import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
@@ -330,23 +331,39 @@ public class SceneManager {
 
     public Scene createMessageScene() {
 
-        //POur avoir un exemple de listView
-        ListView<Message> listView = new ListView<>();
 
-        Message message1 = new Message(0, null, null, "Bonjour", null);
-        Message message2 = new Message(0, null, null, "Bonjourno", null);
 
-        listView.getItems().add(message1);
-        listView.getItems().add(message2);
-        listView.setCellFactory(param -> new CustomListCell());
+        //récupérer l'utilisateur courant
+        PersonController personController=new PersonController();
+        Person currentuser = personController.getCurrentUser();
 
-        //POur avoir un exemple de listMessage
-        List<Message> MessageUserWithSelectedUserFromUserList = new ArrayList<>();
-        Message message3 = new Message(0, null, null, "Bonjour", LocalDateTime.of(2021, 1, 1, 0, 0));
-        Message message4 = new Message(0, null, null, "Bonjourno", LocalDateTime.of(2021, 1, 2, 0, 0));
+        //faire la liste de toutes les conversations de l'utilisateur courant
+        MessageController messageController = new MessageController();
+        List<List<Message>> MessageUserWithSelectedUserFromUserList = new ArrayList<>();
 
-        MessageUserWithSelectedUserFromUserList.add(message3);
-        MessageUserWithSelectedUserFromUserList.add(message4);
+        ListView<String> UserYouHadAConversationWith = new ListView<>();
+        UserYouHadAConversationWith = messageController.getListofFriends();
+        //UserYouHadAConversationWith.setCellFactory(param -> new CustomListCell());
+
+        //récupérer toutes les personnes ayant une conversation avec l'utilisateur courant
+        List<Person> persons = new ArrayList<>();
+        persons = messageController.getFriends();
+
+        for(Person person : persons){
+
+            List<Message> conversation = new ArrayList<>();
+            conversation = messageController.getConversation(currentuser.getEmail(),person.getEmail());
+            MessageUserWithSelectedUserFromUserList.add(conversation);
+
+        }
+
+
+
+        //Message message3 = new Message(0, null, null, "Bonjour", LocalDate.of(2021, 1, 1));
+        //Message message4 = new Message(0, null, null, "Bonjourno", LocalDate.of(2021, 1, 2));
+
+        //MessageUserWithSelectedUserFromUserList.add(message3);
+        //MessageUserWithSelectedUserFromUserList.add(message4);
 
         SearchBar searchBar = new SearchBar();
 
@@ -359,7 +376,23 @@ public class SceneManager {
 
         root.setTop(layout);
 
-        MessagingList messagingClass = new MessagingList(listView, MessageUserWithSelectedUserFromUserList);
+
+
+        FormButton newConv = new FormButton("NewConvo","Nouvelle Conversation");
+        newConv.initializeButton();
+        root.setRight(newConv);
+
+
+        newConv.setOnAction(event -> {
+                    MessageCreator messageCreator= new MessageCreator();
+                    VBox gridPane = messageCreator.getVbox();
+                    root.setCenter(gridPane);
+                }
+        );
+
+
+
+        MessagingList messagingClass = new MessagingList(MessageUserWithSelectedUserFromUserList, UserYouHadAConversationWith);
         BorderPane borderPane = messagingClass.getBorderPane();
 
         root.setCenter(borderPane);
@@ -367,7 +400,6 @@ public class SceneManager {
         Scene scene = new Scene(root, 1000, 600);
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
         return scene;
-
     }
 
     public Scene createSceneConnexion() {

@@ -1,6 +1,5 @@
 package eu.telecomnancy.codinglate;
 
-import eu.telecomnancy.codinglate.UI.CustomPasswordField;
 import eu.telecomnancy.codinglate.UI.CustomTextField;
 import eu.telecomnancy.codinglate.UI.FormButton;
 import eu.telecomnancy.codinglate.database.dataController.MessageController;
@@ -10,14 +9,11 @@ import eu.telecomnancy.codinglate.database.dataObject.user.Person;
 import eu.telecomnancy.codinglate.database.dataObject.user.User;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 public class MessageCreator {
@@ -81,7 +77,7 @@ public class MessageCreator {
 
                 if(user2 instanceof User){
                     User receiver = (User) user2;
-                    Message msg = new Message(-1, user, receiver,message,LocalDate.now());
+                    Message msg = new Message(-1, user, receiver,message, LocalDateTime.now());
                     MessageController messageController =new MessageController();
                     messageController.insert(msg);
 
