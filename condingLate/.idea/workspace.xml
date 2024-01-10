@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="Fonction de vérification des plages">
-      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/SceneManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/SceneManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodingWeekDatabase.db" beforeDir="false" afterPath="$PROJECT_DIR$/CodingWeekDatabase.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -292,7 +293,7 @@
       <workItem from="1704791960968" duration="16061000" />
       <workItem from="1704824792349" duration="10552000" />
       <workItem from="1704899052136" duration="115000" />
-      <workItem from="1704899182046" duration="3177000" />
+      <workItem from="1704899182046" duration="4598000" />
     </task>
     <task id="LOCAL-00001" summary="Base app">
       <option name="closed" value="true" />
@@ -542,7 +543,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704902263122</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Fonction de vérification des plages">
+      <option name="closed" value="true" />
+      <created>1704903260505</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1704903260505</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
