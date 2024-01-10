@@ -23,9 +23,11 @@ public class BookingDAO {
                      "INSERT INTO booking (offer, user, startingDate, endingDate, status) VALUES (?, ?, ?, ?, ?)",
                      Statement.RETURN_GENERATED_KEYS)) {
 
-            if (booking.getOffer().getId() == -1) throw new SQLException("L'offre doit être insérée dans la base de données avant l'insertion de la réservation.");
+            if (booking.getOffer().getId() == -1)
+                throw new SQLException("L'offre doit être insérée dans la base de données avant l'insertion de la réservation.");
             pstmt.setInt(1, booking.getOffer().getId());
-            if (booking.getUser().getId() == -1) throw new SQLException("L'utilisateur doit être inséré dans la base de données avant l'insertion de la réservation.");
+            if (booking.getUser().getId() == -1)
+                throw new SQLException("L'utilisateur doit être inséré dans la base de données avant l'insertion de la réservation.");
             pstmt.setInt(2, booking.getUser().getId());
             if (booking.getStartingDate() == null) pstmt.setNull(3, Types.DATE);
             else pstmt.setObject(3, booking.getStartingDate());
@@ -76,7 +78,7 @@ public class BookingDAO {
         return booking;
     }
 
-    public  ArrayList<Booking> getBookingsByUser(int userId) {
+    public ArrayList<Booking> getBookingsByUser(int userId) {
         ArrayList<Booking> bookings = new ArrayList<>();
 
         try (Connection conn = DbConnection.connect();
@@ -97,11 +99,22 @@ public class BookingDAO {
         return bookings;
     }
 
+    public ArrayList<Booking> getAllBooking() {
+        ArrayList<Booking> bookings = new ArrayList<>();
 
-
-
-
-
+        try {
+            Connection conn = DbConnection.connect();
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM booking");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Booking booking = createBooking(rs);
+                if (booking != null) bookings.add(booking);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return bookings;
+    }
 
 
 }
