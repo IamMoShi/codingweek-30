@@ -324,8 +324,8 @@ public class OfferController {
             System.out.println("L'utilisateur avec l'ID " + userId + " n'existe pas.");
             return null;
         }
-
-        return new Service(id, user, title, description, price, priceType, startingDate, endingDate);
+        // TODO : Ajouter les images
+        return new Service(id, user, title, description, price, priceType, startingDate, endingDate, new ArrayList<>());
     }
 
     public Offer getOfferById(int offerId) {
