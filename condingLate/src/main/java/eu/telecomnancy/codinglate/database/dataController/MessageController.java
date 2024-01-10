@@ -21,11 +21,11 @@ import java.util.stream.Collectors;
 public class MessageController {
 
     public void insert(Message message){
-        int generatedId = -1; // Valeur par défaut en cas d'échec de l'insertion
+        int generatedId = -1;
 
         try (Connection conn = DbConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(
-                     "INSERT INTO message (sender, receiver, message, date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                     "INSERT INTO message (sender, receiver, message, date) VALUES (?, ?, ?, ?)",
                      Statement.RETURN_GENERATED_KEYS)) {
 
             pstmt.setString(1, message.getSender().getEmail());
@@ -145,65 +145,66 @@ public class MessageController {
         PersonController personController = new PersonController();
         Person currentuser = personController.getCurrentUser();
 
-        try {
-            conn = DbConnection.connect();
-            String sql = "SELECT sender FROM message WHERE receiver = ?";
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, currentuser.getEmail());
-
-
-            rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                String sender = rs.getString("sender");
-
-                Person person = personController.getPersonByEmail(sender);
-
-                if(!persons.contains(person)) {
-                    persons.add(person);
-                }
-
-            }
-            rs.close();
-            pstmt.close();
-
-            sql = "SELECT receiver FROM message WHERE sender = ?";
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, currentuser.getEmail());
-
-
-            rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-
-                String receiver = rs.getString("receiver");
-
-                Person person = personController.getPersonByEmail(receiver);
-
-                if(!persons.contains(person)){
-                    persons.add(person);
-                }
-
-            }
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Gérer les erreurs de manière appropriée, par exemple, en lançant une exception personnalisée
-        }
-        finally {
+        if(currentuser!=null) {
             try {
-                if (rs != null) {
-                    rs.close();
+                conn = DbConnection.connect();
+                String sql = "SELECT sender FROM message WHERE receiver = ?";
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, currentuser.getEmail());
+
+
+                rs = pstmt.executeQuery();
+
+                if (rs.next()) {
+                    String sender = rs.getString("sender");
+
+                    Person person = personController.getPersonByEmail(sender);
+
+                    if (!persons.contains(person)) {
+                        persons.add(person);
+                    }
+
                 }
-                if (pstmt != null) {
-                    pstmt.close();
+                rs.close();
+                pstmt.close();
+
+                sql = "SELECT receiver FROM message WHERE sender = ?";
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, currentuser.getEmail());
+
+
+                rs = pstmt.executeQuery();
+
+                if (rs.next()) {
+
+                    String receiver = rs.getString("receiver");
+
+                    Person person = personController.getPersonByEmail(receiver);
+
+                    if (!persons.contains(person)) {
+                        persons.add(person);
+                    }
+
                 }
-                if (conn != null) {
-                    conn.close();
-                }
+
+
             } catch (SQLException e) {
                 e.printStackTrace();
+                // Gérer les erreurs de manière appropriée, par exemple, en lançant une exception personnalisée
+            } finally {
+                try {
+                    if (rs != null) {
+                        rs.close();
+                    }
+                    if (pstmt != null) {
+                        pstmt.close();
+                    }
+                    if (conn != null) {
+                        conn.close();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
         return persons;

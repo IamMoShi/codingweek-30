@@ -25,7 +25,8 @@ public class MessageCreator {
         return this.vbox;
     }
 
-    public MessageCreator() {
+    public MessageCreator(Stage stage) {
+        this.stage = stage;
         this.vbox = createFormPane();
         addUIControls((GridPane) vbox.getChildren().get(0));
     }

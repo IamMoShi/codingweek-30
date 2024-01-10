@@ -384,7 +384,8 @@ public class SceneManager {
 
 
         newConv.setOnAction(event -> {
-                    MessageCreator messageCreator= new MessageCreator();
+                    Stage stage = (Stage) this.primaryStage;
+                    MessageCreator messageCreator= new MessageCreator(stage);
                     VBox gridPane = messageCreator.getVbox();
                     root.setCenter(gridPane);
                 }
