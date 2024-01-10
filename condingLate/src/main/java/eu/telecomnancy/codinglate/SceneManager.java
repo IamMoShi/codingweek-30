@@ -43,8 +43,8 @@ public class SceneManager {
     }
 
     public void switchScene(Scene scene) {
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        this.primaryStage.setScene(scene);
+        this.primaryStage.show();
     }
 
     public Scene createScenePresentation() {
@@ -347,9 +347,8 @@ public class SceneManager {
         persons = messageController.getFriends();
 
 
-
         for(Person person : persons){
-            //System.out.print(person.getFirstname());
+
             List<Message> conversation = new ArrayList<>();
             conversation = messageController.getConversation(currentuser.getEmail(),person.getEmail());
 
@@ -358,11 +357,6 @@ public class SceneManager {
         }
 
 
-        //Message message3 = new Message(0, null, null, "Bonjour", LocalDate.of(2021, 1, 1));
-        //Message message4 = new Message(0, null, null, "Bonjourno", LocalDate.of(2021, 1, 2));
-
-        //MessageUserWithSelectedUserFromUserList.add(message3);
-        //MessageUserWithSelectedUserFromUserList.add(message4);
 
         SearchBar searchBar = new SearchBar();
 

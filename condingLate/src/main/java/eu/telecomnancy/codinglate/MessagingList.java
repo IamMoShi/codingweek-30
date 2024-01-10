@@ -11,7 +11,6 @@ import javafx.scene.layout.BorderPane;
 import java.util.List;
 
 public class MessagingList {
-
     private ListView<String> UserYouHadAConversationWith;
 
     private List<List<Message>> MessageUserWithSelectedUserFromUserList;

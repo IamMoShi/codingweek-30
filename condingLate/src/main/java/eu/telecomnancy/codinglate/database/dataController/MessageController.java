@@ -153,6 +153,7 @@ public class MessageController {
 
     //Retourne la liste des emails des utilisateurs avec qui l'utilisateur courant a eu une conversation
     public ListView<String> getListofFriends() {
+
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;

@@ -57,7 +57,7 @@ public class MessageField {
         hBox.getChildren().add(sendButton);
 
         sendButton.setOnAction(event -> {
-            //PersonController personController = new PersonController();
+
             Person currentuser = PersonController.getInstance().getCurrentUser();
             PersonController personController = new PersonController();
             String message = this.inputField.getText();
@@ -66,11 +66,12 @@ public class MessageField {
             Message msg = new Message(-1, currentuser, personController.getPersonByEmail(emailUser2),message, LocalDateTime.now());
             MessageController messageController =new MessageController();
             messageController.insert(msg);
+            System.out.print("Message envoyé!");
 
+            //SceneManager sceneManager = new SceneManager(stage);
+            //Scene scene = sceneManager.createMessageScene();
+            //sceneManager.switchScene(scene);
 
-            SceneManager sceneManager = new SceneManager(stage);
-            Scene scene = sceneManager.createMessageScene();
-            sceneManager.switchScene(scene);
         });
 
         borderPane.setCenter(messageListView);
@@ -80,5 +81,7 @@ public class MessageField {
     public BorderPane getBorderPane() {
         return borderPane;
     }
+
+
 }
 
