@@ -184,6 +184,31 @@ Un jar est disponible chaque jour à la source du projet.
 
 - Problème avec git ce qui a causé des problèmes de merge et de perte de données
 
+## DAY 4 (Jeudi 11 janvier 2024)
+
+### Objectifs de la journée
+
+- Mise en service du système de réservation
+- Mise en place des calendriers
+- Gestion de la partie administrateur du site
+- Débugage de l'app
+
+### Tâches réalisées
+
+
+- Mise en service du système de réservation
+- Mise en place des calendriers
+- Mise en service de la messagerie
+- Mise en service de la barre de recherche
+- Mise en service de l'affichage des photos
+- Mise en forme de la page de produits et services
+- Forms des évaluations
+
+
+### Difficultés rencontrées
+
+- Problème avec les bibliothèques des calendriers
+- Problème avec la messagerie
 
 
 
