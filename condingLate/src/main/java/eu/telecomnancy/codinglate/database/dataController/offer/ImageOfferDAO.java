@@ -17,20 +17,21 @@ import java.util.ArrayList;
 
 public class ImageOfferDAO {
     public void insert(String imageUrl, int offerId) {
-        try {
-            // Téléchargez l'image à partir de l'URL
-            URL url = new URL(imageUrl);
-            InputStream in = url.openStream();
+        try (Connection conn = DbConnection.connect();
+            PreparedStatement pstmt = conn.prepareStatement(
+                    "INSERT INTO imageOffer (path, offer) VALUES (?, ?)")) {
+            pstmt.setString(1, imageUrl);
+            pstmt.setInt(2, offerId);
 
-            // Générez un nom de fichier unique pour l'image (peut être basé sur l'offre ou un horodatage, par exemple)
-            String localImagePath = "path/to/your/local/directory/image_" + offerId + ".jpg"; // Changez le chemin selon vos besoins
+            int rowsInserted = pstmt.executeUpdate();
 
-            // Enregistrez l'image localement
-            Files.copy(in, Paths.get(localImagePath), StandardCopyOption.REPLACE_EXISTING);
+            if (rowsInserted > 0) {
+                System.out.println("Image inserted successfully into imageOffer.");
+            } else {
+                System.out.println("Failed to insert image into imageOffer.");
+            }
 
-            // Insérez le chemin local de l'image dans la base de données
-            insertImagePathIntoDatabase(localImagePath, offerId);
-        } catch (IOException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
