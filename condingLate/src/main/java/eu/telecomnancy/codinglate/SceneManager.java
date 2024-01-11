@@ -769,7 +769,19 @@ public class SceneManager {
 
     public Scene createSceneCalendar() {
         Offer offer = new OfferController().getOfferById(1);
-        Scene scene = new Scene(new ReservationCalendarView(offer));
+        SearchBar searchBar = new SearchBar();
+
+        BorderPane root = new BorderPane();
+
+        VBox layout = new VBox(10);
+        layout.setPadding(new Insets(0));
+        layout.getChildren().add(searchBar);
+
+        root.setTop(layout);
+        root.setCenter(new ReservationCalendarView(offer));
+
+
+        Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
         return scene;
     }
