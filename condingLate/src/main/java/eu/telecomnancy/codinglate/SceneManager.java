@@ -132,15 +132,23 @@ public class SceneManager {
 
 
         // Ajouter des labels pour chaque ComboBox
+        if(productComboBox.getValue().equals("Service")){
+            filtersPane.getChildren().addAll( new Label("Type de produit:"), productComboBox);
+        }
+
+        Label category = new Label("Catégorie:");
+        Label condition = new Label("Condition:");
         filtersPane.getChildren().addAll(
                 new Label("Type de produit:"), productComboBox,
-                new Label("Catégorie:"), categoryComboBox,
+                category, categoryComboBox,
                 brandComboBox, modelComboBox,
-                new Label("Condition:"), conditionComboBox,
+                condition, conditionComboBox,
                 yearComboBox
         );
 
 
+        category.setVisible(false);
+        condition.setVisible(false);
         categoryComboBox.setVisible(false);
         brandComboBox.setVisible(false);
         modelComboBox.setVisible(false);
@@ -155,28 +163,38 @@ public class SceneManager {
         tilePane.setHgap(10);
         tilePane.setVgap(10);
 
+        ArrayList<Offer> listOffres = handleProductSelection(root, tilePane,productComboBox.getValue(), category, condition, categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+        updateTilePane(tilePane, listOffres);
+
         productComboBox.setOnAction(event -> {
-            handleProductSelection(root, tilePane, productComboBox.getValue(), categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+            System.out.print("TEST");
+            ArrayList<Offer> newlistOffres = handleProductSelection(root, tilePane,productComboBox.getValue(), category, condition, categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+            updateTilePane(tilePane, newlistOffres);
         });
 
         categoryComboBox.setOnAction(event -> {
-            handleProductSelection(root, tilePane, productComboBox.getValue(), categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+            ArrayList<Offer> newlistOffres = handleProductSelection(root, tilePane, productComboBox.getValue(), category, condition, categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+            updateTilePane(tilePane, newlistOffres);
         });
 
         conditionComboBox.setOnAction(event -> {
-            handleProductSelection(root, tilePane, productComboBox.getValue(), categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+            ArrayList<Offer> newlistOffres = handleProductSelection(root, tilePane, productComboBox.getValue(), category, condition, categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+            updateTilePane(tilePane, newlistOffres);
         });
 
         brandComboBox.setOnAction(event -> {
-            handleProductSelection(root, tilePane, productComboBox.getValue(), categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+            ArrayList<Offer> newlistOffres = handleProductSelection(root, tilePane, productComboBox.getValue(), category, condition, categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+            updateTilePane(tilePane, newlistOffres);
         });
 
         modelComboBox.setOnAction(event -> {
-            handleProductSelection(root, tilePane, productComboBox.getValue(), categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+            ArrayList<Offer> newlistOffres = handleProductSelection(root, tilePane, productComboBox.getValue(), category, condition, categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+            updateTilePane(tilePane, newlistOffres);
         });
 
         yearComboBox.setOnAction(event -> {
-            handleProductSelection(root, tilePane, productComboBox.getValue(), categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+            ArrayList<Offer> newlistOffres = handleProductSelection(root, tilePane, productComboBox.getValue(), category, condition, categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+            updateTilePane(tilePane, newlistOffres);
         });
 
 
@@ -231,16 +249,19 @@ public class SceneManager {
         for (Offer offer : offers) {
             tilePane.getChildren().add(createOfferTile(offer, tilePane));
         }
+        tilePane.requestLayout();
     }
 
-    private void handleProductSelection(BorderPane root, TilePane tilePane, String selectedProduct, ComboBox<String> categoryComboBox, CustomTextField brandComboBox,
+    private ArrayList<Offer> handleProductSelection(BorderPane root, TilePane tilePane,String selectedProduct, Label category, Label prodcondition, ComboBox<String> categoryComboBox, CustomTextField brandComboBox,
                                         CustomTextField modelComboBox, ComboBox<String> conditionComboBox, CustomTextField yearComboBox) {
         // Logique pour gérer la sélection du type de produit (produit ou service)
         if ("Produit".equals(selectedProduct)) {
             // Afficher les ComboBox et labels spécifiques au produit
+            category.setVisible(true);
             categoryComboBox.setVisible(true);
             brandComboBox.setVisible(true);
             modelComboBox.setVisible(true);
+            prodcondition.setVisible(true);
             conditionComboBox.setVisible(true);
             yearComboBox.setVisible(true);
 
@@ -263,19 +284,23 @@ public class SceneManager {
             OfferController offerController = new OfferController();
             ArrayList<Offer> listOffres = offerController.getOfferByParameters(true, categorie, brand, model, condition, parseYear(year));
             updateTilePane(tilePane, listOffres);
+            return listOffres;
 
 
         } else {
             // Cacher les ComboBox et labels spécifiques au produit
+            category.setVisible(false);
             categoryComboBox.setVisible(false);
             brandComboBox.setVisible(false);
             modelComboBox.setVisible(false);
+            prodcondition.setVisible(false);
             conditionComboBox.setVisible(false);
             yearComboBox.setVisible(false);
 
             OfferController offerController = new OfferController();
             ArrayList<Offer> listoffres = offerController.getOfferByParameters(false, null, "", "", null, 0);
             updateTilePane(tilePane, listoffres);
+            return listoffres;
         }
         // Vous devrez ajouter une logique similaire pour gérer la sélection d'autres ComboBox
     }

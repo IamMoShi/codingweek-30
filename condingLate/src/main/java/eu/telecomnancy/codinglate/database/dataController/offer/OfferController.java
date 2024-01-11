@@ -15,6 +15,7 @@ import eu.telecomnancy.codinglate.geolocation.Geolocation;
 
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class OfferController {
@@ -309,18 +310,26 @@ public class OfferController {
         PriceType priceType = PriceType.values()[resultSet.getInt("priceType")];
 
         LocalDateTime startingDate = null;
+        String startingDateStr = resultSet.getString("startingDate");
         if (resultSet.getObject("startingDate") == null) {
             System.out.println("Starting date is null");
 
         } else {
-            startingDate = resultSet.getObject("startingDate", LocalDateTime.class);
+            startingDate = LocalDateTime.parse(startingDateStr);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+            String formattedStartingDate = startingDate.format(formatter);
+
         }
 
         LocalDateTime endingDate = null;
+        String endingDateStr = resultSet.getString("startingDate");
         if (resultSet.getObject("endingDate") == null) {
             System.out.println("Ending date is null");
         } else {
-            endingDate = resultSet.getObject("endingDate", LocalDateTime.class);
+            endingDate = LocalDateTime.parse(endingDateStr);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+            String formattedEndingDate = endingDate.format(formatter);
+
         }
 
         PersonController userController = new PersonController();
