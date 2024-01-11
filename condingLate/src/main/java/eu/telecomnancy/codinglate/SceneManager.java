@@ -163,43 +163,40 @@ public class SceneManager {
         tilePane.setHgap(10);
         tilePane.setVgap(10);
 
-        ArrayList<Offer> listOffres = handleProductSelection(root, tilePane,productComboBox.getValue(), category, condition, categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
-        updateTilePane(tilePane, listOffres);
+        handleProductSelection(root, tilePane,productComboBox.getValue(), category, condition, categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+
 
         productComboBox.setOnAction(event -> {
-            System.out.print("TEST");
-            ArrayList<Offer> newlistOffres = handleProductSelection(root, tilePane,productComboBox.getValue(), category, condition, categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
-            updateTilePane(tilePane, newlistOffres);
+            handleProductSelection(root, tilePane,productComboBox.getValue(), category, condition, categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+
         });
 
         categoryComboBox.setOnAction(event -> {
-            ArrayList<Offer> newlistOffres = handleProductSelection(root, tilePane, productComboBox.getValue(), category, condition, categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
-            updateTilePane(tilePane, newlistOffres);
+            handleProductSelection(root, tilePane, productComboBox.getValue(), category, condition, categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+
         });
 
         conditionComboBox.setOnAction(event -> {
-            ArrayList<Offer> newlistOffres = handleProductSelection(root, tilePane, productComboBox.getValue(), category, condition, categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
-            updateTilePane(tilePane, newlistOffres);
+            handleProductSelection(root, tilePane, productComboBox.getValue(), category, condition, categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+
         });
 
         brandComboBox.setOnAction(event -> {
-            ArrayList<Offer> newlistOffres = handleProductSelection(root, tilePane, productComboBox.getValue(), category, condition, categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
-            updateTilePane(tilePane, newlistOffres);
+            handleProductSelection(root, tilePane, productComboBox.getValue(), category, condition, categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+
         });
 
         modelComboBox.setOnAction(event -> {
-            ArrayList<Offer> newlistOffres = handleProductSelection(root, tilePane, productComboBox.getValue(), category, condition, categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
-            updateTilePane(tilePane, newlistOffres);
+            handleProductSelection(root, tilePane, productComboBox.getValue(), category, condition, categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+
         });
 
         yearComboBox.setOnAction(event -> {
-            ArrayList<Offer> newlistOffres = handleProductSelection(root, tilePane, productComboBox.getValue(), category, condition, categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
-            updateTilePane(tilePane, newlistOffres);
+            handleProductSelection(root, tilePane, productComboBox.getValue(), category, condition, categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+
         });
 
-
         root.setTop(layout);
-
 
         // Créer un ScrollPane et y ajouter la TilePane
         ScrollPane scrollPane = new ScrollPane(tilePane);
@@ -219,6 +216,7 @@ public class SceneManager {
 
     private VBox createOfferTile(Offer offer, TilePane tilePane) {
         Label titleLabel = new Label(offer.getTitle());
+        titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
         Label descriptionLabel = new Label(offer.getDescription());
         Label priceLabel = new Label("Prix : " + offer.getPrice() + " " + offer.getPriceType());
         Label dateLabel = new Label("Date de début : " + offer.getStartingDate() + " / Date de fin : " + offer.getEndingDate());
@@ -231,6 +229,10 @@ public class SceneManager {
 
         // Ajouter un gestionnaire d'événements pour le clic sur la tuile
         tile.setOnMouseClicked(event -> handleTileClick(offer, tilePane));
+
+        //tile.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/items.css").toString());
+        //tile.getStyleClass().add("items");
+        tile.setStyle("-fx-background-color: #FCA6D5; -fx-padding: 10px; -fx-border-color: #171616; -fx-border-width: 1px;");
 
         return tile;
     }
