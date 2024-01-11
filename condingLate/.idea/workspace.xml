@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="Création d'un calendrier pour les booking d'une offre.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/calendar/ReservationCalendarView.java" afterDir="false" />
+    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="Calendrier pour les offres">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,56 +81,56 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "DefaultPlantUmlFileTemplate": "UML Class",
-    "Downloaded.Files.Path.Enabled": "false",
-    "Gradle.AddressTest.executor": "Run",
-    "Gradle.AddressTest.testInsertAddress.executor": "Debug",
-    "Gradle.AddressTest.testUpdateAddress.executor": "Run",
-    "Gradle.BookingDAOTest.executor": "Run",
-    "Gradle.DataObject.address.executor": "Run",
-    "Gradle.DataObject.executor": "Run",
-    "Gradle.DataObject.user.executor": "Run",
-    "Gradle.OfferControllerTest.deleteOffer.executor": "Run",
-    "Gradle.OfferControllerTest.executor": "Run",
-    "Gradle.OfferControllerTest.getOfferTest.executor": "Run",
-    "Gradle.OfferControllerTest.testGetProductsByName.executor": "Run",
-    "Gradle.OfferControllerTest.testInsertProduct.executor": "Run",
-    "Gradle.OfferControllerTest.testUpdateProduct.executor": "Run",
-    "Gradle.OfferControllerTest.testUpdateService.executor": "Run",
-    "Gradle.RatingDAOTest.executor": "Run",
-    "Gradle.RatingDAOTest.testInsert.executor": "Run",
-    "Gradle.condingLate [:App.main()].executor": "Run",
-    "Gradle.condingLate [:CalendarApp.main()].executor": "Run",
-    "Gradle.condingLate [:Geolocation.main()].executor": "Run",
-    "Gradle.condingLate [:HelloApplication.main()].executor": "Run",
-    "Gradle.condingLate [dependencies].executor": "Run",
-    "Gradle.condingLate [jar].executor": "Run",
-    "Gradle.condingLate [run].executor": "Run",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/moshi/Documents/projets/codingLate/codingweek-30/condingLate",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.55381787",
-    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;DefaultPlantUmlFileTemplate&quot;: &quot;UML Class&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Gradle.AddressTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AddressTest.testInsertAddress.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.AddressTest.testUpdateAddress.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.BookingDAOTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.DataObject.address.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.DataObject.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.DataObject.user.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.OfferControllerTest.deleteOffer.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.OfferControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.OfferControllerTest.getOfferTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.OfferControllerTest.testGetProductsByName.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.OfferControllerTest.testInsertProduct.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.OfferControllerTest.testUpdateProduct.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.OfferControllerTest.testUpdateService.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.RatingDAOTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.RatingDAOTest.testInsert.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.condingLate [:App.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.condingLate [:CalendarApp.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.condingLate [:Geolocation.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.condingLate [:HelloApplication.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.condingLate [dependencies].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.condingLate [jar].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.condingLate [run].executor&quot;: &quot;Run&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/moshi/Documents/projets/codingLate/codingweek-30/condingLate&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.55381787&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\moshi\Documents\projets\codingLate\codingweek-30\condingLate" />
@@ -141,7 +140,7 @@
       <recent name="C:\Users\moshi\Documents\projets\codingLate\codingweek-30\condingLate\src\main\java\eu\telecomnancy\codinglate\database\dataObject\enums" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.App">
+  <component name="RunManager" selected="Gradle.condingLate [run]">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="eu.telecomnancy.codinglate.App" />
       <module name="codingLate.main" />
@@ -230,7 +229,7 @@
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--warning-mode all" />
+        <option name="scriptParameters" value="--warning-mode all --stacktrace" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -257,9 +256,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.condingLate [dependencies]" />
         <item itemvalue="Application.App" />
         <item itemvalue="Application.CalendarApp" />
-        <item itemvalue="Gradle.condingLate [dependencies]" />
         <item itemvalue="Application.Geolocation" />
         <item itemvalue="Gradle.condingLate [jar]" />
       </list>
@@ -286,7 +285,8 @@
       <workItem from="1704899052136" duration="115000" />
       <workItem from="1704899182046" duration="9698000" />
       <workItem from="1704965339643" duration="877000" />
-      <workItem from="1704966400471" duration="13137000" />
+      <workItem from="1704966400471" duration="14548000" />
+      <workItem from="1704990056726" duration="989000" />
     </task>
     <task id="LOCAL-00001" summary="Base app">
       <option name="closed" value="true" />
@@ -600,7 +600,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704979731411</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="Calendrier pour les offres">
+      <option name="closed" value="true" />
+      <created>1704985078714</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1704985078714</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -619,7 +627,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Ajout d'un produit à la base de donnée fait" />
     <MESSAGE value="Update d'un produit et d'une offre dans la base de données implémenté et testé" />
     <MESSAGE value="delete offre fonctionne" />
     <MESSAGE value="implementation de getById pour les offres et test" />
@@ -644,7 +651,8 @@
     <MESSAGE value="Ajout de l'enregistrement des images dans la base de données" />
     <MESSAGE value="Correction ajout image à la base de donnée. La méthode n'était pas correcte dans la DAO de cet objet" />
     <MESSAGE value="Création d'un calendrier pour les booking d'une offre." />
-    <option name="LAST_COMMIT_MESSAGE" value="Création d'un calendrier pour les booking d'une offre." />
+    <MESSAGE value="Calendrier pour les offres" />
+    <option name="LAST_COMMIT_MESSAGE" value="Calendrier pour les offres" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -61,6 +61,7 @@ dependencies {
 
     implementation('com.google.code.gson:gson:2.8.9')
     implementation group: 'com.calendarfx', name: 'view', version: '11.12.6'
+    implementation 'org.mnode.ical4j:ical4j:4.0.0-rc3'
 
 }
 
