@@ -23,6 +23,8 @@ public class CompteCreator {
 
     private VBox vbox;
 
+    private Label affichagelabel;
+
     public VBox getVbox() {
         return this.vbox;
     }
@@ -30,6 +32,7 @@ public class CompteCreator {
 
     public CompteCreator() {
         this.vbox = createFormPane();
+        this.affichagelabel = new Label("");
         addUIControls((GridPane) vbox.getChildren().get(0));
     }
 
@@ -188,9 +191,9 @@ public class CompteCreator {
 
     private void addNewLabel(GridPane root, String str) {
 
-        Label Label = new Label(str);
+        affichagelabel.setText(str);
 
-        root.add(Label, 1, 8);
+        root.add(affichagelabel, 1, 8);
     }
 }
 

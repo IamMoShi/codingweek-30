@@ -66,7 +66,7 @@ public class MessageController {
 
         try {
             conn = DbConnection.connect();
-            String sql = "SELECT * FROM message WHERE receiver = ? AND sender = ?";
+            String sql = "SELECT * FROM message WHERE sender = ? AND receiver = ?";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, email1);
             pstmt.setString(2, email2);
@@ -89,7 +89,7 @@ public class MessageController {
             rs.close();
             pstmt.close();
 
-            sql = "SELECT * FROM message WHERE receiver = ? AND sender = ?";
+            sql = "SELECT * FROM message WHERE sender = ? AND receiver = ?";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, email2);
             pstmt.setString(2, email1);
@@ -105,7 +105,7 @@ public class MessageController {
                 // Convertir la chaîne en LocalDateTime
                 LocalDateTime localDateTime = LocalDateTime.parse(rs.getString("date"), formatter);
 
-                Message msg = new Message(id, personController.getPersonByEmail(email1), personController.getPersonByEmail(email2), message, localDateTime);
+                Message msg = new Message(id, personController.getPersonByEmail(email2), personController.getPersonByEmail(email1), message, localDateTime);
                 if (!messages.contains(msg)) {
                     messages.add(msg);
                 }

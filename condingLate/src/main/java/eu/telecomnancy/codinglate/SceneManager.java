@@ -383,6 +383,7 @@ public class SceneManager {
         newConv.initializeButton();
         root.setRight(newConv);
 
+
         newConv.setOnAction(event -> {
                     Stage stage = (Stage) this.primaryStage;
                     MessageCreator messageCreator= new MessageCreator(stage);
