@@ -251,6 +251,7 @@ public class OfferController {
     }
 
     private Product createProduct(ResultSet resultSet) throws SQLException {
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
         int id = resultSet.getInt("id");
         int userId = resultSet.getInt("user");
@@ -282,9 +283,14 @@ public class OfferController {
         if (resultSet.getObject("condition") == null) {
             System.out.println("Condition is null");
         } else {
-            System.out.println(resultSet.getInt("condition"));
-            condition = ProductCondition.values()[resultSet.getInt("condition")];
+            try {
+                System.out.println(resultSet.getInt("condition"));
+                condition = ProductCondition.values()[resultSet.getInt("condition")];
+            } catch (Exception e) {
+                System.out.println("Condition is null");
+            }
         }
+
 
         int conditionOrdinal = resultSet.getInt("condition");
         int year = resultSet.getInt("year");
@@ -363,11 +369,12 @@ public class OfferController {
             e.printStackTrace();
             // Gérer les erreurs de manière appropriée, par exemple, en lançant une exception personnalisée
         }
+
         return offer;
     }
 
-    public ArrayList<Product> getProductsByName(String name) {
-        ArrayList<Product> products = new ArrayList<>();
+    public ArrayList<Offer> getProductsByName(String name) {
+        ArrayList<Offer> products = new ArrayList<>();
         try (Connection conn = DbConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM offer WHERE LOWER(title) LIKE ? AND service = 0")) {
 
@@ -376,19 +383,52 @@ public class OfferController {
             try (ResultSet resultSet = pstmt.executeQuery()) {
                 int i = 0;
                 while (resultSet.next()) {
+
                     Product product = createProduct(resultSet);
+
                     if (product != null) {
+
                         products.add(product);
+
                     }
                     i++;
                 }
                 System.out.println(i + " produits trouvés.");
+            } catch (SQLException e) {
+                e.printStackTrace();
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
             // Gérer les erreurs de manière appropriée, par exemple, en lançant une exception personnalisée
         }
+        System.out.println("here");
         return products;
+    }
+
+    public ArrayList<Offer> getServiceByName(String name) {
+        ArrayList<Offer> services = new ArrayList<>();
+        try (Connection conn = DbConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM offer WHERE LOWER(title) LIKE ? AND service = 1")) {
+
+            pstmt.setString(1, "%" + name.toLowerCase() + "%");
+
+            try (ResultSet resultSet = pstmt.executeQuery()) {
+                int i = 0;
+                while (resultSet.next()) {
+                    Service service = createService(resultSet);
+                    if (service != null) {
+                        services.add(service);
+                    }
+                    i++;
+                }
+                System.out.println(i + " services trouvés.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Gérer les erreurs de manière appropriée, par exemple, en lançant une exception personnalisée
+        }
+        return services;
     }
 
     public ArrayList<Offer> getOfferByParameters(Boolean service, ProductCategory category, String brand, String model, ProductCondition condition, int year) {
