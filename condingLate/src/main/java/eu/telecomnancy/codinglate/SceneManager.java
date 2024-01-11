@@ -46,10 +46,6 @@ public class SceneManager {
         double width = getCurrentSceneWidth();
         double height = getCurrentSceneHeight();
         primaryStage.setScene(scene);
-        primaryStage.setWidth(width);
-        primaryStage.setHeight(height);
-        primaryStage.setMinWidth(minWidth);
-        primaryStage.setMinHeight(minHeight);
         primaryStage.show();
     }
 
