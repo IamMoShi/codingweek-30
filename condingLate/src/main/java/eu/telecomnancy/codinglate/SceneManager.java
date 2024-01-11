@@ -42,14 +42,30 @@ public class SceneManager {
     public void switchScene(Scene scene) {
         int minWidth = 1200;
         int minHeight = 800;
-        double width = primaryStage.getWidth();
-        double height = primaryStage.getHeight();
+        double width = getCurrentSceneWidth();
+        double height = getCurrentSceneHeight();
         primaryStage.setScene(scene);
         primaryStage.setWidth(width);
         primaryStage.setHeight(height);
         primaryStage.setMinWidth(minWidth);
         primaryStage.setMinHeight(minHeight);
         primaryStage.show();
+    }
+
+    private int getCurrentSceneHeight() {
+        if (primaryStage.getScene() != null) {
+            return (int) primaryStage.getScene().getHeight();
+        } else {
+            return 800;
+        }
+    }
+
+    private int getCurrentSceneWidth() {
+        if (primaryStage.getScene() != null) {
+            return (int) primaryStage.getScene().getWidth();
+        } else {
+            return 1300;
+        }
     }
 
     public Scene createScenePresentation() {
@@ -83,7 +99,7 @@ public class SceneManager {
         imageBox.getChildren().addAll(imageView, text);
         root.setCenter(imageBox);
 
-        Scene scene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight());
+        Scene scene = new Scene(root, getCurrentSceneWidth(), getCurrentSceneHeight());
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
 
         scene.widthProperty().addListener(new ChangeListener<Number>() {
@@ -122,7 +138,7 @@ public class SceneManager {
         root.setCenter(tilePane);
 
 
-        Scene scene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight());
+        Scene scene = new Scene(root, getCurrentSceneWidth(), getCurrentSceneHeight());
         // Ajoutez vos stylesheets ici
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
         return scene;
@@ -243,7 +259,7 @@ public class SceneManager {
 
         root.setCenter(scrollPane);
 
-        Scene scene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight());
+        Scene scene = new Scene(root, getCurrentSceneWidth(), getCurrentSceneHeight());
         // Ajoutez vos stylesheets ici
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
 
@@ -395,7 +411,7 @@ public class SceneManager {
         root.setRight(imageView);
 
 
-        Scene scene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight());
+        Scene scene = new Scene(root, getCurrentSceneWidth(), getCurrentSceneHeight());
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
         return scene;
 
@@ -441,7 +457,7 @@ public class SceneManager {
                 }
         );
 
-        Scene scene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight());
+        Scene scene = new Scene(root, getCurrentSceneWidth(), getCurrentSceneHeight());
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
         return scene;
     }
@@ -468,7 +484,7 @@ public class SceneManager {
         root.setCenter(gridPane);
 
 
-        Scene scene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight());
+        Scene scene = new Scene(root, getCurrentSceneWidth(), getCurrentSceneHeight());
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
         return scene;
     }
@@ -557,7 +573,7 @@ public class SceneManager {
 
         root.setTop(layout);
         root.setCenter(new SearchContent());
-        Scene scene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight());
+        Scene scene = new Scene(root, getCurrentSceneWidth(), getCurrentSceneHeight());
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
         return scene;
 
@@ -637,7 +653,7 @@ public class SceneManager {
 
         root.setTop(layout);
 
-        Scene scene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight());
+        Scene scene = new Scene(root, getCurrentSceneWidth(), getCurrentSceneHeight());
         // Ajouter vos stylesheets ici si nécessaire
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
 
@@ -711,7 +727,7 @@ public class SceneManager {
         }
 
         root.setTop(layout);
-        Scene scene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight());
+        Scene scene = new Scene(root, getCurrentSceneWidth(), getCurrentSceneHeight());
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
         return scene;
     }
@@ -754,7 +770,7 @@ public class SceneManager {
 
         root.setCenter(gridPane);
 
-        Scene scene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight());
+        Scene scene = new Scene(root, getCurrentSceneWidth(), getCurrentSceneHeight());
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
         return scene;
     }
@@ -772,7 +788,7 @@ public class SceneManager {
 
         root.setTop(layout);
 
-        Scene scene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight());
+        Scene scene = new Scene(root, getCurrentSceneWidth(), getCurrentSceneHeight());
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
         return scene;
 
