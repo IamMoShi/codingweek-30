@@ -758,6 +758,24 @@ public class SceneManager {
     }
 
 
+    public Scene createSceneCalendar() {
+        SearchBar searchBar = new SearchBar();
+
+        BorderPane root = new BorderPane();
+
+        VBox layout = new VBox(10);
+        layout.setPadding(new Insets(0));
+        layout.getChildren().add(searchBar);
+
+        root.setTop(layout);
+
+        Scene scene = new Scene(root, getCurrentSceneWidth(), getCurrentSceneHeight());
+        scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
+
+        return scene;
+    }
+
+
     public Scene createSceneEvaluations(Offer offer) {
         SearchBar searchBar = new SearchBar();
 
