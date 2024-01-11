@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="Calendrier pour les offres">
+    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="Correction barre de recherche">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodingWeekDatabase.db" beforeDir="false" afterPath="$PROJECT_DIR$/CodingWeekDatabase.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/UI/SearchContent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/UI/SearchContent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/offer/OfferController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/offer/OfferController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/eu/telecomnancy/codinglate/database/controller/OfferControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/eu/telecomnancy/codinglate/database/controller/OfferControllerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -286,7 +289,7 @@
       <workItem from="1704899182046" duration="9698000" />
       <workItem from="1704965339643" duration="877000" />
       <workItem from="1704966400471" duration="14548000" />
-      <workItem from="1704990056726" duration="989000" />
+      <workItem from="1704990056726" duration="4405000" />
     </task>
     <task id="LOCAL-00001" summary="Base app">
       <option name="closed" value="true" />
@@ -608,7 +611,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704985078714</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="Patch pour run avec gradle dsl">
+      <option name="closed" value="true" />
+      <created>1704991120831</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1704991120831</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -627,8 +638,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Update d'un produit et d'une offre dans la base de données implémenté et testé" />
-    <MESSAGE value="delete offre fonctionne" />
     <MESSAGE value="implementation de getById pour les offres et test" />
     <MESSAGE value="implementation de GetProductsByName" />
     <MESSAGE value="insertion de booking avec BookingDAO" />
@@ -652,7 +661,9 @@
     <MESSAGE value="Correction ajout image à la base de donnée. La méthode n'était pas correcte dans la DAO de cet objet" />
     <MESSAGE value="Création d'un calendrier pour les booking d'une offre." />
     <MESSAGE value="Calendrier pour les offres" />
-    <option name="LAST_COMMIT_MESSAGE" value="Calendrier pour les offres" />
+    <MESSAGE value="Patch pour run avec gradle dsl" />
+    <MESSAGE value="Correction barre de recherche" />
+    <option name="LAST_COMMIT_MESSAGE" value="Correction barre de recherche" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

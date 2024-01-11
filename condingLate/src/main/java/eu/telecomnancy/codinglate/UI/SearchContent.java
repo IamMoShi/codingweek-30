@@ -99,8 +99,17 @@ public class SearchContent extends HBox {
                 distance = Integer.parseInt(distanceField.getText());
             }
             System.out.println(PersonController.getInstance().getCurrentUser().getFirstname());
+            String name = ((TextField) gridPane1.getChildren().get(0)).getText();
 
-            ArrayList<Offer> offers = new OfferController().getOfferByParameters(isService, null, "", "", null, -1);
+            ArrayList<Offer> offers = new ArrayList<>();
+
+            if (isService) {
+                offers = new OfferController().getServiceByName(name);
+            } else {
+                System.out.println("Recherche de produits");
+                offers = new OfferController().getProductsByName(name);
+                System.out.println("Offres trouvées : " + offers.size());
+            }
             offers = new OfferController().checkDistance(offers, PersonController.getInstance().getCurrentUser(), distance);
 
             SceneManager sceneManager = new SceneManager((Stage) getScene().getWindow());
@@ -110,6 +119,7 @@ public class SearchContent extends HBox {
             System.out.println("Offres trouvées : " + offers.size());
 
         } catch (Exception e) {
+            System.out.println(e+"");
             System.out.println("Erreur lors de la récupération des données de la recherche.");
         }
 

@@ -3,6 +3,7 @@ package eu.telecomnancy.codinglate.database.controller;
 import eu.telecomnancy.codinglate.database.dataController.offer.OfferController;
 import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
 import eu.telecomnancy.codinglate.database.dataObject.enums.ProductCondition;
+import eu.telecomnancy.codinglate.database.dataObject.offer.Offer;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Product;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Service;
 import eu.telecomnancy.codinglate.database.dataObject.user.Address;
@@ -260,14 +261,14 @@ public class OfferControllerTest {
         offerController.insert(product5);
 
         // Récupérer les produits dont le nom contient "baleine"
-        ArrayList<Product> products = offerController.getProductsByName("baleine");
+        ArrayList<Offer> products = offerController.getProductsByName("baleine");
 
-        for (Product product : products) {
+        for (Offer product : products) {
             System.out.println(product.getTitle());
         }
 
         // Vérifier que les produits récupérés sont les bons
-        for (Product product : products) {
+        for (Offer product : products) {
             assertTrue(product.getTitle().contains("baleine"));
         }
 
