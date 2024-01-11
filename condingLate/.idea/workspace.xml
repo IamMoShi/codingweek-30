@@ -4,16 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="Correction ajout image à la base de donnée. La méthode n'était pas correcte dans la DAO de cet objet">
-      <change afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/calendar/CalendarStaticContraint.java" afterDir="false" />
+    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="Création d'un calendrier pour les booking d'une offre.">
+      <change afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/calendar/ReservationCalendarView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodingWeekDatabase.db" beforeDir="false" afterPath="$PROJECT_DIR$/CodingWeekDatabase.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/ServiceCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/ServiceCreator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/offer/BookingDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/offer/BookingDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/offer/OfferController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/offer/OfferController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -292,7 +286,7 @@
       <workItem from="1704899052136" duration="115000" />
       <workItem from="1704899182046" duration="9698000" />
       <workItem from="1704965339643" duration="877000" />
-      <workItem from="1704966400471" duration="9219000" />
+      <workItem from="1704966400471" duration="13137000" />
     </task>
     <task id="LOCAL-00001" summary="Base app">
       <option name="closed" value="true" />
@@ -598,7 +592,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704965936102</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Création d'un calendrier pour les booking d'une offre.">
+      <option name="closed" value="true" />
+      <created>1704979731410</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1704979731411</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -617,7 +619,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Code de l'ajout d'un produit à la base de donnée. Test pas encore fini mais besoin de pull" />
     <MESSAGE value="Ajout d'un produit à la base de donnée fait" />
     <MESSAGE value="Update d'un produit et d'une offre dans la base de données implémenté et testé" />
     <MESSAGE value="delete offre fonctionne" />
@@ -642,7 +643,8 @@
     <MESSAGE value="Modification de style de la barre de navigation et de la page de recherche" />
     <MESSAGE value="Ajout de l'enregistrement des images dans la base de données" />
     <MESSAGE value="Correction ajout image à la base de donnée. La méthode n'était pas correcte dans la DAO de cet objet" />
-    <option name="LAST_COMMIT_MESSAGE" value="Correction ajout image à la base de donnée. La méthode n'était pas correcte dans la DAO de cet objet" />
+    <MESSAGE value="Création d'un calendrier pour les booking d'une offre." />
+    <option name="LAST_COMMIT_MESSAGE" value="Création d'un calendrier pour les booking d'une offre." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
