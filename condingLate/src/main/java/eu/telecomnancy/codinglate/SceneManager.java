@@ -45,10 +45,12 @@ import java.util.List;
 
 public class SceneManager {
     private Stage primaryStage;
+    private static Scene previousScene;
 
     public SceneManager(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
+
 
     public void switchScene(Scene scene) {
         int minWidth = 1200;
@@ -57,6 +59,7 @@ public class SceneManager {
         double height = getCurrentSceneHeight();
         primaryStage.setScene(scene);
         primaryStage.show();
+        previousScene = scene;
     }
 
     private int getCurrentSceneHeight() {
@@ -777,9 +780,11 @@ public class SceneManager {
         layout.setPadding(new Insets(0));
         layout.getChildren().add(searchBar);
 
-        root.setTop(layout);
-        root.setCenter(new ReservationCalendarView(offer));
+        ReservationCalendarView calendar = new ReservationCalendarView(offer);
 
+        root.setTop(layout);
+        root.setCenter(calendar);
+        root.setBottom(new BookButton(createScenePresentation(), calendar));
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());

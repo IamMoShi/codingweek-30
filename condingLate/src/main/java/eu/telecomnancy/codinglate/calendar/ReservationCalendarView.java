@@ -37,16 +37,17 @@ public class ReservationCalendarView extends CalendarView {
         this.setShowToolBar(false);
 
         Calendar calendar = new CalendarStaticContraint("Bookings", offer);
+        calendar.setStyle(Calendar.Style.STYLE1);
 
-        defaultCalendar = new Calendar("default");
-        defaultCalendar.setStyle(Calendar.Style.STYLE1);
 
         CalendarSource myCalendarSource = new CalendarSource("My Calendars");
         myCalendarSource.getCalendars().add(calendar);
-        myCalendarSource.getCalendars().add(defaultCalendar);
+
 
         this.getCalendarSources().addAll(myCalendarSource);
+        System.out.println("Nb de calendrier = " + this.getCalendars().size());
 
+        defaultCalendar = this.getCalendars().get(0);
 
     }
 
@@ -56,11 +57,11 @@ public class ReservationCalendarView extends CalendarView {
         if (entries.size() == 1) {
             Entry entry = entries.get(0);
             // Regarde si l'entrée est bien une réservation
-            if (entry.getUserObject() instanceof Booking) {
-                LocalDateTime startingDate = entry.getStartAsLocalDateTime();
-                LocalDateTime endingDate = entry.getEndAsLocalDateTime();
-                return new Booking(offer, (User) PersonController.getInstance().getCurrentUser(), startingDate, endingDate);
-            }
+
+            LocalDateTime startingDate = entry.getStartAsLocalDateTime();
+            LocalDateTime endingDate = entry.getEndAsLocalDateTime();
+            return new Booking(offer, (User) PersonController.getInstance().getCurrentUser(), startingDate, endingDate);
+
         }
         return null;
     }
