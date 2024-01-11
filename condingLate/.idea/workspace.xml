@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="Ajouter la navbar">
-      <change afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/UI/BookButton.java" afterDir="false" />
+    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="Possibilité de réserver un créneau avec le calendrier.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/SceneManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/SceneManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/UI/BookButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/UI/BookButton.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/calendar/ReservationCalendarView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/calendar/ReservationCalendarView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -665,7 +664,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705005332748</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="Possibilité de réserver un créneau avec le calendrier.">
+      <option name="closed" value="true" />
+      <created>1705007242012</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1705007242012</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -684,7 +691,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="La page d'ajout des services est en bonne voie de fonctionnement" />
     <MESSAGE value="Ajout du jar du jour" />
     <MESSAGE value="Avec un nom correct c'est mieux. Précision dans le README.md" />
     <MESSAGE value="Ajout des images pour les services, début de l'implémentation de la DAO pour les images d'offres" />
@@ -709,7 +715,8 @@
     <MESSAGE value="Tentative de patch pour les problèmes de tailles de fenêtres" />
     <MESSAGE value="Mettre le calendar de réservation sur la première scene et run avec gradle" />
     <MESSAGE value="Ajouter la navbar" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ajouter la navbar" />
+    <MESSAGE value="Possibilité de réserver un créneau avec le calendrier." />
+    <option name="LAST_COMMIT_MESSAGE" value="Possibilité de réserver un créneau avec le calendrier." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

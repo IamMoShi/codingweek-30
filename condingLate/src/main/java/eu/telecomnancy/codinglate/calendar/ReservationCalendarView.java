@@ -51,6 +51,10 @@ public class ReservationCalendarView extends CalendarView {
 
     }
 
+    public Offer getOffer() {
+        return offer;
+    }
+
     public Booking getBooking() {
         List<Entry> entries = defaultCalendar.findEntries("");
         // Regarde s'il y a bien une et une seule entrée dans le calendrier
