@@ -9,6 +9,7 @@ module eu.telecomnancy.codinglate {
     requires java.sql;
     requires org.xerial.sqlitejdbc;
     requires com.google.gson;
+    requires com.calendarfx.view;
 
     opens eu.telecomnancy.codinglate to javafx.fxml;
     exports eu.telecomnancy.codinglate;
