@@ -268,8 +268,6 @@ public class SceneManager {
         // Ajouter un gestionnaire d'événements pour le clic sur la tuile
         tile.setOnMouseClicked(event -> handleTileClick(offer, tilePane));
 
-        //tile.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/items.css").toString());
-        //tile.getStyleClass().add("items");
         tile.setStyle("-fx-background-color: #FCA6D5; -fx-padding: 10px; -fx-border-color: #171616; -fx-border-width: 1px;");
 
         return tile;
@@ -510,7 +508,7 @@ public class SceneManager {
 
         root.setTop(layout);
 
-        ProductCreator compteCreator = new ProductCreator();
+        ProductCreator compteCreator = new ProductCreator(primaryStage);
         VBox gridPane = compteCreator.getVbox();
 
         // Ajoutez le formulaire à la scène
@@ -533,7 +531,7 @@ public class SceneManager {
 
         root.setTop(layout);
 
-        ServiceCreator serviceCreator = new ServiceCreator();
+        ServiceCreator serviceCreator = new ServiceCreator(primaryStage);
         VBox gridPane = serviceCreator.getVbox();
 
         // Ajoutez le formulaire à la scène
@@ -618,6 +616,15 @@ public class SceneManager {
 
         });
 
+        Button returndisplaybutton = new Button("Retour");
+        returndisplaybutton.setPrefHeight(0);
+        returndisplaybutton.setStyle("-fx-background-color: #0000");
+        returndisplaybutton.setOnAction(event -> {
+            SceneManager sceneManager = new SceneManager(primaryStage);
+            Scene scene = sceneManager.createSceneDisplayProduct();
+            sceneManager.switchScene(scene);
+        });
+
 
         // Ajouter une image si disponible
         if (!offer.getImages().isEmpty()) {
@@ -628,7 +635,7 @@ public class SceneManager {
         }
 
         // Ajouter les labels au conteneur des détails du produit
-        productDetailsBox.getChildren().addAll(titleLabel, descriptionLabel, priceLabel, submitButton);
+        productDetailsBox.getChildren().addAll(titleLabel, descriptionLabel, priceLabel, submitButton,returndisplaybutton);
         productBox.getChildren().add(productDetailsBox);
 
         // Ajouter la boîte du produit à la mise en page principale
