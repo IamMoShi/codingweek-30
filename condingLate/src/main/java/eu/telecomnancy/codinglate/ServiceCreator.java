@@ -61,42 +61,46 @@ public class ServiceCreator {
         // Add controls to the gridPane
 
         CustomTextField TitleField = new CustomTextField("Titre");
+        TitleField.getStyleClass().add("necessary");
         gridPane.add(TitleField, 0, 0);
 
         CustomTextField DescriptionField = new CustomTextField("Description");
         gridPane.add(DescriptionField, 0, 1);
 
        CustomTextField priceField = new CustomTextField("Prix");
+       priceField.getStyleClass().add("necessary");
         gridPane.add(priceField, 0, 2);
 
 
         CustomChoiceBox TypePriceBox = new CustomChoiceBox(
                 FXCollections.observableArrayList("EURO_PER_HOUR","EURO_PER_DAY","EURO_PER_WEEK", "EURO_PER_MONTH")
         );
+        TypePriceBox.getStyleClass().add("necessary");
         gridPane.add(TypePriceBox, 0, 3);
 
 
         CustomDatePicker startDatePicker = new CustomDatePicker("Début de l'offre");
         gridPane.add(startDatePicker, 0, 4);
 
-        Spinner<Integer> starthourspinner = new Spinner<>(0, 100, 0);
+        CustomSpinner starthourspinner = new CustomSpinner(0, 24, 0, 1);
         gridPane.add(starthourspinner, 0, 5);
-        Spinner<Integer> minutespinner = new Spinner<>(0, 100, 0);
+        CustomSpinner minutespinner = new CustomSpinner(0, 60, 0, 1);
         gridPane.add(minutespinner, 0, 6);
 
 
         CustomDatePicker endDatePicker = new CustomDatePicker("Fin de l'offre");
         gridPane.add(endDatePicker, 0, 7);
 
-        Spinner<Integer> endhourspinner = new Spinner<>(0, 100, 0);
+        CustomSpinner endhourspinner = new CustomSpinner(0, 24, 0, 1);
         gridPane.add(endhourspinner, 0, 8);
-        Spinner<Integer> endminutespinner = new Spinner<>(0, 100, 0);
+        CustomSpinner endminutespinner = new CustomSpinner(0, 60, 0, 1);
         gridPane.add(endminutespinner, 0, 9);
 
 
 
         SearchBarButton chooseImage = new SearchBarButton("chooseImage","Choisir une image");
         chooseImage.initializeButton();
+        chooseImage.setPrefWidth(240);
         gridPane.add(chooseImage,0,10);
 
         chooseImage.setOnAction(event -> {

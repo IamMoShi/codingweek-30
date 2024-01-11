@@ -1,5 +1,19 @@
 # CODING WEEK 2024
 
+## Pour lancer l'app 
+
+### Gradle
+
+Dans le dossier condingLate lancer la commande ./gradlew run
+
+### Intellij
+
+Lancer la classe Main.java
+
+### A partir du jar
+
+Un jar est disponible chaque jour à la source du projet.
+
 ---
 ## Points importants 
 
@@ -137,6 +151,38 @@
 - Corrections de bugs sur la DAO
 - Problèmes avec les images qui ne s'affichent pas sur l'app quand on lance gradle run
 - Problèmes de suppression des utilisateurs dans la base de données lorsqu'ils ont encore des produits et des services.
+
+
+## DAY 3 (Mercredi 10 janvier 2024)
+
+### Objectifs de la journée
+
+- Création des formulaires d'ajout de produits et de services
+- Mise en service de la messagerie
+- Affichage des produits et services sur la page
+- Ajout de photo pour les produits et services
+- Création des formulaires de notation
+- Mise en service de la barre de recherche
+- Mise en service de la géolocalisation
+
+
+### Tâches réalisées
+
+
+- Affichage des produits et services sur la page
+- Ajout des formulaires d'ajout de produits et de services
+- Mise en service de la messagerie
+- Avancement sur la barrre de recherche
+- Mise en service de la géolocalisation
+- Amélioration de la base de données
+- Avancée sur l'ajout de photos pour les produits et services
+- Début des formulaires de notation
+
+
+
+### Difficultés rencontrées
+
+- Problème avec git ce qui a causé des problèmes de merge et de perte de données
 
 
 

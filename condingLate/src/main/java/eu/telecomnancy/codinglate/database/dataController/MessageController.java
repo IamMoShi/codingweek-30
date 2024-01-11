@@ -1,26 +1,21 @@
 package eu.telecomnancy.codinglate.database.dataController;
 
 import eu.telecomnancy.codinglate.database.DbConnection;
-import eu.telecomnancy.codinglate.database.dataController.user.AddressController;
 import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
 import eu.telecomnancy.codinglate.database.dataObject.message.Message;
-import eu.telecomnancy.codinglate.database.dataObject.user.Address;
-import eu.telecomnancy.codinglate.database.dataObject.user.Admin;
 import eu.telecomnancy.codinglate.database.dataObject.user.Person;
-import eu.telecomnancy.codinglate.database.dataObject.user.User;
 import javafx.scene.control.ListView;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Objects;
 
 public class MessageController {
 
-    public void insert(Message message){
+    public void insert(Message message) {
         int generatedId = -1;
 
         try (Connection conn = DbConnection.connect();
@@ -31,7 +26,9 @@ public class MessageController {
             pstmt.setString(1, message.getSender().getEmail());
             pstmt.setString(2, message.getReceiver().getEmail());
             pstmt.setString(3, message.getMessage());
-            pstmt.setString(4, message.getDate().toString());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("E, dd MMM yyyy HH:mm:ss");
+            String formattedDateTime = message.getDate().format(formatter);
+            pstmt.setString(4, formattedDateTime);
 
 
             int rowsInserted = pstmt.executeUpdate();
@@ -53,9 +50,11 @@ public class MessageController {
             // Gérer les erreurs de manière appropriée, par exemple, en lançant une exception personnalisée
         }
 
+        message.setId(generatedId);
+
     }
 
-    public List<Message> getConversation(String email1, String email2){
+    public List<Message> getConversation(String email1, String email2) {
 
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -67,46 +66,47 @@ public class MessageController {
 
         try {
             conn = DbConnection.connect();
-            String sql = "SELECT * FROM message WHERE receiver = ? AND sender = ?";
+            String sql = "SELECT * FROM message WHERE sender = ? AND receiver = ?";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, email1);
             pstmt.setString(2, email2);
 
             rs = pstmt.executeQuery();
 
-            if (rs.next()) {
+            while (rs.next()) {
                 int id = rs.getInt("id");
                 String message = rs.getString("message");
 
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("E, dd MMM yyyy HH:mm:ss");
 
                 // Convertir la chaîne en LocalDateTime
-                LocalDateTime localDateTime = LocalDateTime.parse(rs.getString("date"), formatter);
+                LocalDateTime localDate = LocalDateTime.parse(rs.getString("date"),formatter);
 
-                Message msg = new Message(id,personController.getPersonByEmail(email1),personController.getPersonByEmail(email2),message,localDateTime);
+
+                Message msg = new Message(id, personController.getPersonByEmail(email1), personController.getPersonByEmail(email2), message, localDate);
                 messages.add(msg);
             }
             rs.close();
             pstmt.close();
 
-            sql = "SELECT * FROM message WHERE receiver = ? AND sender = ?";
+            sql = "SELECT * FROM message WHERE sender = ? AND receiver = ?";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, email2);
             pstmt.setString(2, email1);
 
             rs = pstmt.executeQuery();
 
-            if (rs.next()) {
+            while (rs.next()) {
                 int id = rs.getInt("id");
                 String message = rs.getString("message");
 
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("E, dd MMM yyyy HH:mm:ss");
 
                 // Convertir la chaîne en LocalDateTime
                 LocalDateTime localDateTime = LocalDateTime.parse(rs.getString("date"), formatter);
 
-                Message msg = new Message(id,personController.getPersonByEmail(email1),personController.getPersonByEmail(email2),message,localDateTime);
-                if(!messages.contains(msg)){
+                Message msg = new Message(id, personController.getPersonByEmail(email2), personController.getPersonByEmail(email1), message, localDateTime);
+                if (!messages.contains(msg)) {
                     messages.add(msg);
                 }
 
@@ -116,8 +116,7 @@ public class MessageController {
         } catch (SQLException e) {
             e.printStackTrace();
             // Gérer les erreurs de manière appropriée, par exemple, en lançant une exception personnalisée
-        }
-        finally {
+        } finally {
             try {
                 if (rs != null) {
                     rs.close();
@@ -136,96 +135,103 @@ public class MessageController {
     }
 
     //Retourne la liste des personnes avec qui l'utilisateur a une conversation
-    public List<Person> getFriends(){
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
+    public List<Person> getFriends() {
+
         List<Person> persons = new ArrayList<>();
+        ListView<String> friendList = getListofFriends();
 
         PersonController personController = new PersonController();
-        Person currentuser = personController.getCurrentUser();
 
-        if(currentuser!=null) {
-            try {
-                conn = DbConnection.connect();
-                String sql = "SELECT sender FROM message WHERE receiver = ?";
-                pstmt = conn.prepareStatement(sql);
-                pstmt.setString(1, currentuser.getEmail());
-
-
-                rs = pstmt.executeQuery();
-
-                if (rs.next()) {
-                    String sender = rs.getString("sender");
-
-                    Person person = personController.getPersonByEmail(sender);
-
-                    if (!persons.contains(person)) {
-                        persons.add(person);
-                    }
-
-                }
-                rs.close();
-                pstmt.close();
-
-                sql = "SELECT receiver FROM message WHERE sender = ?";
-                pstmt = conn.prepareStatement(sql);
-                pstmt.setString(1, currentuser.getEmail());
-
-
-                rs = pstmt.executeQuery();
-
-                if (rs.next()) {
-
-                    String receiver = rs.getString("receiver");
-
-                    Person person = personController.getPersonByEmail(receiver);
-
-                    if (!persons.contains(person)) {
-                        persons.add(person);
-                    }
-
-                }
-
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-                // Gérer les erreurs de manière appropriée, par exemple, en lançant une exception personnalisée
-            } finally {
-                try {
-                    if (rs != null) {
-                        rs.close();
-                    }
-                    if (pstmt != null) {
-                        pstmt.close();
-                    }
-                    if (conn != null) {
-                        conn.close();
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+        for(String friend : friendList.getItems()){
+            persons.add(personController.getPersonByEmail(friend));
         }
+
         return persons;
 
     }
 
     //Retourne la liste des emails des utilisateurs avec qui l'utilisateur courant a eu une conversation
     public ListView<String> getListofFriends() {
-        List<Person> persons = this.getFriends();
 
-        ListView<String> emaillist = new ListView<>();
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        ListView<String> persons = new ListView<>();
+        PersonController personController = new PersonController();
 
-        List<String> emails = persons.stream()
-                .map(Person::getEmail)
-                .toList();
+        Person currentuser = PersonController.getInstance().getCurrentUser();
 
-        emaillist.getItems().addAll(emails);
 
-        return emaillist;
+        try {
+            conn = DbConnection.connect();
+            String sql = "SELECT sender FROM message WHERE receiver = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, currentuser.getEmail());
+
+
+            rs = pstmt.executeQuery();
+
+            while ((rs.next())) {
+                String sender = rs.getString("sender");
+
+
+
+                if (!persons.getItems().contains(sender) & !Objects.equals(sender, currentuser.getEmail())) {
+                    persons.getItems().add(sender);
+
+                }
+
+            }
+            rs.close();
+            pstmt.close();
+
+            String sql2 = "SELECT receiver FROM message WHERE sender = ?";
+            pstmt = conn.prepareStatement(sql2);
+            pstmt.setString(1, currentuser.getEmail());
+
+
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+
+                String receiver = rs.getString("receiver");
+
+                Person person = personController.getPersonByEmail(receiver);
+
+                if (!persons.getItems().contains(receiver) & !Objects.equals(receiver, currentuser.getEmail())) {
+                    if(person!=currentuser) {
+                        persons.getItems().add(receiver);
+                    }
+                }
+
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Gérer les erreurs de manière appropriée, par exemple, en lançant une exception personnalisée
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return persons;
+
 
     }
+
+
 
 
 }
