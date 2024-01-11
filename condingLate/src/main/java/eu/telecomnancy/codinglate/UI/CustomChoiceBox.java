@@ -15,6 +15,6 @@ public class CustomChoiceBox extends ChoiceBox<String> {
     private void initialize() {
         setPrefWidth(400);
         setPrefHeight(45);
-        this.setStyle("-fx-text-fill: black; -fx-font-size: 16px; -fx-pref-width: 230px;");
+        this.setStyle("-fx-text-fill: black; -fx-font-size: 16px; -fx-pref-width: 400px;");
     }
 }

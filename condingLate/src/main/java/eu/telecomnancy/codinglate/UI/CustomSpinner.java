@@ -8,6 +8,6 @@ public class CustomSpinner extends Spinner<Integer> {
         super(min, max, initial, step);
         this.setStyle("-fx-text-fill: black; -fx-font-size: 16px; ");
         this.setEditable(true);
-        this.getEditor().setPrefWidth(232);
+        this.getEditor().setPrefWidth(400);
     }
 }

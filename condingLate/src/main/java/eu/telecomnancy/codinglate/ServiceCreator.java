@@ -100,7 +100,7 @@ public class ServiceCreator {
 
         SearchBarButton chooseImage = new SearchBarButton("chooseImage","Choisir une image");
         chooseImage.initializeButton();
-        chooseImage.setPrefWidth(240);
+        chooseImage.setPrefWidth(400);
         gridPane.add(chooseImage,0,10);
 
         chooseImage.setOnAction(event -> {
