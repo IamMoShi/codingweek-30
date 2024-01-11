@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="Correction barre de recherche">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodingWeekDatabase.db" beforeDir="false" afterPath="$PROJECT_DIR$/CodingWeekDatabase.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/UI/SearchContent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/UI/SearchContent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/offer/OfferController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/database/dataController/offer/OfferController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/eu/telecomnancy/codinglate/database/controller/OfferControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/eu/telecomnancy/codinglate/database/controller/OfferControllerTest.java" afterDir="false" />
+    <list default="true" id="c0f37f46-3dcf-4513-83aa-6ed44cbd1b9e" name="Changes" comment="Correction d'un cas d'erreur dans la récupération d'une offre (si catégorie n'existe pas dans l'enum)">
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/SceneManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/telecomnancy/codinglate/SceneManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -289,7 +285,7 @@
       <workItem from="1704899182046" duration="9698000" />
       <workItem from="1704965339643" duration="877000" />
       <workItem from="1704966400471" duration="14548000" />
-      <workItem from="1704990056726" duration="4405000" />
+      <workItem from="1704990056726" duration="5042000" />
     </task>
     <task id="LOCAL-00001" summary="Base app">
       <option name="closed" value="true" />
@@ -619,7 +615,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704991120831</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="Correction d'un cas d'erreur dans la récupération d'une offre (si catégorie n'existe pas dans l'enum)">
+      <option name="closed" value="true" />
+      <created>1704994651692</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1704994651692</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -638,7 +642,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="implementation de getById pour les offres et test" />
     <MESSAGE value="implementation de GetProductsByName" />
     <MESSAGE value="insertion de booking avec BookingDAO" />
     <MESSAGE value="Correction ajout utilisateur avec adresses, modification de la table user pour ajouter le champ address" />
@@ -663,7 +666,8 @@
     <MESSAGE value="Calendrier pour les offres" />
     <MESSAGE value="Patch pour run avec gradle dsl" />
     <MESSAGE value="Correction barre de recherche" />
-    <option name="LAST_COMMIT_MESSAGE" value="Correction barre de recherche" />
+    <MESSAGE value="Correction d'un cas d'erreur dans la récupération d'une offre (si catégorie n'existe pas dans l'enum)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Correction d'un cas d'erreur dans la récupération d'une offre (si catégorie n'existe pas dans l'enum)" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
