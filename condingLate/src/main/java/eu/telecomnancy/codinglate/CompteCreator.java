@@ -21,6 +21,8 @@ import javafx.stage.Stage;
 
 public class CompteCreator {
 
+    private Stage stage;
+
     private VBox vbox;
 
     private Label affichagelabel;
@@ -30,7 +32,8 @@ public class CompteCreator {
     }
 
 
-    public CompteCreator() {
+    public CompteCreator(Stage stage) {
+        this.stage = stage;
         this.vbox = createFormPane();
         this.affichagelabel = new Label("");
         addUIControls((GridPane) vbox.getChildren().get(0));
@@ -142,9 +145,9 @@ public class CompteCreator {
 
             personcontroller.setCurrentUser(newperson);
             System.out.println("User created");
-            //SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
-            //Scene scene = sceneManager.createSceneProfil(personcontroller);
-            //sceneManager.switchScene(scene);
+            SceneManager sceneManager = new SceneManager(stage);
+            Scene scene = sceneManager.createSceneDisplayProduct();
+            sceneManager.switchScene(scene);
 
 
         });

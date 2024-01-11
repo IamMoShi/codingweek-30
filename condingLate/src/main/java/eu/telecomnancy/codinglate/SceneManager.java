@@ -337,8 +337,6 @@ public class SceneManager {
     public Scene createMessageScene() {
 
         SearchBar searchBar = new SearchBar();
-
-
         BorderPane root = new BorderPane();
         // Mise en page de la scène
         VBox layout = new VBox(10);
@@ -362,32 +360,18 @@ public class SceneManager {
         MessageUserWithSelectedUserFromUserList.getItems().addAll(UserYouHadAConversationWith);
         root.setLeft(MessageUserWithSelectedUserFromUserList);
 
-
-
-
-
-
-
-
-
-
-
-        FormButton newConv = new FormButton("NewConvo","Nouvelle Conversation");
+        FormButton newConv = new FormButton("NewConvo", "Nouvelle Conversation");
         newConv.initializeButton();
         root.setRight(newConv);
 
 
         newConv.setOnAction(event -> {
                     Stage stage = (Stage) this.primaryStage;
-                    MessageCreator messageCreator= new MessageCreator(stage);
+                    MessageCreator messageCreator = new MessageCreator(stage);
                     VBox gridPane = messageCreator.getVbox();
                     root.setCenter(gridPane);
                 }
         );
-
-
-
-
 
         Scene scene = new Scene(root, 1000, 600);
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
@@ -434,7 +418,7 @@ public class SceneManager {
 
 
         // Créez une nouvelle instance de CompteCreator
-        CompteCreator compteCreator = new CompteCreator();
+        CompteCreator compteCreator = new CompteCreator((Stage) this.primaryStage);
         VBox gridPane = compteCreator.getVbox();
 
         // Ajoutez le formulaire à la scène
@@ -555,17 +539,16 @@ public class SceneManager {
         }
 
         // Vous pouvez ajouter d'autres informations du produit ici
-        FormButton submitButton = new FormButton("submit","Reserver cette offre");
+        FormButton submitButton = new FormButton("submit", "Reserver cette offre");
         submitButton.initializeButton();
 
 
         submitButton.setOnAction(event -> {
-            Booking booking = new Booking(offer, (User)PersonController.getInstance().getCurrentUser(), LocalDateTime.now(), LocalDateTime.now());
+            Booking booking = new Booking(offer, (User) PersonController.getInstance().getCurrentUser(), LocalDateTime.now(), LocalDateTime.now());
             BookingDAO bookingDAO = new BookingDAO();
             bookingDAO.insert(booking);
 
         });
-
 
 
         // Ajouter une image si disponible
@@ -577,18 +560,11 @@ public class SceneManager {
         }
 
         // Ajouter les labels au conteneur des détails du produit
-        productDetailsBox.getChildren().addAll(titleLabel, descriptionLabel, priceLabel,submitButton);
+        productDetailsBox.getChildren().addAll(titleLabel, descriptionLabel, priceLabel, submitButton);
         productBox.getChildren().add(productDetailsBox);
 
         // Ajouter la boîte du produit à la mise en page principale
         layout.getChildren().add(productBox);
-
-
-
-
-
-
-
 
 
         root.setTop(layout);
@@ -615,7 +591,6 @@ public class SceneManager {
             BookingDAO bookingDAO = new BookingDAO();
             ArrayList<Booking> bookingsByUser = bookingDAO.getBookingsByUser(userId);
             ArrayList<Booking> offersByUser = getBookingsForCurrentUser();
-
 
 
             // Ajouter un label pour indiquer que c'est la section des réservations de l'utilisateur
@@ -646,7 +621,6 @@ public class SceneManager {
 
             VBox.setMargin(titleMyreservation, new Insets(20, 0, 0, 30));
             layout.getChildren().add(titleMyreservation);
-
 
 
             // Créer une liste de réservations
@@ -716,6 +690,27 @@ public class SceneManager {
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
         return scene;
     }
+
+    public Scene createSceneMyOffers() {
+        SearchBar searchBar = new SearchBar();
+
+        BorderPane root = new BorderPane();
+
+        VBox layout = new VBox(10);
+        layout.setPadding(new Insets(0));
+        layout.getChildren().add(searchBar);
+
+
+
+        root.setTop(layout);
+
+        Scene scene = new Scene(root, 1000, 600);
+        scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
+        return scene;
+
+
+    }
+
 }
 
 
