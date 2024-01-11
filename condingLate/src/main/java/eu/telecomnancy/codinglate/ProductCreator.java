@@ -12,10 +12,12 @@ import eu.telecomnancy.codinglate.database.dataObject.offer.Service;
 import eu.telecomnancy.codinglate.database.dataObject.user.Person;
 import eu.telecomnancy.codinglate.database.dataObject.user.User;
 import javafx.collections.FXCollections;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -32,12 +34,15 @@ public class ProductCreator {
 
     private ArrayList<String> urlTempsImages = new ArrayList<>();
 
+    private Stage stage;
+
     public VBox getVbox() {
         return this.vbox;
     }
 
-    public ProductCreator() {
+    public ProductCreator(Stage stage) {
         this.vbox = createFormPane();
+        this.stage = stage;
         addUIControls((GridPane) vbox.getChildren().get(0));
     }
 
@@ -261,6 +266,9 @@ public class ProductCreator {
 
                     OfferController offercontroller = new OfferController();
                     offercontroller.insert(product);
+                    SceneManager sceneManager = new SceneManager(stage);
+                    Scene scene = sceneManager.createSceneDisplayProduct();
+                    sceneManager.switchScene(scene);
                 }
             }
             }catch (NumberFormatException exception){

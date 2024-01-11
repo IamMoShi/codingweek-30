@@ -10,12 +10,14 @@ import eu.telecomnancy.codinglate.database.dataObject.user.Person;
 import eu.telecomnancy.codinglate.database.dataObject.user.User;
 import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -34,17 +36,20 @@ public class ServiceCreator {
 
     private VBox vbox;
 
+    private Stage stage;
+
     public VBox getVbox() {
         return this.vbox;
     }
 
 
-    public ServiceCreator() {
+    public ServiceCreator(Stage stage) {
         this.vbox = createFormPane();
         this.imagePane = new FlowPane();
         this.imagePane.setHgap(10);
         this.imagePane.setVgap(10);
         this.imagePane.setPrefWrapLength(400);
+        this.stage=stage;
 
 
         addUIControls((GridPane) vbox.getChildren().get(0));
@@ -228,6 +233,10 @@ public class ServiceCreator {
                         OfferController offercontroller = new OfferController();
                         offercontroller.insert(service);
                     }
+
+                    SceneManager sceneManager = new SceneManager(stage);
+                    Scene scene = sceneManager.createSceneDisplayProduct();
+                    sceneManager.switchScene(scene);
 
                 }
 
