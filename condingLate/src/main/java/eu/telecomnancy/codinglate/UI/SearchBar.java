@@ -24,7 +24,7 @@ public class SearchBar extends HBox {
         getChildren().add(logoButton);
         logoButton.setOnMouseClicked(e -> {
             SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
-            Scene scene = sceneManager.createScenePresentation();
+            Scene scene = sceneManager.createSceneDisplayProduct();
             sceneManager.switchScene(scene);
         });
 

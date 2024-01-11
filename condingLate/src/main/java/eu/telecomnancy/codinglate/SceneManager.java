@@ -16,6 +16,7 @@ import eu.telecomnancy.codinglate.database.dataObject.user.User;
 import eu.telecomnancy.codinglate.UI.SearchContent;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.scene.control.*;
 
 import javafx.geometry.Insets;
@@ -153,19 +154,22 @@ public class SceneManager {
 
         //Séléction des articles
         // Ajouter ComboBox pour la sélection du produit
-        ComboBox<String> productComboBox = new ComboBox<>();
-        productComboBox.getItems().addAll("Produit", "Service");
+        CustomComboBox productComboBox = new CustomComboBox(FXCollections.observableArrayList("Produit", "Service"));
         productComboBox.getItems().add("");
         productComboBox.setValue("Type de produit");
 
 
         // Initialiser les ComboBox spécifiques au produit
-        ComboBox<String> categoryComboBox = new ComboBox<>();
-        categoryComboBox.getItems().addAll("Auto", "Jardin", "Maison", "Multimedia", "Sport", "Autre");
+        CustomComboBox categoryComboBox = new CustomComboBox(FXCollections.observableArrayList("Auto", "Jardin", "Maison", "Multimedia", "Sport", "Autre"));
+        categoryComboBox.getItems().add("");
+        categoryComboBox.setValue("Catégorie");
         CustomTextField brandComboBox = new CustomTextField("Marque");
         CustomTextField modelComboBox = new CustomTextField("Modèle");
-        ComboBox<String> conditionComboBox = new ComboBox<>();
-        conditionComboBox.getItems().addAll("Neuf", "Bon", "Reconditionné", "Utilisé");
+
+        CustomComboBox conditionComboBox = new CustomComboBox(FXCollections.observableArrayList("Neuf", "Bon", "Reconditionné", "Utilisé"));
+        conditionComboBox.getItems().add("");
+        conditionComboBox.setValue("Condition");
+
         CustomTextField yearComboBox = new CustomTextField("Année");
 
 
@@ -174,19 +178,18 @@ public class SceneManager {
             filtersPane.getChildren().addAll( new Label("Type de produit:"), productComboBox);
         }
 
-        Label category = new Label("Catégorie:");
-        Label condition = new Label("Condition:");
         filtersPane.getChildren().addAll(
-                new Label("Type de produit:"), productComboBox,
-                category, categoryComboBox,
+                 productComboBox,
+                 categoryComboBox,
                 brandComboBox, modelComboBox,
-                condition, conditionComboBox,
+                 conditionComboBox,
                 yearComboBox
         );
 
+        filtersPane.setPadding(new Insets(10, 20, 10, 20));
 
-        category.setVisible(false);
-        condition.setVisible(false);
+
+
         categoryComboBox.setVisible(false);
         brandComboBox.setVisible(false);
         modelComboBox.setVisible(false);
@@ -201,36 +204,36 @@ public class SceneManager {
         tilePane.setHgap(10);
         tilePane.setVgap(10);
 
-        handleProductSelection(root, tilePane,productComboBox.getValue(), category, condition, categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+        handleProductSelection(root, tilePane, (String) productComboBox.getValue(), categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
 
 
         productComboBox.setOnAction(event -> {
-            handleProductSelection(root, tilePane,productComboBox.getValue(), category, condition, categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+            handleProductSelection(root, tilePane, (String) productComboBox.getValue(), categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
 
         });
 
         categoryComboBox.setOnAction(event -> {
-            handleProductSelection(root, tilePane, productComboBox.getValue(), category, condition, categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+            handleProductSelection(root, tilePane, (String) productComboBox.getValue(),  categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
 
         });
 
         conditionComboBox.setOnAction(event -> {
-            handleProductSelection(root, tilePane, productComboBox.getValue(), category, condition, categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+            handleProductSelection(root, tilePane, (String) productComboBox.getValue(),  categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
 
         });
 
         brandComboBox.setOnAction(event -> {
-            handleProductSelection(root, tilePane, productComboBox.getValue(), category, condition, categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+            handleProductSelection(root, tilePane, (String) productComboBox.getValue(),  categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
 
         });
 
         modelComboBox.setOnAction(event -> {
-            handleProductSelection(root, tilePane, productComboBox.getValue(), category, condition, categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+            handleProductSelection(root, tilePane, (String) productComboBox.getValue(),  categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
 
         });
 
         yearComboBox.setOnAction(event -> {
-            handleProductSelection(root, tilePane, productComboBox.getValue(), category, condition, categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+            handleProductSelection(root, tilePane, (String) productComboBox.getValue(),  categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
 
         });
 
@@ -292,16 +295,14 @@ public class SceneManager {
         tilePane.requestLayout();
     }
 
-    private ArrayList<Offer> handleProductSelection(BorderPane root, TilePane tilePane,String selectedProduct, Label category, Label prodcondition, ComboBox<String> categoryComboBox, CustomTextField brandComboBox,
+    private ArrayList<Offer> handleProductSelection(BorderPane root, TilePane tilePane,String selectedProduct,  ComboBox<String> categoryComboBox, CustomTextField brandComboBox,
                                         CustomTextField modelComboBox, ComboBox<String> conditionComboBox, CustomTextField yearComboBox) {
         // Logique pour gérer la sélection du type de produit (produit ou service)
         if ("Produit".equals(selectedProduct)) {
             // Afficher les ComboBox et labels spécifiques au produit
-            category.setVisible(true);
             categoryComboBox.setVisible(true);
             brandComboBox.setVisible(true);
             modelComboBox.setVisible(true);
-            prodcondition.setVisible(true);
             conditionComboBox.setVisible(true);
             yearComboBox.setVisible(true);
 
@@ -329,16 +330,16 @@ public class SceneManager {
 
         } else {
             // Cacher les ComboBox et labels spécifiques au produit
-            category.setVisible(false);
+
             categoryComboBox.setVisible(false);
             brandComboBox.setVisible(false);
             modelComboBox.setVisible(false);
-            prodcondition.setVisible(false);
             conditionComboBox.setVisible(false);
             yearComboBox.setVisible(false);
 
             OfferController offerController = new OfferController();
             ArrayList<Offer> listoffres = offerController.getOfferByParameters(false, null, "", "", null, 0);
+            System.out.println(listoffres);
             updateTilePane(tilePane, listoffres);
             return listoffres;
         }
