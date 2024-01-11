@@ -56,12 +56,15 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 
+    implementation 'org.kordamp.ikonli:ikonli-fontawesome-pack:12.3.1'
+    implementation 'org.kordamp.ikonli:ikonli-javafx:12.3.1'
+
 
     implementation 'org.xerial:sqlite-jdbc:3.41.2.2'
 
     implementation('com.google.code.gson:gson:2.8.9')
-    implementation group: 'com.calendarfx', name: 'view', version: '11.12.6'
     implementation 'org.mnode.ical4j:ical4j:4.0.0-rc3'
+    implementation files('lib/view-11.12.6.jar')
 
 }
 
