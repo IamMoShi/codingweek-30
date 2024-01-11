@@ -3,6 +3,7 @@ package eu.telecomnancy.codinglate;
 import eu.telecomnancy.codinglate.UI.*;
 import eu.telecomnancy.codinglate.database.dataController.MessageController;
 import eu.telecomnancy.codinglate.database.dataController.offer.BookingDAO;
+import eu.telecomnancy.codinglate.database.dataController.offer.ImageOfferDAO;
 import eu.telecomnancy.codinglate.database.dataController.offer.OfferController;
 import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
 import eu.telecomnancy.codinglate.database.dataObject.enums.ProductCategory;
@@ -17,6 +18,7 @@ import eu.telecomnancy.codinglate.UI.SearchContent;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.*;
 
 import javafx.geometry.Insets;
@@ -24,11 +26,15 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -269,16 +275,51 @@ public class SceneManager {
 
     private VBox createOfferTile(Offer offer, TilePane tilePane) {
         Label titleLabel = new Label(offer.getTitle());
-        titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
+        titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 20px; -fx-min-height: 30px;");
+
+
         Label descriptionLabel = new Label(offer.getDescription());
         Label priceLabel = new Label("Prix : " + offer.getPrice() + " " + offer.getPriceType());
-        Label dateLabel = new Label("Date de début : " + offer.getStartingDate() + " / Date de fin : " + offer.getEndingDate());
+        Label dateLabel = new Label("Dates: " + offer.getStartingDate() + " - " + offer.getEndingDate());
+
+        ImageOfferDAO imageOfferDAO = new ImageOfferDAO();
+        ArrayList<String> imagesURL = imageOfferDAO.getImages(offer);
 
         VBox tileLayout = new VBox(5);
-        tileLayout.getChildren().addAll(titleLabel, descriptionLabel, priceLabel, dateLabel);
 
-        VBox tile = new VBox(5);
+        if(!imagesURL.isEmpty()) {
+            String projectRoot = System.getProperty("user.dir");
+
+            //récuperer le chemin absolu vers l'image
+            File fichier = new File(projectRoot, imagesURL.get(0));
+            String cheminAbsolu = fichier.getAbsolutePath();
+
+            //Image image = new Image(cheminAbsolu.replace("\\", "/"));
+            Image image = new Image("C:/Users/26269/codingweek-30/condingLate/OfferImage/image_user_n_1uuid=af25eb63-a442-4c26-985a-54fc4e667c5e.jpg");
+
+            ImageView imageView = new ImageView(image);
+            imageView.setFitWidth(150);
+            imageView.setFitHeight(150);
+            tileLayout.getChildren().addAll(imageView);
+        }
+        else {
+            ImageView imageView = new ImageView(new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/picture/default.png")));
+            imageView.setFitWidth(150);
+            imageView.setFitHeight(150);
+            tileLayout.getChildren().addAll(imageView);
+        }
+
+        // Créer la VBox principale
+        tileLayout.getChildren().addAll(titleLabel, descriptionLabel, dateLabel);
+
+
+        tileLayout.setPrefWidth(150);
+        tileLayout.setPrefHeight(130);
+
+        VBox tile = new VBox(10);
         tile.getChildren().add(tileLayout);
+        tile.setPrefHeight(150);
+        tile.setPrefHeight(150);
 
         // Ajouter un gestionnaire d'événements pour le clic sur la tuile
         tile.setOnMouseClicked(event -> handleTileClick(offer, tilePane));
@@ -638,17 +679,45 @@ public class SceneManager {
             sceneManager.switchScene(scene);
         });
 
+        ImageOfferDAO imageOfferDAO = new ImageOfferDAO();
+        ArrayList<String> imagesURL = imageOfferDAO.getImages(offer);
 
         // Ajouter une image si disponible
         if (!offer.getImages().isEmpty()) {
-            ImageView imageView = new ImageView(offer.getImages().get(0)); // Utilisez la première image comme exemple
-            imageView.setFitHeight(100); // Ajustez la hauteur de l'image selon vos besoins
+            String projectRoot = System.getProperty("user.dir");
+
+            //récuperer le chemin absolu vers l'image
+            File fichier = new File(projectRoot, imagesURL.get(0));
+            String cheminAbsolu = fichier.getAbsolutePath();
+
+            Image image = new Image(cheminAbsolu.replace("\\", "/"));
+            ImageView imageView = new ImageView(image);
+            imageView.setFitWidth(100);
+            imageView.setFitHeight(100);
             imageView.setPreserveRatio(true);
             productDetailsBox.getChildren().add(imageView);
         }
 
         // Ajouter les labels au conteneur des détails du produit
-        productDetailsBox.getChildren().addAll(titleLabel, descriptionLabel, priceLabel, submitButton,returndisplaybutton);
+        if (!productDetailsBox.getChildren().contains(titleLabel)) {
+            productDetailsBox.getChildren().add(titleLabel);
+        }
+
+        if (!productDetailsBox.getChildren().contains(descriptionLabel)) {
+            productDetailsBox.getChildren().add(descriptionLabel);
+        }
+
+        if (!productDetailsBox.getChildren().contains(priceLabel)) {
+            productDetailsBox.getChildren().add(priceLabel);
+        }
+
+        if (!productDetailsBox.getChildren().contains(submitButton)) {
+            productDetailsBox.getChildren().add(submitButton);
+        }
+
+        if (!productDetailsBox.getChildren().contains(returndisplaybutton)) {
+            productDetailsBox.getChildren().add(returndisplaybutton);
+        }
         productBox.getChildren().add(productDetailsBox);
 
         // Ajouter la boîte du produit à la mise en page principale

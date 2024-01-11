@@ -110,7 +110,7 @@ public class MessageController {
                 int sender = Integer.parseInt(rs.getString("sender"));
                 int receiver = Integer.parseInt(rs.getString("receiver"));
 
-                if (sender == person.getId()) {
+                if (sender != person.getId()) {
                     // Regarde dans la liste si la personne n'est pas déjà présente
                     if (!ids.contains(receiver)) {
                         ids.add(receiver);

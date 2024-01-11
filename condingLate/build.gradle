@@ -66,6 +66,11 @@ dependencies {
     implementation 'org.mnode.ical4j:ical4j:4.0.0-rc3'
     implementation files('lib/view-11.12.6.jar')
 
+    implementation 'org.slf4j:slf4j-api:1.7.32'
+
+
+
+
 }
 
 test {

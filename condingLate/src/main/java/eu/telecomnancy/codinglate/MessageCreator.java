@@ -81,6 +81,7 @@ public class MessageCreator {
                     User receiver = (User) user2;
 
 
+
                     Message msg = new Message(-1, user, receiver,message, LocalDateTime.now());
                     MessageController messageController =new MessageController();
                     messageController.insert(msg);

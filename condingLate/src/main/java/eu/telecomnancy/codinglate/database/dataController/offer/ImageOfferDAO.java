@@ -56,7 +56,7 @@ public class ImageOfferDAO {
         }
     }
 
-    public void getImages(Offer offer) {
+    public ArrayList<String> getImages(Offer offer) {
         ArrayList<String> imageUrls = new ArrayList<>();
 
         try (Connection conn = DbConnection.connect();
@@ -74,8 +74,10 @@ public class ImageOfferDAO {
 
             // Mettez à jour la liste d'images de l'objet "Offer" avec les URL récupérées
             offer.setImages(imageUrls);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return imageUrls;
     }
 }
