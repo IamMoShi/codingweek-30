@@ -9,8 +9,11 @@ import eu.telecomnancy.codinglate.database.dataObject.offer.Service;
 import eu.telecomnancy.codinglate.database.dataObject.user.Person;
 import eu.telecomnancy.codinglate.database.dataObject.user.User;
 import javafx.collections.FXCollections;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 
@@ -27,6 +30,8 @@ public class ServiceCreator {
 
     private ArrayList<String> urlTempsImages = new ArrayList<>();
 
+    private FlowPane imagePane;
+
     private VBox vbox;
 
     public VBox getVbox() {
@@ -36,10 +41,17 @@ public class ServiceCreator {
 
     public ServiceCreator() {
         this.vbox = createFormPane();
+        this.imagePane = new FlowPane();
+        this.imagePane.setHgap(10);
+        this.imagePane.setVgap(10);
+        this.imagePane.setPrefWrapLength(400);
+
+
         addUIControls((GridPane) vbox.getChildren().get(0));
+        ((GridPane) vbox.getChildren().get(0)).add(imagePane, 0, 17);
+
+
     }
-
-
 
 
     private VBox createFormPane() {
@@ -51,6 +63,7 @@ public class ServiceCreator {
         gridPane.setAlignment(javafx.geometry.Pos.CENTER);
         gridPane.setHgap(5);
         gridPane.setVgap(5);
+
 
         vbox.getChildren().add(gridPane);
 
@@ -67,13 +80,13 @@ public class ServiceCreator {
         CustomTextField DescriptionField = new CustomTextField("Description");
         gridPane.add(DescriptionField, 0, 1);
 
-       CustomTextField priceField = new CustomTextField("Prix");
-       priceField.getStyleClass().add("necessary");
+        CustomTextField priceField = new CustomTextField("Prix");
+        priceField.getStyleClass().add("necessary");
         gridPane.add(priceField, 0, 2);
 
 
         CustomChoiceBox TypePriceBox = new CustomChoiceBox(
-                FXCollections.observableArrayList("EURO_PER_HOUR","EURO_PER_DAY","EURO_PER_WEEK", "EURO_PER_MONTH")
+                FXCollections.observableArrayList("EURO_PER_HOUR", "EURO_PER_DAY", "EURO_PER_WEEK", "EURO_PER_MONTH")
         );
         TypePriceBox.getStyleClass().add("necessary");
         gridPane.add(TypePriceBox, 0, 3);
@@ -97,11 +110,10 @@ public class ServiceCreator {
         gridPane.add(endminutespinner, 0, 9);
 
 
-
-        SearchBarButton chooseImage = new SearchBarButton("chooseImage","Choisir une image");
+        SearchBarButton chooseImage = new SearchBarButton("chooseImage", "Choisir une image");
         chooseImage.initializeButton();
         chooseImage.setPrefWidth(400);
-        gridPane.add(chooseImage,0,10);
+        gridPane.add(chooseImage, 0, 10);
 
         chooseImage.setOnAction(event -> {
             FileChooser fileChooser = new FileChooser();
@@ -114,8 +126,9 @@ public class ServiceCreator {
             // Affichez la boîte de dialogue de choix de fichier
             File selectedFile = fileChooser.showOpenDialog(null);
 
-            if (selectedFile != null) {
 
+            if (selectedFile != null) {
+                String fullPath = null;
                 try {
                     String localImagePath = selectedFile.getAbsolutePath();
 
@@ -123,7 +136,7 @@ public class ServiceCreator {
                     String storageDirectory = "OfferImage/tmps"; // Changez le chemin selon vos besoins
 
                     // Créez le chemin complet pour le répertoire de stockage
-                    String fullPath = storageDirectory + "/" + "image_user_n_" + PersonController.getInstance().getCurrentUser().getId() + "uuid=" + UUID.randomUUID() + ".jpg" ;
+                    fullPath = storageDirectory + "/" + "image_user_n_" + PersonController.getInstance().getCurrentUser().getId() + "uuid=" + UUID.randomUUID() + ".jpg";
 
                     // Copiez le fichier dans le répertoire de stockage
                     Files.copy(selectedFile.toPath(), Paths.get(fullPath), StandardCopyOption.REPLACE_EXISTING);
@@ -134,8 +147,14 @@ public class ServiceCreator {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
+
+                addImageBox(selectedFile.getAbsolutePath(), fullPath);
             }
+
+
         });
+
 
         FormButton submitButton = new FormButton("submitButton", "Mettre l'Offre en ligne");
         submitButton.initializeButton();
@@ -148,8 +167,8 @@ public class ServiceCreator {
             String title = TitleField.getText();
             String description = DescriptionField.getText();
             String priceText = priceField.getText();
-            if (priceText.isBlank()){
-                addNewLabel(gridPane,"Le champs du prix est vide");
+            if (priceText.isBlank()) {
+                addNewLabel(gridPane, "Le champs du prix est vide");
                 return;
             }
             try {
@@ -158,7 +177,7 @@ public class ServiceCreator {
                 PriceType priceType = setPriceType(priceTypestr);
 
                 LocalDateTime StartDate = null;
-                if (startDatePicker.getValue() != null){
+                if (startDatePicker.getValue() != null) {
                     int year = startDatePicker.getValue().getYear();
                     int month = startDatePicker.getValue().getMonthValue();
                     int day = startDatePicker.getValue().getDayOfMonth();
@@ -169,7 +188,7 @@ public class ServiceCreator {
                 }
 
                 LocalDateTime EndDate = null;
-                if (endDatePicker.getValue() != null){
+                if (endDatePicker.getValue() != null) {
                     int year = endDatePicker.getValue().getYear();
                     int month = endDatePicker.getValue().getMonthValue();
                     int day = endDatePicker.getValue().getDayOfMonth();
@@ -180,26 +199,25 @@ public class ServiceCreator {
                 }
 
                 //if nothing is filled
-                if(title.isBlank() || price.isNaN() ){
+                if (title.isBlank() || price.isNaN()) {
                     addNewLabel(gridPane, "Informations Manquantes!");
-                }
-                else{
+                } else {
 
                     PersonController personcontroller = PersonController.getInstance();
                     Person currentUser = personcontroller.getCurrentUser();
-                    if(currentUser instanceof User){
+                    if (currentUser instanceof User) {
                         User user = (User) currentUser;
-                        Service service = new Service(user,title,price,priceType);
-                        if(!description.isEmpty()){
+                        Service service = new Service(user, title, price, priceType);
+                        if (!description.isEmpty()) {
                             service.setDescription(description);
                         }
                         //add start date to offer if filled
-                        if(StartDate!= null && !StartDate.isEqual(LocalDateTime.of(1, 1, 1, 0, 0))){
+                        if (StartDate != null && !StartDate.isEqual(LocalDateTime.of(1, 1, 1, 0, 0))) {
                             service.setStartingDate(StartDate);
                         }
 
                         //add end date to offer if filled and start date is already defined
-                        if(EndDate!= null && !EndDate.isEqual(LocalDateTime.of(1, 1, 1, 0, 0)) && !StartDate.isEqual(LocalDateTime.of(1, 1, 1, 0, 0))){
+                        if (EndDate != null && !EndDate.isEqual(LocalDateTime.of(1, 1, 1, 0, 0)) && !StartDate.isEqual(LocalDateTime.of(1, 1, 1, 0, 0))) {
                             service.setEndingDate(EndDate);
                         }
 
@@ -213,9 +231,8 @@ public class ServiceCreator {
                 }
 
 
-
-            } catch (NumberFormatException exception){
-                addNewLabel(gridPane,"Format de prix invalide !");
+            } catch (NumberFormatException exception) {
+                addNewLabel(gridPane, "Format de prix invalide !");
             }
 
         });
@@ -225,7 +242,7 @@ public class ServiceCreator {
 
     }
 
-     private ArrayList<String> saveImages() {
+    private ArrayList<String> saveImages() {
         ArrayList<String> imageUrls = new ArrayList<>();
         for (String tempImagePath : urlTempsImages) {
             try {
@@ -242,15 +259,15 @@ public class ServiceCreator {
             }
         }
         return imageUrls;
-     }
+    }
 
-     private void deleteTempImage(String tempImagePath) {
+    private void deleteTempImage(String tempImagePath) {
         try {
             Files.deleteIfExists(Paths.get(tempImagePath));
         } catch (Exception e) {
             e.printStackTrace();
         }
-     }
+    }
 
     private boolean isAscii(String str) {
         return str.matches("\\A\\p{ASCII}*\\z");
@@ -260,7 +277,7 @@ public class ServiceCreator {
 
         Label Label = new Label(str);
 
-        root.add(Label,1,8);
+        root.add(Label, 1, 8);
     }
 
 
@@ -284,6 +301,29 @@ public class ServiceCreator {
         }
 
         return PriceType.EURO_PER_DAY;
+    }
+
+    private void addImageBox(String imagePath, String imageName) {
+        HBox imageBox = new HBox();
+        Label imageNameLabel = new Label(new File(imagePath).getName());
+        Button deleteImageButton = new Button( "Supprimer");
+        deleteImageButton.setStyle("-fx-background-color: #ffffff; /* Couleur de fond */\n" +
+                "        -fx-text-fill: black; /* Couleur du texte */\n" +
+                "        -fx-font-size: 14px; /* Taille de la police */\n" +
+                "        -fx-padding: 8px 16px; /* Espacement intérieur du bouton */\n" +
+                "        -fx-border-radius: 5px; /* Rayon des coins */\n" +
+                "        -fx-cursor: hand; /* Curseur au survol du bouton */");
+        deleteImageButton.setPrefWidth(100);
+
+
+
+        deleteImageButton.setOnAction(event -> {
+            urlTempsImages.remove(imageName);
+            deleteTempImage(imageName);
+            imagePane.getChildren().remove(imageBox);
+        });
+        imageBox.getChildren().addAll(imageNameLabel, deleteImageButton);
+        imagePane.getChildren().add(imageBox);
     }
 
 
