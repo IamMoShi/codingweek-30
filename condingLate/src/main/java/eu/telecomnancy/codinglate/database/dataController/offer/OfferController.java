@@ -50,6 +50,10 @@ public class OfferController {
                     if (generatedKeys.next()) {
                         int generatedId = generatedKeys.getInt(1); // Récupérer l'ID généré
                         service.setId(generatedId);
+                        // Ajout des images dans la base de données
+                        for (String imageUrl : service.getImages()) {
+                            new ImageOfferDAO().insert(imageUrl, generatedId);
+                        }
                         System.out.println("Service inserted successfully with ID " + generatedId);
                     } else {
                         System.out.println("Aucun ID généré trouvé.");
