@@ -9,6 +9,7 @@ import eu.telecomnancy.codinglate.database.dataObject.user.User;
 
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class BookingDAO {
@@ -58,6 +59,7 @@ public class BookingDAO {
     }
 
     private Booking createBooking(ResultSet rs) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
         Booking booking = null;
         try {
             int id = rs.getInt("id");
@@ -66,9 +68,9 @@ public class BookingDAO {
             int userId = rs.getInt("user");
             User user = (User) new PersonController().getPersonById(userId);
             LocalDateTime startingDate = null;
-            if (rs.getObject("startingDate") != null) startingDate = rs.getObject("startingDate", LocalDateTime.class);
+            if (rs.getObject("startingDate") != null) startingDate = LocalDateTime.parse(rs.getString("startingDate"), formatter);
             LocalDateTime endingDate = null;
-            if (rs.getObject("endingDate") != null) endingDate = rs.getObject("endingDate", LocalDateTime.class);
+            if (rs.getObject("endingDate") != null) endingDate = endingDate = LocalDateTime.parse(rs.getString("endingDate"), formatter);
             BookingStatus status = BookingStatus.values()[rs.getInt("status")];
             booking = new Booking(id, offer, user, startingDate, endingDate, status);
         } catch (SQLException e) {

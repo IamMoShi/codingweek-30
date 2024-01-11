@@ -93,6 +93,7 @@ public class ServiceCreator {
 
 
         CustomDatePicker startDatePicker = new CustomDatePicker("Début de l'offre");
+
         gridPane.add(startDatePicker, 0, 4);
 
         CustomSpinner starthourspinner = new CustomSpinner(0, 24, 0, 1);
