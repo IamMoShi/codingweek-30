@@ -13,6 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
@@ -78,6 +79,8 @@ public class MessageCreator {
 
                 if(user2 instanceof User){
                     User receiver = (User) user2;
+
+
                     Message msg = new Message(-1, user, receiver,message, LocalDateTime.now());
                     MessageController messageController =new MessageController();
                     messageController.insert(msg);

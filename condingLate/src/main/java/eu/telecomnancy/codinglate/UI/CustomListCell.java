@@ -6,9 +6,11 @@ import javafx.scene.control.ListCell;
 import javafx.scene.layout.HBox;
 import org.w3c.dom.Text;
 
-public class CustomListCell extends ListCell<Message>{
+
+
+public class CustomListCell extends ListCell<String>{
     @Override
-    protected void updateItem(Message item, boolean empty) {
+    protected void updateItem(String item, boolean empty) {
         super.updateItem(item, empty);
         setPrefWidth(400);
         setPrefHeight(45);
@@ -22,7 +24,7 @@ public class CustomListCell extends ListCell<Message>{
             HBox customLayout = new HBox();
 
             // Par exemple, afficher l'auteur et le contenu du message);
-            Label messageText = new Label(item.getMessage());
+            Label messageText = new Label(item);
 
 
             customLayout.getChildren().add(messageText);

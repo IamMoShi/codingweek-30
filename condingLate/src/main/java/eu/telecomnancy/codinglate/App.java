@@ -23,6 +23,8 @@ public class App extends Application {
 
         this.sceneManager = new SceneManager(stage);
 
+
+
         Scene scene = sceneManager.createScenePresentation();
         sceneManager.switchScene(scene);
 
@@ -37,6 +39,6 @@ public class App extends Application {
     public static void main(String[] args) {
 
 
-        launch();
+        launch(args);
     }
 }

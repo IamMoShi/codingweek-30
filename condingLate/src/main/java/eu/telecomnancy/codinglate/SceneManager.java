@@ -339,11 +339,8 @@ public class SceneManager {
 
     public Scene createMessageScene() {
 
-
-
         //récupérer l'utilisateur courant
-        PersonController personController=new PersonController();
-        Person currentuser = personController.getCurrentUser();
+        Person currentuser = PersonController.getInstance().getCurrentUser();
 
         //faire la liste de toutes les conversations de l'utilisateur courant
         MessageController messageController = new MessageController();
@@ -351,27 +348,23 @@ public class SceneManager {
 
         ListView<String> UserYouHadAConversationWith = new ListView<>();
         UserYouHadAConversationWith = messageController.getListofFriends();
-        //UserYouHadAConversationWith.setCellFactory(param -> new CustomListCell());
+        UserYouHadAConversationWith.setCellFactory(param -> new CustomListCell());
 
         //récupérer toutes les personnes ayant une conversation avec l'utilisateur courant
         List<Person> persons = new ArrayList<>();
         persons = messageController.getFriends();
 
+
         for(Person person : persons){
 
             List<Message> conversation = new ArrayList<>();
             conversation = messageController.getConversation(currentuser.getEmail(),person.getEmail());
+
             MessageUserWithSelectedUserFromUserList.add(conversation);
 
         }
 
 
-
-        //Message message3 = new Message(0, null, null, "Bonjour", LocalDate.of(2021, 1, 1));
-        //Message message4 = new Message(0, null, null, "Bonjourno", LocalDate.of(2021, 1, 2));
-
-        //MessageUserWithSelectedUserFromUserList.add(message3);
-        //MessageUserWithSelectedUserFromUserList.add(message4);
 
         SearchBar searchBar = new SearchBar();
 
@@ -710,6 +703,28 @@ public class SceneManager {
 
         return userBookings;
 
+    }
+
+
+    public Scene createSceneEvaluations(Offer offer) {
+        SearchBar searchBar = new SearchBar();
+
+        BorderPane root = new BorderPane();
+
+        VBox layout = new VBox(10);
+        layout.setPadding(new Insets(0));
+        layout.getChildren().add(searchBar);
+
+        root.setTop(layout);
+
+        RatingForm ratingForm = new RatingForm((Stage) this.primaryStage, offer);
+        VBox gridPane = ratingForm.getVbox();
+
+        root.setCenter(gridPane);
+
+        Scene scene = new Scene(root, 1000, 600);
+        scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
+        return scene;
     }
 }
 
