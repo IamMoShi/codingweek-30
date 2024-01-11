@@ -4,7 +4,6 @@ module eu.telecomnancy.codinglate {
 
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
-    requires net.synedra.validatorfx;
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
     requires org.xerial.sqlitejdbc;

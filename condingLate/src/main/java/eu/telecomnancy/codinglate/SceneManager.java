@@ -1,6 +1,8 @@
 package eu.telecomnancy.codinglate;
 
 import eu.telecomnancy.codinglate.UI.*;
+import eu.telecomnancy.codinglate.calendar.CalendarStaticContraint;
+import eu.telecomnancy.codinglate.calendar.ReservationCalendarView;
 import eu.telecomnancy.codinglate.database.dataController.MessageController;
 import eu.telecomnancy.codinglate.database.dataController.offer.BookingDAO;
 import eu.telecomnancy.codinglate.database.dataController.offer.OfferController;
@@ -14,10 +16,16 @@ import eu.telecomnancy.codinglate.database.dataObject.offer.Product;
 import eu.telecomnancy.codinglate.database.dataObject.user.Person;
 import eu.telecomnancy.codinglate.database.dataObject.user.User;
 import eu.telecomnancy.codinglate.UI.SearchContent;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.scene.control.*;
+
+import com.calendarfx.model.Calendar;
+import com.calendarfx.model.Calendar.Style;
+import com.calendarfx.model.CalendarSource;
+import com.calendarfx.view.CalendarView;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -27,8 +35,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.application.Platform;
 
-
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -110,7 +120,6 @@ public class SceneManager {
     }
 
 
-
     public Scene createSceneResearchBar(ArrayList<Offer> listOffres) {
 
 
@@ -149,6 +158,7 @@ public class SceneManager {
         // Ajouter ComboBox pour la sélection du produit
 
     }
+
     public Scene createSceneDisplayProduct() {
         SearchBar searchBar = new SearchBar();
 
@@ -186,20 +196,19 @@ public class SceneManager {
 
 
         // Ajouter des labels pour chaque ComboBox
-        if(productComboBox.getValue().equals("Service")){
-            filtersPane.getChildren().addAll( new Label("Type de produit:"), productComboBox);
+        if (productComboBox.getValue().equals("Service")) {
+            filtersPane.getChildren().addAll(new Label("Type de produit:"), productComboBox);
         }
 
         filtersPane.getChildren().addAll(
-                 productComboBox,
-                 categoryComboBox,
+                productComboBox,
+                categoryComboBox,
                 brandComboBox, modelComboBox,
-                 conditionComboBox,
+                conditionComboBox,
                 yearComboBox
         );
 
         filtersPane.setPadding(new Insets(10, 20, 10, 20));
-
 
 
         categoryComboBox.setVisible(false);
@@ -225,27 +234,27 @@ public class SceneManager {
         });
 
         categoryComboBox.setOnAction(event -> {
-            handleProductSelection(root, tilePane, (String) productComboBox.getValue(),  categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+            handleProductSelection(root, tilePane, (String) productComboBox.getValue(), categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
 
         });
 
         conditionComboBox.setOnAction(event -> {
-            handleProductSelection(root, tilePane, (String) productComboBox.getValue(),  categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+            handleProductSelection(root, tilePane, (String) productComboBox.getValue(), categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
 
         });
 
         brandComboBox.setOnAction(event -> {
-            handleProductSelection(root, tilePane, (String) productComboBox.getValue(),  categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+            handleProductSelection(root, tilePane, (String) productComboBox.getValue(), categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
 
         });
 
         modelComboBox.setOnAction(event -> {
-            handleProductSelection(root, tilePane, (String) productComboBox.getValue(),  categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+            handleProductSelection(root, tilePane, (String) productComboBox.getValue(), categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
 
         });
 
         yearComboBox.setOnAction(event -> {
-            handleProductSelection(root, tilePane, (String) productComboBox.getValue(),  categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+            handleProductSelection(root, tilePane, (String) productComboBox.getValue(), categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
 
         });
 
@@ -305,8 +314,8 @@ public class SceneManager {
         tilePane.requestLayout();
     }
 
-    private ArrayList<Offer> handleProductSelection(BorderPane root, TilePane tilePane,String selectedProduct,  ComboBox<String> categoryComboBox, CustomTextField brandComboBox,
-                                        CustomTextField modelComboBox, ComboBox<String> conditionComboBox, CustomTextField yearComboBox) {
+    private ArrayList<Offer> handleProductSelection(BorderPane root, TilePane tilePane, String selectedProduct, ComboBox<String> categoryComboBox, CustomTextField brandComboBox,
+                                                    CustomTextField modelComboBox, ComboBox<String> conditionComboBox, CustomTextField yearComboBox) {
         // Logique pour gérer la sélection du type de produit (produit ou service)
         if ("Produit".equals(selectedProduct)) {
             // Afficher les ComboBox et labels spécifiques au produit
@@ -648,7 +657,7 @@ public class SceneManager {
         }
 
         // Ajouter les labels au conteneur des détails du produit
-        productDetailsBox.getChildren().addAll(titleLabel, descriptionLabel, priceLabel, submitButton,returndisplaybutton);
+        productDetailsBox.getChildren().addAll(titleLabel, descriptionLabel, priceLabel, submitButton, returndisplaybutton);
         productBox.getChildren().add(productDetailsBox);
 
         // Ajouter la boîte du produit à la mise en page principale
@@ -759,19 +768,40 @@ public class SceneManager {
 
 
     public Scene createSceneCalendar() {
-        SearchBar searchBar = new SearchBar();
+        CalendarView calendarView = new CalendarView();
+        Calendar birthdays = new Calendar("Birthdays");
+        birthdays.setStyle(Style.STYLE1);
+        Calendar holidays = new Calendar("Holidays");
+        holidays.setStyle(Style.STYLE2);
+        CalendarSource myCalendarSource = new CalendarSource("My Calendars");
+        myCalendarSource.getCalendars().addAll(birthdays, holidays);
+        calendarView.getCalendarSources().addAll(myCalendarSource);
+        calendarView.setRequestedTime(LocalTime.now());
 
-        BorderPane root = new BorderPane();
+        Thread updateTimeThread = new Thread("Calendar: Update Time Thread") {
+            @Override
+            public void run() {
+                while (true) {
+                    Platform.runLater(() -> {
+                        calendarView.setToday(LocalDate.now());
+                        calendarView.setTime(LocalTime.now());
+                    });
+                    try {
+                        // update every 10 seconds
+                        sleep(10000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
 
-        VBox layout = new VBox(10);
-        layout.setPadding(new Insets(0));
-        layout.getChildren().add(searchBar);
-
-        root.setTop(layout);
-
-        Scene scene = new Scene(root, getCurrentSceneWidth(), getCurrentSceneHeight());
+            ;
+        };
+        updateTimeThread.setPriority(Thread.MIN_PRIORITY);
+        updateTimeThread.setDaemon(true);
+        updateTimeThread.start();
+        Scene scene = new Scene(calendarView);
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
-
         return scene;
     }
 
@@ -805,7 +835,6 @@ public class SceneManager {
         VBox layout = new VBox(10);
         layout.setPadding(new Insets(0));
         layout.getChildren().add(searchBar);
-
 
 
         root.setTop(layout);
