@@ -1,33 +1,128 @@
 package eu.telecomnancy.codinglate.UI;
 
+import eu.telecomnancy.codinglate.database.dataController.MessageController;
+import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
 import eu.telecomnancy.codinglate.database.dataObject.message.Message;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
+import eu.telecomnancy.codinglate.database.dataObject.user.Person;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import org.w3c.dom.Text;
+import javafx.scene.layout.VBox;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+
+public class CustomListCell extends ListCell<Person> {
+
+    public CustomListCell(BorderPane borderPane) {
+        setOnMouseClicked(event -> {
+
+            if (!isEmpty() && getItem() != null) {
+                MessageController messageController = new MessageController();
+                ArrayList<Message> ListMessage = messageController.getConversation(getItem(), PersonController.getInstance().getCurrentUser());
 
 
 
-public class CustomListCell extends ListCell<String>{
+
+                VBox root = new VBox(10);
+                root.setPadding(new Insets(10));
+
+                VBox chatBox = new VBox(5);
+
+                chatBox.setStyle("-fx-background-color: #f0f0f0; -fx-padding: 10px; -fx-border-radius: 5px;");
+
+                for (Message message : ListMessage) {
+                    if (message.getSender().equals(PersonController.getInstance().getCurrentUser())) {
+                        appendMessage(message.getMessage(), true, chatBox);
+                    }
+                    else {
+                        appendMessage(message.getMessage(), false, chatBox);
+                    }
+                }
+
+                ScrollPane scrollPane = new ScrollPane(chatBox);
+                scrollPane.setFitToWidth(true);
+
+                HBox messageInputBox = createMessageInputBox(chatBox);
+
+                root.getChildren().addAll(scrollPane, messageInputBox);
+
+                borderPane.setCenter(root);
+
+            }
+
+
+        });
+    }
+
+    private void appendMessage(String message, boolean sentByUser, VBox chatBox) {
+        Label messageLabel = new Label(message);
+        messageLabel.setStyle("-fx-background-color: #e0e0e0; -fx-padding: 5px; -fx-border-radius: 5px;");
+
+        if (sentByUser) {
+            messageLabel.setAlignment(Pos.CENTER_RIGHT);
+            messageLabel.setMaxWidth(1000); // Définissez la largeur maximale pour l'alignement à droite
+        } else {
+            messageLabel.setAlignment(Pos.CENTER_LEFT);
+            messageLabel.setMaxWidth(1000); // Définissez la largeur maximale pour l'alignement à gauche
+        }
+
+        chatBox.getChildren().add(messageLabel);
+    }
+
+    private HBox createMessageInputBox(VBox chatBox) {
+        HBox messageInputBox = new HBox(10);
+        messageInputBox.setAlignment(Pos.CENTER_LEFT);
+
+        CustomTextField messageField = new CustomTextField("Ecrivez votre message ici");
+        messageField.setPrefWidth(700);
+        messageField.setPromptText("Type your message...");
+
+        IconButton sendButton = new IconButton("Send", "","/eu/telecomnancy/codinglate/icon/send_icon.png");
+        sendButton.initializeButton();
+        messageInputBox.getChildren().addAll(messageField, sendButton);
+
+        sendButton.setOnAction(event -> {
+            String message = messageField.getText();
+            if (!message.isEmpty()) {
+                MessageController messageController = new MessageController();
+                Message message1 = new Message(PersonController.getInstance().getCurrentUser(),getItem(),message, LocalDateTime.now());
+                messageController.insert(message1);
+
+                appendMessage(message, true, chatBox);
+                messageField.clear();
+
+
+            }
+        });
+
+        VBox.setMargin(messageInputBox, new Insets(10));
+
+        return messageInputBox;
+    }
     @Override
-    protected void updateItem(String item, boolean empty) {
-        super.updateItem(item, empty);
+    protected void updateItem(Person person, boolean empty) {
+        super.updateItem(person, empty);
         setPrefWidth(400);
         setPrefHeight(45);
-        if(item==null || empty){
+
+        if (person == null || empty) {
             setText(null);
             HBox customLayout = new HBox();
             setGraphic(customLayout);
             setPrefHeight(100);
-    }
-        else{
+        } else {
             HBox customLayout = new HBox();
 
-            // Par exemple, afficher l'auteur et le contenu du message);
-            Label messageText = new Label(item);
+            // Afficher le nom et l'email de la personne
+            Label nameLabel = new Label(person.getLastname());
+            Label firstnameLabel = new Label(person.getFirstname());
+            Label emailLabel = new Label(person.getEmail());
 
-
-            customLayout.getChildren().add(messageText);
+            customLayout.getChildren().addAll(nameLabel, emailLabel, firstnameLabel);
 
             // Utiliser cette mise en page personnalisée comme élément graphique dans la cellule
             setGraphic(customLayout);
@@ -35,3 +130,9 @@ public class CustomListCell extends ListCell<String>{
         }
     }
 }
+
+
+
+
+
+

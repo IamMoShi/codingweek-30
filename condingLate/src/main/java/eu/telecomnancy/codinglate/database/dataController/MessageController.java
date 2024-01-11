@@ -15,6 +15,8 @@ import java.util.Objects;
 
 public class MessageController {
 
+
+
     public void insert(Message message) {
         int generatedId = -1;
 
@@ -23,12 +25,10 @@ public class MessageController {
                      "INSERT INTO message (sender, receiver, message, date) VALUES (?, ?, ?, ?)",
                      Statement.RETURN_GENERATED_KEYS)) {
 
-            pstmt.setString(1, message.getSender().getEmail());
-            pstmt.setString(2, message.getReceiver().getEmail());
+            pstmt.setInt(1, message.getSender().getId());
+            pstmt.setInt(2, message.getReceiver().getId());
             pstmt.setString(3, message.getMessage());
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("E, dd MMM yyyy HH:mm:ss");
-            String formattedDateTime = message.getDate().format(formatter);
-            pstmt.setString(4, formattedDateTime);
+            pstmt.setObject(4, message.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")));
 
 
             int rowsInserted = pstmt.executeUpdate();
@@ -54,184 +54,88 @@ public class MessageController {
 
     }
 
-    public List<Message> getConversation(String email1, String email2) {
+    public ArrayList<Message> getConversation(Person user, Person other) {
+        ArrayList<Message> conversation = new ArrayList<>();
 
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        List<Message> messages = new ArrayList<>();
+        try (Connection conn = DbConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement(
+                     "SELECT * FROM message WHERE (sender = ? AND receiver = ?) OR (sender = ? AND receiver = ?)")) {
 
-        PersonController personController = new PersonController();
+            pstmt.setInt(1, user.getId());
+            pstmt.setInt(2, other.getId());
+            pstmt.setInt(3, other.getId());
+            pstmt.setInt(4, user.getId());
 
-
-        try {
-            conn = DbConnection.connect();
-            String sql = "SELECT * FROM message WHERE sender = ? AND receiver = ?";
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, email1);
-            pstmt.setString(2, email2);
-
-            rs = pstmt.executeQuery();
+            ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                int id = rs.getInt("id");
-                String message = rs.getString("message");
-
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("E, dd MMM yyyy HH:mm:ss");
-
-                // Convertir la chaîne en LocalDateTime
-                LocalDateTime localDate = LocalDateTime.parse(rs.getString("date"),formatter);
+                int messageId = rs.getInt("id");
 
 
-                Message msg = new Message(id, personController.getPersonByEmail(email1), personController.getPersonByEmail(email2), message, localDate);
-                messages.add(msg);
-            }
-            rs.close();
-            pstmt.close();
+                String content = rs.getString("message");
+                LocalDateTime startDate = LocalDateTime.parse(rs.getString("date"));
 
-            sql = "SELECT * FROM message WHERE sender = ? AND receiver = ?";
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, email2);
-            pstmt.setString(2, email1);
-
-            rs = pstmt.executeQuery();
-
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String message = rs.getString("message");
-
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("E, dd MMM yyyy HH:mm:ss");
-
-                // Convertir la chaîne en LocalDateTime
-                LocalDateTime localDateTime = LocalDateTime.parse(rs.getString("date"), formatter);
-
-                Message msg = new Message(id, personController.getPersonByEmail(email2), personController.getPersonByEmail(email1), message, localDateTime);
-                if (!messages.contains(msg)) {
-                    messages.add(msg);
+                // Créer un objet Message et l'ajouter à la liste
+                if (rs.getInt("receiver") == user.getId()) {
+                    Message message = new Message(messageId, other, user, content, startDate);
+                    conversation.add(message);
+                } else {
+                    Message message = new Message(messageId, user, other, content, startDate);
+                    conversation.add(message);
                 }
 
             }
-
 
         } catch (SQLException e) {
             e.printStackTrace();
-            // Gérer les erreurs de manière appropriée, par exemple, en lançant une exception personnalisée
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (pstmt != null) {
-                    pstmt.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        return messages;
-    }
-
-    //Retourne la liste des personnes avec qui l'utilisateur a une conversation
-    public List<Person> getFriends() {
-
-        List<Person> persons = new ArrayList<>();
-        ListView<String> friendList = getListofFriends();
-
-        PersonController personController = new PersonController();
-
-        for(String friend : friendList.getItems()){
-            persons.add(personController.getPersonByEmail(friend));
         }
 
-        return persons;
-
+        return conversation;
     }
 
-    //Retourne la liste des emails des utilisateurs avec qui l'utilisateur courant a eu une conversation
-    public ListView<String> getListofFriends() {
 
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        ListView<String> persons = new ListView<>();
-        PersonController personController = new PersonController();
+    public ArrayList<Person> getConversationList(Person person) {
+        try (Connection conn = DbConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement(
+                     "SELECT DISTINCT sender, receiver FROM message WHERE sender = ? OR receiver = ?")) {
 
-        Person currentuser = PersonController.getInstance().getCurrentUser();
+            pstmt.setInt(1, person.getId());
+            pstmt.setInt(2, person.getId());
 
+            ResultSet rs = pstmt.executeQuery();
 
-        try {
-            conn = DbConnection.connect();
-            String sql = "SELECT sender FROM message WHERE receiver = ?";
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, currentuser.getEmail());
-
-
-            rs = pstmt.executeQuery();
-
-            while ((rs.next())) {
-                String sender = rs.getString("sender");
-
-
-
-                if (!persons.getItems().contains(sender) & !Objects.equals(sender, currentuser.getEmail())) {
-                    persons.getItems().add(sender);
-
-                }
-
-            }
-            rs.close();
-            pstmt.close();
-
-            String sql2 = "SELECT receiver FROM message WHERE sender = ?";
-            pstmt = conn.prepareStatement(sql2);
-            pstmt.setString(1, currentuser.getEmail());
-
-
-            rs = pstmt.executeQuery();
+            ArrayList<Integer> ids = new ArrayList<>();
 
             while (rs.next()) {
+                int sender = Integer.parseInt(rs.getString("sender"));
+                int receiver = Integer.parseInt(rs.getString("receiver"));
 
-                String receiver = rs.getString("receiver");
-
-                Person person = personController.getPersonByEmail(receiver);
-
-                if (!persons.getItems().contains(receiver) & !Objects.equals(receiver, currentuser.getEmail())) {
-                    if(person!=currentuser) {
-                        persons.getItems().add(receiver);
+                if (sender == person.getId()) {
+                    // Regarde dans la liste si la personne n'est pas déjà présente
+                    if (!ids.contains(receiver)) {
+                        ids.add(receiver);
+                    }
+                } else {
+                    // Regarde dans la liste si la personne n'est pas déjà présente
+                    if (!ids.contains(sender)) {
+                        ids.add(sender);
                     }
                 }
-
             }
 
+            ArrayList<Person> people = new ArrayList<>();
+            for (Integer id : ids) {
+                Person p = PersonController.getInstance().getPersonById(id);
+                if (p != null) {
+                    people.add(p);
+                }
+            }
+
+            return people;
 
         } catch (SQLException e) {
             e.printStackTrace();
-            // Gérer les erreurs de manière appropriée, par exemple, en lançant une exception personnalisée
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (pstmt != null) {
-                    pstmt.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            return null;
         }
-
-        return persons;
-
-
     }
-
-
-
-
 }

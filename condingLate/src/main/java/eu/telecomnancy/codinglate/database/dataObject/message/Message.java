@@ -22,6 +22,13 @@ public class Message {
         this.date = date;
     }
 
+    public Message(Person sender, Person receiver, String message, LocalDateTime date) {
+        this.sender = sender;
+        this.receiver = receiver;
+        this.message = message;
+        this.date = date;
+    }
+
 
     // Getters ------------------------------------------------------------------------------------
 

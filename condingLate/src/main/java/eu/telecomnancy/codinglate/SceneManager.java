@@ -16,14 +16,11 @@ import eu.telecomnancy.codinglate.database.dataObject.user.User;
 import eu.telecomnancy.codinglate.UI.SearchContent;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.*;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -339,33 +336,6 @@ public class SceneManager {
 
     public Scene createMessageScene() {
 
-        //récupérer l'utilisateur courant
-        Person currentuser = PersonController.getInstance().getCurrentUser();
-
-        //faire la liste de toutes les conversations de l'utilisateur courant
-        MessageController messageController = new MessageController();
-        List<List<Message>> MessageUserWithSelectedUserFromUserList = new ArrayList<>();
-
-        ListView<String> UserYouHadAConversationWith = new ListView<>();
-        UserYouHadAConversationWith = messageController.getListofFriends();
-        UserYouHadAConversationWith.setCellFactory(param -> new CustomListCell());
-
-        //récupérer toutes les personnes ayant une conversation avec l'utilisateur courant
-        List<Person> persons = new ArrayList<>();
-        persons = messageController.getFriends();
-
-
-        for(Person person : persons){
-
-            List<Message> conversation = new ArrayList<>();
-            conversation = messageController.getConversation(currentuser.getEmail(),person.getEmail());
-
-            MessageUserWithSelectedUserFromUserList.add(conversation);
-
-        }
-
-
-
         SearchBar searchBar = new SearchBar();
 
 
@@ -376,6 +346,29 @@ public class SceneManager {
         layout.getChildren().add(searchBar);
 
         root.setTop(layout);
+
+
+        //récupérer l'utilisateur courant
+        Person currentuser = PersonController.getInstance().getCurrentUser();
+
+        System.out.println(currentuser);
+
+        //faire la liste de toutes les conversations de l'utilisateur courant
+        MessageController messageController = new MessageController();
+        List<Person> UserYouHadAConversationWith = messageController.getConversationList(currentuser);
+        ListView<Person> MessageUserWithSelectedUserFromUserList = new ListView<>();
+        MessageUserWithSelectedUserFromUserList.setCellFactory(param -> new CustomListCell(root));
+
+        MessageUserWithSelectedUserFromUserList.getItems().addAll(UserYouHadAConversationWith);
+        root.setLeft(MessageUserWithSelectedUserFromUserList);
+
+
+
+
+
+
+
+
 
 
 
@@ -394,10 +387,7 @@ public class SceneManager {
 
 
 
-        MessagingList messagingClass = new MessagingList(MessageUserWithSelectedUserFromUserList, UserYouHadAConversationWith);
-        BorderPane borderPane = messagingClass.getBorderPane();
 
-        root.setCenter(borderPane);
 
         Scene scene = new Scene(root, 1000, 600);
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());

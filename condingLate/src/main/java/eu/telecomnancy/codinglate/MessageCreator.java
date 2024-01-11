@@ -50,10 +50,10 @@ public class MessageCreator {
     private void addUIControls(GridPane gridPane) {
         // Ajouter des contrôles à la grille
 
-        CustomTextField emailField = new CustomTextField("Destinataire:");
+        CustomTextField emailField = new CustomTextField("Email du destinataire");
         gridPane.add(emailField, 1, 0);
 
-        CustomTextField messageField = new CustomTextField("Message:");
+        CustomTextField messageField = new CustomTextField("Message");
         gridPane.add(messageField, 1, 1);
 
         FormButton sendButton = new FormButton("Send", "Envoyer");
