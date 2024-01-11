@@ -97,6 +97,45 @@ public class SceneManager {
     }
 
 
+
+    public Scene createSceneResearchBar(ArrayList<Offer> listOffres) {
+
+
+        SearchBar searchBar = new SearchBar();
+
+        BorderPane root = new BorderPane();
+        // Mise en page de la scène
+        VBox layout = new VBox(10);
+        layout.setPadding(new Insets(0));
+        layout.getChildren().add(searchBar);
+
+        root.setTop(layout);
+
+        TilePane tilePane = new TilePane();
+        tilePane.setPadding(new Insets(10, 0, 10, 0));
+        tilePane.setHgap(10);
+        tilePane.setVgap(10);
+
+        //Séléction des articles
+        handleProductSearch(tilePane, listOffres);
+
+        root.setCenter(tilePane);
+
+
+        Scene scene = new Scene(root, 1000, 600);
+        // Ajoutez vos stylesheets ici
+        scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
+        return scene;
+
+
+    }
+
+    public void handleProductSearch(TilePane tilePane, ArrayList<Offer> listOffres) {
+        OfferController offerController = new OfferController();
+        updateTilePane(tilePane, listOffres);
+        // Ajouter ComboBox pour la sélection du produit
+
+    }
     public Scene createSceneDisplayProduct() {
         SearchBar searchBar = new SearchBar();
 
@@ -111,6 +150,8 @@ public class SceneManager {
         filtersPane.setHgap(10);
         filtersPane.setVgap(10);
 
+
+        //Séléction des articles
         // Ajouter ComboBox pour la sélection du produit
         ComboBox<String> productComboBox = new ComboBox<>();
         productComboBox.getItems().addAll("Produit", "Service");

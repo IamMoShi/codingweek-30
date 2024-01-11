@@ -1,11 +1,14 @@
 package eu.telecomnancy.codinglate.UI;
 
+import eu.telecomnancy.codinglate.SceneManager;
 import eu.telecomnancy.codinglate.database.dataController.offer.OfferController;
 import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Offer;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
@@ -99,6 +102,10 @@ public class SearchContent extends HBox {
 
             ArrayList<Offer> offers = new OfferController().getOfferByParameters(isService, null, "", "", null, -1);
             offers = new OfferController().checkDistance(offers, PersonController.getInstance().getCurrentUser(), distance);
+
+            SceneManager sceneManager = new SceneManager((Stage) getScene().getWindow());
+            Scene scene = sceneManager.createSceneResearchBar(offers);
+            sceneManager.switchScene(scene);
 
             System.out.println("Offres trouvées : " + offers.size());
 
