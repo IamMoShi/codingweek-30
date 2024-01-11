@@ -132,15 +132,23 @@ public class SceneManager {
 
 
         // Ajouter des labels pour chaque ComboBox
+        if(productComboBox.getValue().equals("Service")){
+            filtersPane.getChildren().addAll( new Label("Type de produit:"), productComboBox);
+        }
+
+        Label category = new Label("Catégorie:");
+        Label condition = new Label("Condition:");
         filtersPane.getChildren().addAll(
                 new Label("Type de produit:"), productComboBox,
-                new Label("Catégorie:"), categoryComboBox,
+                category, categoryComboBox,
                 brandComboBox, modelComboBox,
-                new Label("Condition:"), conditionComboBox,
+                condition, conditionComboBox,
                 yearComboBox
         );
 
 
+        category.setVisible(false);
+        condition.setVisible(false);
         categoryComboBox.setVisible(false);
         brandComboBox.setVisible(false);
         modelComboBox.setVisible(false);
@@ -155,33 +163,40 @@ public class SceneManager {
         tilePane.setHgap(10);
         tilePane.setVgap(10);
 
+        handleProductSelection(root, tilePane,productComboBox.getValue(), category, condition, categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+
+
         productComboBox.setOnAction(event -> {
-            handleProductSelection(root, tilePane, productComboBox.getValue(), categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+            handleProductSelection(root, tilePane,productComboBox.getValue(), category, condition, categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+
         });
 
         categoryComboBox.setOnAction(event -> {
-            handleProductSelection(root, tilePane, productComboBox.getValue(), categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+            handleProductSelection(root, tilePane, productComboBox.getValue(), category, condition, categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+
         });
 
         conditionComboBox.setOnAction(event -> {
-            handleProductSelection(root, tilePane, productComboBox.getValue(), categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+            handleProductSelection(root, tilePane, productComboBox.getValue(), category, condition, categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+
         });
 
         brandComboBox.setOnAction(event -> {
-            handleProductSelection(root, tilePane, productComboBox.getValue(), categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+            handleProductSelection(root, tilePane, productComboBox.getValue(), category, condition, categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+
         });
 
         modelComboBox.setOnAction(event -> {
-            handleProductSelection(root, tilePane, productComboBox.getValue(), categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+            handleProductSelection(root, tilePane, productComboBox.getValue(), category, condition, categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+
         });
 
         yearComboBox.setOnAction(event -> {
-            handleProductSelection(root, tilePane, productComboBox.getValue(), categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+            handleProductSelection(root, tilePane, productComboBox.getValue(), category, condition, categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+
         });
 
-
         root.setTop(layout);
-
 
         // Créer un ScrollPane et y ajouter la TilePane
         ScrollPane scrollPane = new ScrollPane(tilePane);
@@ -201,6 +216,7 @@ public class SceneManager {
 
     private VBox createOfferTile(Offer offer, TilePane tilePane) {
         Label titleLabel = new Label(offer.getTitle());
+        titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
         Label descriptionLabel = new Label(offer.getDescription());
         Label priceLabel = new Label("Prix : " + offer.getPrice() + " " + offer.getPriceType());
         Label dateLabel = new Label("Date de début : " + offer.getStartingDate() + " / Date de fin : " + offer.getEndingDate());
@@ -213,6 +229,10 @@ public class SceneManager {
 
         // Ajouter un gestionnaire d'événements pour le clic sur la tuile
         tile.setOnMouseClicked(event -> handleTileClick(offer, tilePane));
+
+        //tile.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/items.css").toString());
+        //tile.getStyleClass().add("items");
+        tile.setStyle("-fx-background-color: #FCA6D5; -fx-padding: 10px; -fx-border-color: #171616; -fx-border-width: 1px;");
 
         return tile;
     }
@@ -231,16 +251,19 @@ public class SceneManager {
         for (Offer offer : offers) {
             tilePane.getChildren().add(createOfferTile(offer, tilePane));
         }
+        tilePane.requestLayout();
     }
 
-    private void handleProductSelection(BorderPane root, TilePane tilePane, String selectedProduct, ComboBox<String> categoryComboBox, CustomTextField brandComboBox,
+    private ArrayList<Offer> handleProductSelection(BorderPane root, TilePane tilePane,String selectedProduct, Label category, Label prodcondition, ComboBox<String> categoryComboBox, CustomTextField brandComboBox,
                                         CustomTextField modelComboBox, ComboBox<String> conditionComboBox, CustomTextField yearComboBox) {
         // Logique pour gérer la sélection du type de produit (produit ou service)
         if ("Produit".equals(selectedProduct)) {
             // Afficher les ComboBox et labels spécifiques au produit
+            category.setVisible(true);
             categoryComboBox.setVisible(true);
             brandComboBox.setVisible(true);
             modelComboBox.setVisible(true);
+            prodcondition.setVisible(true);
             conditionComboBox.setVisible(true);
             yearComboBox.setVisible(true);
 
@@ -263,19 +286,23 @@ public class SceneManager {
             OfferController offerController = new OfferController();
             ArrayList<Offer> listOffres = offerController.getOfferByParameters(true, categorie, brand, model, condition, parseYear(year));
             updateTilePane(tilePane, listOffres);
+            return listOffres;
 
 
         } else {
             // Cacher les ComboBox et labels spécifiques au produit
+            category.setVisible(false);
             categoryComboBox.setVisible(false);
             brandComboBox.setVisible(false);
             modelComboBox.setVisible(false);
+            prodcondition.setVisible(false);
             conditionComboBox.setVisible(false);
             yearComboBox.setVisible(false);
 
             OfferController offerController = new OfferController();
             ArrayList<Offer> listoffres = offerController.getOfferByParameters(false, null, "", "", null, 0);
             updateTilePane(tilePane, listoffres);
+            return listoffres;
         }
         // Vous devrez ajouter une logique similaire pour gérer la sélection d'autres ComboBox
     }
