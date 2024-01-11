@@ -768,39 +768,8 @@ public class SceneManager {
 
 
     public Scene createSceneCalendar() {
-        CalendarView calendarView = new CalendarView();
-        Calendar birthdays = new Calendar("Birthdays");
-        birthdays.setStyle(Style.STYLE1);
-        Calendar holidays = new Calendar("Holidays");
-        holidays.setStyle(Style.STYLE2);
-        CalendarSource myCalendarSource = new CalendarSource("My Calendars");
-        myCalendarSource.getCalendars().addAll(birthdays, holidays);
-        calendarView.getCalendarSources().addAll(myCalendarSource);
-        calendarView.setRequestedTime(LocalTime.now());
-
-        Thread updateTimeThread = new Thread("Calendar: Update Time Thread") {
-            @Override
-            public void run() {
-                while (true) {
-                    Platform.runLater(() -> {
-                        calendarView.setToday(LocalDate.now());
-                        calendarView.setTime(LocalTime.now());
-                    });
-                    try {
-                        // update every 10 seconds
-                        sleep(10000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            ;
-        };
-        updateTimeThread.setPriority(Thread.MIN_PRIORITY);
-        updateTimeThread.setDaemon(true);
-        updateTimeThread.start();
-        Scene scene = new Scene(calendarView);
+        Offer offer = new OfferController().getOfferById(1);
+        Scene scene = new Scene(new ReservationCalendarView(offer));
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
         return scene;
     }
