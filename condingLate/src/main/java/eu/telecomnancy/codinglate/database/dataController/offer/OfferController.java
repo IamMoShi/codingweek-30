@@ -52,7 +52,7 @@ public class OfferController {
                         service.setId(generatedId);
                         // Ajout des images dans la base de données
                         for (String imageUrl : service.getImages()) {
-                            new ImageOfferDAO().insert(imageUrl, generatedId);
+                            new ImageOfferDAO().insert(imageUrl.substring("OfferImage/".length()), generatedId);
                         }
                         System.out.println("Service inserted successfully with ID " + generatedId);
                     } else {

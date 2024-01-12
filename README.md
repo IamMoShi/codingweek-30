@@ -211,4 +211,24 @@ Un jar est disponible chaque jour à la source du projet.
 - Problème avec la messagerie
 
 
+## DAY 5 (Vendredi 12 janvier 2024)
 
+### Objectifs de la journée
+
+- Jour tampon pour finir les tâches non terminées
+- Finition de l'app
+- Vidéo de présentation
+
+### Tâches réalisées
+
+
+- Mise en service du système de réservation
+- Mise en place des calendriers
+- Mise en service des évaluations
+- Patch des différentes pages
+
+### Difficultés rencontrées
+
+- On a pas eu le temps de faire la vidéo de présentation
+- On a pas eu le temps de faire la page admin
+- On a pas eu le temps de faire fonctionner la page d'ajout de photos pour les produits
