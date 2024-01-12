@@ -29,7 +29,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 
-import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -113,7 +112,6 @@ public class SceneManager {
     }
 
 
-
     public Scene createSceneResearchBar(ArrayList<Offer> listOffres) {
 
 
@@ -152,6 +150,7 @@ public class SceneManager {
         // Ajouter ComboBox pour la sélection du produit
 
     }
+
     public Scene createSceneDisplayProduct() {
         SearchBar searchBar = new SearchBar();
 
@@ -189,20 +188,19 @@ public class SceneManager {
 
 
         // Ajouter des labels pour chaque ComboBox
-        if(productComboBox.getValue().equals("Service")){
-            filtersPane.getChildren().addAll( new Label("Type de produit:"), productComboBox);
+        if (productComboBox.getValue().equals("Service")) {
+            filtersPane.getChildren().addAll(new Label("Type de produit:"), productComboBox);
         }
 
         filtersPane.getChildren().addAll(
-                 productComboBox,
-                 categoryComboBox,
+                productComboBox,
+                categoryComboBox,
                 brandComboBox, modelComboBox,
-                 conditionComboBox,
+                conditionComboBox,
                 yearComboBox
         );
 
         filtersPane.setPadding(new Insets(10, 20, 10, 20));
-
 
 
         categoryComboBox.setVisible(false);
@@ -228,27 +226,27 @@ public class SceneManager {
         });
 
         categoryComboBox.setOnAction(event -> {
-            handleProductSelection(root, tilePane, (String) productComboBox.getValue(),  categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+            handleProductSelection(root, tilePane, (String) productComboBox.getValue(), categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
 
         });
 
         conditionComboBox.setOnAction(event -> {
-            handleProductSelection(root, tilePane, (String) productComboBox.getValue(),  categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+            handleProductSelection(root, tilePane, (String) productComboBox.getValue(), categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
 
         });
 
         brandComboBox.setOnAction(event -> {
-            handleProductSelection(root, tilePane, (String) productComboBox.getValue(),  categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+            handleProductSelection(root, tilePane, (String) productComboBox.getValue(), categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
 
         });
 
         modelComboBox.setOnAction(event -> {
-            handleProductSelection(root, tilePane, (String) productComboBox.getValue(),  categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+            handleProductSelection(root, tilePane, (String) productComboBox.getValue(), categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
 
         });
 
         yearComboBox.setOnAction(event -> {
-            handleProductSelection(root, tilePane, (String) productComboBox.getValue(),  categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
+            handleProductSelection(root, tilePane, (String) productComboBox.getValue(), categoryComboBox, brandComboBox, modelComboBox, conditionComboBox, yearComboBox);
 
         });
 
@@ -282,9 +280,16 @@ public class SceneManager {
             String imageurl = images.get(0);
 
             Image image = new Image(getClass().getResourceAsStream("/" + imageurl));
-            //Image image = new Image("C:/Users/26269/codingweek-30/condingLate/OfferImage/image_user_n_1uuid=af25eb63-a442-4c26-985a-54fc4e667c5e.jpg");
-
+            //Image image = new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/picture/default.png"));
             ImageView imageView = new ImageView(image);
+            imageView.setFitWidth(240); // Largeur maximale de la VBox
+            imageView.setFitHeight(220); // Hauteur de la bande pour les informations
+            imageView.setPreserveRatio(true);
+            tile.getChildren().add(imageView);
+        }
+
+        else {
+            ImageView imageView = new ImageView(new Image("C:/Users/26269/codingweek-30/condingLate/OfferImage/image_user_n_1uuid=af25eb63-a442-4c26-985a-54fc4e667c5e.jpg"));
             imageView.setFitWidth(240); // Largeur maximale de la VBox
             imageView.setFitHeight(220); // Hauteur de la bande pour les informations
             imageView.setPreserveRatio(true);
@@ -309,42 +314,6 @@ public class SceneManager {
         priceLabel.setPadding(new Insets(3, 0, 0, 0));
         priceBox.getChildren().add(imageView);
         priceBox.getChildren().add(priceLabel);
-
-        VBox tileLayout = new VBox(5);
-        //tileLayout.getChildren().addAll(titleLabel, descriptionLabel, priceBox);
-
-
-
-        ArrayList<String> imagesURL = imageOfferDAO.getImages(offer);
-        
-        if(!imagesURL.isEmpty()) {
-            String projectRoot = System.getProperty("user.dir");
-
-            //récuperer le chemin absolu vers l'image
-            File fichier = new File(projectRoot, imagesURL.get(0));
-            String cheminAbsolu = fichier.getAbsolutePath();
-
-            Image iconoffer = new Image(cheminAbsolu.replace("\\", "/"));
-            //Image iconoffer = new Image("C:/Users/26269/codingweek-30/condingLate/OfferImage/image_user_n_1uuid=af25eb63-a442-4c26-985a-54fc4e667c5e.jpg");
-
-            ImageView imageViewicon = new ImageView(iconoffer);
-            imageViewicon.setFitWidth(150);
-            imageViewicon.setFitHeight(150);
-            tileLayout.getChildren().add(imageViewicon);
-        }
-        else {
-            ImageView imageViewicon = new ImageView(new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/picture/default.png")));
-            imageViewicon.setFitWidth(150);
-            imageViewicon.setFitHeight(150);
-            tileLayout.getChildren().add(imageViewicon);
-        }
-
-        // Créer la VBox principale
-        tileLayout.getChildren().addAll(titleLabel, descriptionLabel,priceBox);
-
-        
-
-
 
 
         VBox detailsLayout = new VBox(5);
@@ -382,8 +351,6 @@ public class SceneManager {
 
         // Ajouter un gestionnaire d'événements pour le clic sur la tuile
         tile.setOnMouseClicked(event -> handleTileClick(offer, tilePane));
-
-        //tile.setStyle("-fx-background-color: #FCA6D5; -fx-padding: 10px; -fx-border-color: #171616; -fx-border-width: 1px;");
 
         return tile;
     }
@@ -542,7 +509,6 @@ public class SceneManager {
 
         FormButton newConv = new FormButton("NewConvo", "Nouvelle Conversation");
         newConv.initializeButton();
-
         root.setRight(newConv);
 
 
@@ -694,13 +660,15 @@ public class SceneManager {
         // Afficher les informations de l'utilisateur à gauche
         VBox userBox = new VBox(5);
         Label userLabel = new Label("Utilisateur : " + offer.getUser().getFirstname() + " " + offer.getUser().getLastname());
-        userLabel.setTranslateX(10);
-        userLabel.setTranslateY(100);
         userLabel.setStyle("-fx-font-weight: bold;-fx-font-size: 16;");
+        userLabel.setTranslateY(100);
+        userLabel.setTranslateX(10);
         SearchBarButton messageButton = new SearchBarButton("Envoyer un message", "Envoyer un message");
         messageButton.initializeButton();
         messageButton.setTranslateY(100);
         messageButton.setTranslateX(20);
+
+
 
         messageButton.setOnAction(event -> {
             SceneManager sceneManager = new SceneManager((Stage) productBox.getScene().getWindow());
@@ -708,21 +676,21 @@ public class SceneManager {
             sceneManager.switchScene(scene);
         });
 
-        Button returndisplaybutton = new Button("Retour");
-        messageButton.initializeButton();
-        returndisplaybutton.setPrefHeight(20);
-        returndisplaybutton.setPrefWidth(200);
-        returndisplaybutton.setStyle("-fx-background-color: #xxxxx");
-        returndisplaybutton.setOnAction(event -> {
+
+        //Creer un bouton retour
+        FormButtonReturn returnDisplayButton = new FormButtonReturn("returndisplay", "Retour");
+        returnDisplayButton.initializeButton();
+        userBox.getChildren().add(returnDisplayButton);
+
+        returnDisplayButton.setOnAction(event -> {
             SceneManager sceneManager = new SceneManager(primaryStage);
             Scene scene = sceneManager.createSceneDisplayProduct();
             sceneManager.switchScene(scene);
         });
 
 
-        userBox.getChildren().add(returndisplaybutton);
         // Ajouter d'autres détails de l'utilisateur si nécessaire
-        userBox.getChildren().add(userLabel);
+        userBox.getChildren().addAll(userLabel);
         productBox.getChildren().add(userBox);
         userBox.getChildren().add(messageButton);
 
@@ -730,10 +698,21 @@ public class SceneManager {
         // Afficher les détails du produit au centre
         VBox productDetailsBox = new VBox(10);
 
-
         if (!offer.getImages().isEmpty()) {
-            ImageView imageView = new ImageView(offer.getImages().get(0)); // Utilisez la première image comme exemple
-            imageView.setFitHeight(300); // Hauteur de la bande pour les information
+            //ImageView imageView = new ImageView(offer.getImages().get(0)); // Utilisez la première image comme exemple
+            ImageView imageView = new ImageView(new Image("C:/Users/26269/codingweek-30/condingLate/OfferImage/image_user_n_1uuid=af25eb63-a442-4c26-985a-54fc4e667c5e.jpg"));
+            imageView.setFitHeight(500); // Hauteur de la bande pour les information
+            imageView.setFitWidth(800);
+            imageView.setTranslateX(40);
+            imageView.setPreserveRatio(true);
+            productBox.getChildren().add(imageView);
+        }
+
+        else {
+            ImageView imageView = new ImageView(new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/picture/default.png")));
+            imageView.setFitHeight(500);
+            imageView.setFitWidth(800);
+            imageView.setTranslateX(40);
             imageView.setPreserveRatio(true);
             productDetailsBox.getChildren().add(imageView);
         }
@@ -744,6 +723,7 @@ public class SceneManager {
         String description = offer.getDescription();
         if (!Objects.equals(description, "")) {
             Label descriptionLabel = new Label(offer.getDescription());
+            descriptionLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 15px; -fx-min-height: 30px;");
             productDetailsBox.getChildren().add(descriptionLabel);
         }
 
@@ -797,66 +777,36 @@ public class SceneManager {
 
         HBox bottomBox = new HBox(10);
         // Vous pouvez ajouter d'autres informations du produit ici
-        FormButton submitButton = new FormButton("submit", "Réserver cette offre");
+        FormButtonReserved submitButton = new FormButtonReserved("submit", "Réserver cette offre");
         submitButton.initializeButton();
-
+        submitButton.setTranslateX(40);
         bottomBox.getChildren().add(submitButton);
 
 
         submitButton.setOnAction(event -> {
-                    Booking booking = new Booking(offer, (User) PersonController.getInstance().getCurrentUser(), LocalDateTime.now(), LocalDateTime.now());
-                    BookingDAO bookingDAO = new BookingDAO();
-                    bookingDAO.insert(booking);
+            Booking booking = new Booking(offer, (User) PersonController.getInstance().getCurrentUser(), LocalDateTime.now(), LocalDateTime.now());
+            BookingDAO bookingDAO = new BookingDAO();
+            bookingDAO.insert(booking);
 
-                    Label label = new Label("Réservation effectuée!");});
-
-
-            FormButton returnDisplayButton = new FormButton("returndisplay", "Retour");
-            returnDisplayButton.initializeButton();
-
-            bottomBox.getChildren().add(returnDisplayButton);
+        });
 
 
-            returnDisplayButton.setOnAction(event -> {
-                SceneManager sceneManager = new SceneManager(primaryStage);
-                Scene scene = sceneManager.createSceneDisplayProduct();
-                sceneManager.switchScene(scene);
-            });
+        // Ajouter les labels au conteneur des détails du produit
+        productDetailsBox.getChildren().add(bottomBox);
+        productBox.getChildren().add(productDetailsBox);
 
-            ImageOfferDAO imageOfferDAO = new ImageOfferDAO();
-            ArrayList<String> imagesURL = imageOfferDAO.getImages(offer);
-
-            // Ajouter une image si disponible
+        // Ajouter la boîte du produit à la mise en page principale
+        layout.getChildren().add(productBox);
 
 
-            // Ajouter les labels au conteneur des détails du produit
-            if (!productDetailsBox.getChildren().contains(titleLabel)) {
-                productDetailsBox.getChildren().add(titleLabel);
-            }
+        root.setTop(layout);
 
-            if (!productDetailsBox.getChildren().contains(priceLabel)) {
-                productDetailsBox.getChildren().add(priceLabel);
-            }
+        Scene scene = new Scene(root, getCurrentSceneWidth(), getCurrentSceneHeight());
+        // Ajouter vos stylesheets ici si nécessaire
+        scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
 
-            if (!productDetailsBox.getChildren().contains(submitButton)) {
-                productDetailsBox.getChildren().add(submitButton);
-            }
-
-            productDetailsBox.getChildren().add(bottomBox);
-            productBox.getChildren().add(productDetailsBox);
-
-            // Ajouter la boîte du produit à la mise en page principale
-            layout.getChildren().add(productBox);
-
-
-            root.setTop(layout);
-
-            Scene scene = new Scene(root, getCurrentSceneWidth(), getCurrentSceneHeight());
-            // Ajouter vos stylesheets ici si nécessaire
-            scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
-
-            return scene;
-        }
+        return scene;
+    }
 
     public Scene createSceneMyBookings() {
         SearchBar searchBar = new SearchBar();
