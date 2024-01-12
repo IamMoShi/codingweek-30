@@ -132,7 +132,7 @@ public class PersonController {
                 float balance = rs.getFloat("balance");
                 int adminValue = rs.getInt("admin");
 
-                Address address = null; // Vous devez obtenir l'adresse à partir de la base de données si nécessaire
+                Address address = new AddressController().getAddressByUSer(id); // Vous devez obtenir l'adresse à partir de la base de données si nécessaire
 
                 if (adminValue == 1) {
                     // L'utilisateur est un administrateur
