@@ -5,11 +5,11 @@ import eu.telecomnancy.codinglate.calendar.CalendarStaticContraint;
 import eu.telecomnancy.codinglate.calendar.ReservationCalendarView;
 import eu.telecomnancy.codinglate.database.dataController.MessageController;
 import eu.telecomnancy.codinglate.database.dataController.offer.BookingDAO;
+import eu.telecomnancy.codinglate.database.dataController.offer.ImageOfferDAO;
 import eu.telecomnancy.codinglate.database.dataController.offer.OfferController;
 import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
 import eu.telecomnancy.codinglate.database.dataObject.enums.ProductCategory;
 import eu.telecomnancy.codinglate.database.dataObject.enums.ProductCondition;
-import eu.telecomnancy.codinglate.database.dataObject.message.Message;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Booking;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Offer;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Product;
@@ -40,8 +40,10 @@ import javafx.application.Platform;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class SceneManager {
     private Stage primaryStage;
@@ -280,29 +282,96 @@ public class SceneManager {
     }
 
     private VBox createOfferTile(Offer offer, TilePane tilePane) {
+        VBox tile = new VBox(1);
+        tile.setMaxWidth(250);
+        tile.setStyle("-fx-border-color: #171616; -fx-border-radius: 5; -fx-border-width: 1; -fx-padding: 5;");
+
+        ImageOfferDAO imageOfferDAO = new ImageOfferDAO();
+        ArrayList<String> images = imageOfferDAO.getImages(offer);
+
+        if (!images.isEmpty()) {
+            String imageurl = images.get(0);
+
+            Image image = new Image(getClass().getResourceAsStream("/" + imageurl));
+            //Image image = new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/picture/default.png"));
+            ImageView imageView = new ImageView(image);
+            imageView.setFitWidth(240); // Largeur maximale de la VBox
+            imageView.setFitHeight(220); // Hauteur de la bande pour les informations
+            imageView.setPreserveRatio(true);
+            tile.getChildren().add(imageView);
+        }
+
+        else {
+            ImageView imageView = new ImageView(new Image("C:/Users/26269/codingweek-30/condingLate/OfferImage/image_user_n_1uuid=af25eb63-a442-4c26-985a-54fc4e667c5e.jpg"));
+            imageView.setFitWidth(240); // Largeur maximale de la VBox
+            imageView.setFitHeight(220); // Hauteur de la bande pour les informations
+            imageView.setPreserveRatio(true);
+            tile.getChildren().add(imageView);
+        }
+
         Label titleLabel = new Label(offer.getTitle());
-        titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
+        titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 20px; -fx-padding: 5 10 0 10; -fx-text-alignment: center; -fx-text-fill: #171616; -fx-font-family: 'Segoe UI', Helvetica, Arial, sans-serif; -fx-font-weight: 400; -fx-line-spacing: 1.5; -fx-letter-spacing: 0.5;");
+
         Label descriptionLabel = new Label(offer.getDescription());
-        Label priceLabel = new Label("Prix : " + offer.getPrice() + " " + offer.getPriceType());
-        Label dateLabel = new Label("Date de début : " + offer.getStartingDate() + " / Date de fin : " + offer.getEndingDate());
+        HBox priceBox = new HBox(0);
+        priceBox.setPadding(new Insets(3, 0, 0, 10));
+        Image image = new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/icon/money.png"));
+        ImageView imageView = new ImageView(image);
 
-        VBox tileLayout = new VBox(5);
-        tileLayout.getChildren().addAll(titleLabel, descriptionLabel, priceLabel, dateLabel);
+        imageView.setFitWidth(30);
+        imageView.setFitHeight(30);
+        Double price = offer.getPrice();
+        Integer priceInt = price.intValue();
 
-        VBox tile = new VBox(5);
-        tile.getChildren().add(tileLayout);
+        Label priceLabel = new Label(priceInt + " " + offer.getPriceType());
+        priceLabel.setPadding(new Insets(3, 0, 0, 0));
+        priceBox.getChildren().add(imageView);
+        priceBox.getChildren().add(priceLabel);
+
+
+        VBox detailsLayout = new VBox(5);
+        detailsLayout.getChildren().addAll(titleLabel, descriptionLabel, priceBox);
+
+        if (offer.getStartingDate() != null && offer.getEndingDate() != null) {
+
+            HBox dateBox = new HBox(3);
+            dateBox.setPadding(new Insets(3, 0, 0, 10));
+            Image calendarImage = new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/icon/calendar.png"));
+            ImageView calendarImageView = new ImageView(calendarImage);
+            calendarImageView.setFitWidth(30);
+            calendarImageView.setFitHeight(30);
+            calendarImageView.setPreserveRatio(true);
+
+            dateBox.getChildren().add(calendarImageView);
+
+            LocalDateTime startingDate = offer.getStartingDate();
+            LocalDateTime endingDate = offer.getEndingDate();
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            Label dateLabel = new Label(startingDate.format(formatter) + " - " + endingDate.format(formatter));
+
+
+            dateLabel.setPadding(new Insets(7, 0, 0, 2));
+
+
+
+            dateBox.getChildren().add(dateLabel);
+            detailsLayout.getChildren().add(dateBox);
+
+
+        }
+        tile.getChildren().add(detailsLayout);
 
         // Ajouter un gestionnaire d'événements pour le clic sur la tuile
         tile.setOnMouseClicked(event -> handleTileClick(offer, tilePane));
 
-        tile.setStyle("-fx-background-color: #FCA6D5; -fx-padding: 10px; -fx-border-color: #171616; -fx-border-width: 1px;");
-
         return tile;
     }
 
+
+
+
     private void handleTileClick(Offer offer, TilePane tilePane) {
-        // Action à effectuer lorsqu'une tuile est cliquée
-        System.out.println("Tuile cliquée : " + offer.getTitle());
         SceneManager sceneManager = new SceneManager((Stage) tilePane.getScene().getWindow());
         Scene scene = sceneManager.createSceneProduct(offer);
         sceneManager.switchScene(scene);
@@ -604,12 +673,31 @@ public class SceneManager {
         // Afficher les informations de l'utilisateur à gauche
         VBox userBox = new VBox(5);
         Label userLabel = new Label("Utilisateur : " + offer.getUser().getFirstname() + " " + offer.getUser().getLastname());
+        userLabel.setStyle("-fx-font-weight: bold;-fx-font-size: 16;");
+        userLabel.setTranslateY(100);
+        userLabel.setTranslateX(10);
         SearchBarButton messageButton = new SearchBarButton("Envoyer un message", "Envoyer un message");
         messageButton.initializeButton();
+        messageButton.setTranslateY(100);
+        messageButton.setTranslateX(20);
+
+
 
         messageButton.setOnAction(event -> {
             SceneManager sceneManager = new SceneManager((Stage) productBox.getScene().getWindow());
             Scene scene = sceneManager.createMessageScene();
+            sceneManager.switchScene(scene);
+        });
+
+
+        //Creer un bouton retour
+        FormButtonReturn returnDisplayButton = new FormButtonReturn("returndisplay", "Retour");
+        returnDisplayButton.initializeButton();
+        userBox.getChildren().add(returnDisplayButton);
+
+        returnDisplayButton.setOnAction(event -> {
+            SceneManager sceneManager = new SceneManager(primaryStage);
+            Scene scene = sceneManager.createSceneDisplayProduct();
             sceneManager.switchScene(scene);
         });
 
@@ -619,19 +707,93 @@ public class SceneManager {
         productBox.getChildren().add(userBox);
         userBox.getChildren().add(messageButton);
 
+
         // Afficher les détails du produit au centre
         VBox productDetailsBox = new VBox(10);
-        Label titleLabel = new Label("Titre : " + offer.getTitle());
-        Label descriptionLabel = new Label("Description : " + offer.getDescription());
-        Label priceLabel = new Label("Prix : " + offer.getPrice() + " " + offer.getPriceType());
-        if (offer.getStartingDate() != null && offer.getEndingDate() != null) {
-            priceLabel = new Label("Prix : " + offer.getPrice() + " " + offer.getPriceType() + " / Date de début : " + offer.getStartingDate() + " / Date de fin : " + offer.getEndingDate());
-            productDetailsBox.getChildren().add(priceLabel);
+
+        if (!offer.getImages().isEmpty()) {
+            //ImageView imageView = new ImageView(offer.getImages().get(0)); // Utilisez la première image comme exemple
+            ImageView imageView = new ImageView(new Image("C:/Users/26269/codingweek-30/condingLate/OfferImage/image_user_n_1uuid=af25eb63-a442-4c26-985a-54fc4e667c5e.jpg"));
+            imageView.setFitHeight(500); // Hauteur de la bande pour les information
+            imageView.setFitWidth(800);
+            imageView.setTranslateX(40);
+            imageView.setPreserveRatio(true);
+            productBox.getChildren().add(imageView);
         }
 
+        else {
+            ImageView imageView = new ImageView(new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/picture/default.png")));
+            imageView.setFitHeight(500);
+            imageView.setFitWidth(800);
+            imageView.setTranslateX(40);
+            imageView.setPreserveRatio(true);
+            productDetailsBox.getChildren().add(imageView);
+        }
+
+        Label titleLabel = new Label( offer.getTitle());
+        titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 20px; -fx-padding: 5 10 0 10; -fx-text-alignment: center; -fx-text-fill: #171616; -fx-font-family: 'Segoe UI', Helvetica, Arial, sans-serif; -fx-font-weight: 400; -fx-line-spacing: 1.5; -fx-letter-spacing: 0.5;");
+        productDetailsBox.getChildren().add(titleLabel);
+        String description = offer.getDescription();
+        if (!Objects.equals(description, "")) {
+            Label descriptionLabel = new Label(offer.getDescription());
+            descriptionLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 15px; -fx-min-height: 30px;");
+            productDetailsBox.getChildren().add(descriptionLabel);
+        }
+
+
+        Image moneyImage = new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/icon/money.png"));
+        ImageView moneyImageView = new ImageView(moneyImage);
+        moneyImageView.setFitWidth(30);
+        moneyImageView.setFitHeight(30);
+        moneyImageView.setPreserveRatio(true);
+        HBox priceBox = new HBox(3);
+        priceBox.setPadding(new Insets(3, 0, 0, 10));
+        priceBox.getChildren().add(moneyImageView);
+        Double price = offer.getPrice();
+        Integer priceInt = price.intValue();
+        Label priceLabel = new Label(priceInt + " " + offer.getPriceType());
+        priceLabel.setPadding(new Insets(6, 0, 0, 0));
+        priceBox.getChildren().add(priceLabel);
+
+        productDetailsBox.getChildren().add(priceBox);
+        if (offer.getStartingDate() != null && offer.getEndingDate() != null) {
+            Image calendarImage = new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/icon/calendar.png"));
+            ImageView calendarImageView = new ImageView(calendarImage);
+            calendarImageView.setFitWidth(30);
+            calendarImageView.setFitHeight(30);
+            calendarImageView.setPreserveRatio(true);
+            HBox dateBox = new HBox(3);
+            dateBox.setPadding(new Insets(3, 0, 0, 10));
+            dateBox.getChildren().add(calendarImageView);
+            LocalDateTime startingDate = offer.getStartingDate();
+            LocalDateTime endingDate = offer.getEndingDate();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            Label dateLabel = new Label(startingDate.format(formatter) + " - " + endingDate.format(formatter));
+
+            dateBox.getChildren().add(dateLabel);
+            productDetailsBox.getChildren().add(dateBox);
+
+
+        }
+
+
+        if ( offer instanceof Product) {
+            Product product = (Product) offer;
+            Label brandLabel = new Label("Marque : " + product.getBrand());
+            Label modelLabel = new Label("Modèle : " + product.getModel());
+            Label conditionLabel = new Label("Condition : " + product.getCondition());
+            Label yearLabel = new Label("Année : " + product.getYear());
+            productDetailsBox.getChildren().addAll(brandLabel, modelLabel, conditionLabel, yearLabel);
+        }
+
+
+
+        HBox bottomBox = new HBox(10);
         // Vous pouvez ajouter d'autres informations du produit ici
-        FormButton submitButton = new FormButton("submit", "Reserver cette offre");
+        FormButtonReserved submitButton = new FormButtonReserved("submit", "Réserver cette offre");
         submitButton.initializeButton();
+        submitButton.setTranslateX(40);
+        bottomBox.getChildren().add(submitButton);
 
 
         submitButton.setOnAction(event -> {
@@ -641,23 +803,6 @@ public class SceneManager {
 
         });
 
-        Button returndisplaybutton = new Button("Retour");
-        returndisplaybutton.setPrefHeight(0);
-        returndisplaybutton.setStyle("-fx-background-color: #0000");
-        returndisplaybutton.setOnAction(event -> {
-            SceneManager sceneManager = new SceneManager(primaryStage);
-            Scene scene = sceneManager.createSceneDisplayProduct();
-            sceneManager.switchScene(scene);
-        });
-
-
-        // Ajouter une image si disponible
-        if (!offer.getImages().isEmpty()) {
-            ImageView imageView = new ImageView(offer.getImages().get(0)); // Utilisez la première image comme exemple
-            imageView.setFitHeight(100); // Ajustez la hauteur de l'image selon vos besoins
-            imageView.setPreserveRatio(true);
-            productDetailsBox.getChildren().add(imageView);
-        }
 
         // Ajouter les labels au conteneur des détails du produit
         productDetailsBox.getChildren().addAll(titleLabel, descriptionLabel, priceLabel, submitButton, returndisplaybutton);

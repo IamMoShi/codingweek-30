@@ -136,7 +136,7 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\moshi\Documents\projets\codingLate\codingweek-30\condingLate\lib" />
@@ -265,10 +265,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.condingLate [dependencies]" />
-        <item itemvalue="Application.App" />
-        <item itemvalue="Application.CalendarApp" />
-        <item itemvalue="Application.Geolocation" />
         <item itemvalue="Gradle.condingLate [jar]" />
+        <item itemvalue="Application.App" />
+        <item itemvalue="Application.Geolocation" />
+        <item itemvalue="Application.CalendarApp" />
       </list>
     </recent_temporary>
   </component>
@@ -683,7 +683,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="test-java17" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>

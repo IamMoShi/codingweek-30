@@ -24,11 +24,11 @@ public class CustomListCell extends ListCell<Person> {
                 MessageController messageController = new MessageController();
                 ArrayList<Message> ListMessage = messageController.getConversation(getItem(), PersonController.getInstance().getCurrentUser());
 
-
-
-
                 VBox root = new VBox(10);
                 root.setPadding(new Insets(10));
+
+                VBox sendroot = new VBox(10);
+                sendroot.setPadding(new Insets(0, 400, 0, 240));
 
                 VBox chatBox = new VBox(5);
 
@@ -48,9 +48,12 @@ public class CustomListCell extends ListCell<Person> {
 
                 HBox messageInputBox = createMessageInputBox(chatBox);
 
-                root.getChildren().addAll(scrollPane, messageInputBox);
+                root.getChildren().addAll(scrollPane);
+                sendroot.getChildren().addAll(messageInputBox);
+
 
                 borderPane.setCenter(root);
+                borderPane.setBottom(sendroot);
 
             }
 
@@ -122,7 +125,7 @@ public class CustomListCell extends ListCell<Person> {
             Label firstnameLabel = new Label(person.getFirstname());
             Label emailLabel = new Label(person.getEmail());
 
-            customLayout.getChildren().addAll(nameLabel, emailLabel, firstnameLabel);
+            customLayout.getChildren().addAll(emailLabel);
 
             // Utiliser cette mise en page personnalisée comme élément graphique dans la cellule
             setGraphic(customLayout);
