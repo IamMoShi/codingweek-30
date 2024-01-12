@@ -2,7 +2,7 @@ package eu.telecomnancy.codinglate.UI;
 
 import eu.telecomnancy.codinglate.SceneManager;
 import eu.telecomnancy.codinglate.database.dataController.offer.OfferController;
-import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
+import eu.telecomnancy.codinglate.database.dataController.user.PersonDAO;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Offer;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -91,7 +91,7 @@ public class SearchContent extends HBox {
             Boolean isService = service.isSelected();
             TextField distanceField = ((TextField) gridPane2.getChildren().get(2));
 
-            if (PersonController.getInstance().getCurrentUser() == null) {
+            if (PersonDAO.getInstance().getCurrentUser() == null) {
                 SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
                 sceneManager.switchScene(sceneManager.createSceneConnexion());
             }
@@ -101,7 +101,7 @@ public class SearchContent extends HBox {
             if (!distanceField.getText().isEmpty()) {
                 distance = Integer.parseInt(distanceField.getText());
             }
-            System.out.println(PersonController.getInstance().getCurrentUser().getFirstname());
+            System.out.println(PersonDAO.getInstance().getCurrentUser().getFirstname());
             String name = ((TextField) gridPane1.getChildren().get(0)).getText();
 
             ArrayList<Offer> offers = new ArrayList<>();
@@ -113,7 +113,7 @@ public class SearchContent extends HBox {
                 offers = new OfferController().getProductsByName(name);
                 System.out.println("Offres trouvées : " + offers.size());
             }
-            offers = new OfferController().checkDistance(offers, PersonController.getInstance().getCurrentUser(), distance);
+            offers = new OfferController().checkDistance(offers, PersonDAO.getInstance().getCurrentUser(), distance);
 
             SceneManager sceneManager = new SceneManager((Stage) getScene().getWindow());
             Scene scene = sceneManager.createSceneResearchBar(offers);

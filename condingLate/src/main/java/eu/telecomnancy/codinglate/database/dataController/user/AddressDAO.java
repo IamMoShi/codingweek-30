@@ -5,7 +5,7 @@ import eu.telecomnancy.codinglate.database.dataObject.user.Address;
 
 import java.sql.*;
 
-public class AddressController {
+public class AddressDAO {
 
     public void insert(Address address) {
         try (Connection conn = DbConnection.connect();
@@ -57,6 +57,32 @@ public class AddressController {
             e.printStackTrace();
             // Gérer les erreurs de manière appropriée, par exemple, en lançant une exception personnalisée
         }
+    }
+
+
+    public Address getAddressByUSer(int idUser) {
+        try (Connection conn = DbConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement(
+                     "SELECT * FROM address WHERE id = ?")) {
+
+            pstmt.setInt(1, idUser);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                int id = rs.getInt("id");
+                String addressStr = rs.getString("address");
+
+                return new Address(id, addressStr);
+            } else {
+                System.out.println("No address with the given ID found for update");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Gérer les erreurs de manière appropriée, par exemple, en lançant une exception personnalisée
+        }
+        return null;
     }
 
     public Address getAddressById(int addressId) {

@@ -1,7 +1,7 @@
 package eu.telecomnancy.codinglate.database.dataController.offer;
 
 import eu.telecomnancy.codinglate.database.DbConnection;
-import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
+import eu.telecomnancy.codinglate.database.dataController.user.PersonDAO;
 import eu.telecomnancy.codinglate.database.dataObject.enums.PriceType;
 import eu.telecomnancy.codinglate.database.dataObject.enums.ProductCategory;
 import eu.telecomnancy.codinglate.database.dataObject.enums.ProductCondition;
@@ -10,7 +10,6 @@ import eu.telecomnancy.codinglate.database.dataObject.offer.Product;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Service;
 import eu.telecomnancy.codinglate.database.dataObject.user.Person;
 import eu.telecomnancy.codinglate.database.dataObject.user.User;
-import eu.telecomnancy.codinglate.geolocation.Coordinates;
 import eu.telecomnancy.codinglate.geolocation.Geolocation;
 
 import java.sql.*;
@@ -295,7 +294,7 @@ public class OfferController {
         int conditionOrdinal = resultSet.getInt("condition");
         int year = resultSet.getInt("year");
 
-        PersonController userController = new PersonController();
+        PersonDAO userController = new PersonDAO();
         Person person = userController.getPersonById(userId);
 
         // Check if the person is a user
@@ -332,7 +331,7 @@ public class OfferController {
             endingDate = LocalDateTime.parse(resultSet.getString("endingDate"), formatter);
         }
 
-        PersonController userController = new PersonController();
+        PersonDAO userController = new PersonDAO();
         Person person = userController.getPersonById(userId);
 
         // Vérifier si la personne est un utilisateur

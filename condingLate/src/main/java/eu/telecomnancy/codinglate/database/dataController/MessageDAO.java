@@ -1,19 +1,16 @@
 package eu.telecomnancy.codinglate.database.dataController;
 
 import eu.telecomnancy.codinglate.database.DbConnection;
-import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
+import eu.telecomnancy.codinglate.database.dataController.user.PersonDAO;
 import eu.telecomnancy.codinglate.database.dataObject.message.Message;
 import eu.telecomnancy.codinglate.database.dataObject.user.Person;
-import javafx.scene.control.ListView;
 
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
-public class MessageController {
+public class MessageDAO {
 
 
 
@@ -125,7 +122,7 @@ public class MessageController {
 
             ArrayList<Person> people = new ArrayList<>();
             for (Integer id : ids) {
-                Person p = PersonController.getInstance().getPersonById(id);
+                Person p = PersonDAO.getInstance().getPersonById(id);
                 if (p != null) {
                     people.add(p);
                 }

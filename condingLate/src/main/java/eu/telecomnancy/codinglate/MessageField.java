@@ -1,24 +1,19 @@
 package eu.telecomnancy.codinglate;
 
 import eu.telecomnancy.codinglate.UI.IconButton;
-import eu.telecomnancy.codinglate.database.dataController.MessageController;
-import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
+import eu.telecomnancy.codinglate.database.dataController.MessageDAO;
+import eu.telecomnancy.codinglate.database.dataController.user.PersonDAO;
 import eu.telecomnancy.codinglate.database.dataObject.message.Message;
 import eu.telecomnancy.codinglate.database.dataObject.user.Person;
-import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class MessageField {
     private List<List<Message>> MessageUserWithSelectedUserFromUserList;
@@ -58,13 +53,13 @@ public class MessageField {
 
         sendButton.setOnAction(event -> {
 
-            Person currentuser = PersonController.getInstance().getCurrentUser();
-            PersonController personController = new PersonController();
+            Person currentuser = PersonDAO.getInstance().getCurrentUser();
+            PersonDAO personController = new PersonDAO();
             String message = this.inputField.getText();
 
 
             Message msg = new Message(-1, currentuser, personController.getPersonByEmail(emailUser2),message, LocalDateTime.now());
-            MessageController messageController =new MessageController();
+            MessageDAO messageController =new MessageDAO();
             messageController.insert(msg);
             System.out.print("Message envoyé!");
 

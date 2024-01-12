@@ -2,7 +2,7 @@ package eu.telecomnancy.codinglate.database.controller;
 
 import eu.telecomnancy.codinglate.database.dataController.offer.OfferController;
 import eu.telecomnancy.codinglate.database.dataController.offer.RatingDAO;
-import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
+import eu.telecomnancy.codinglate.database.dataController.user.PersonDAO;
 import eu.telecomnancy.codinglate.database.dataObject.enums.PriceType;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Rating;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Service;
@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 public class RatingDAOTest {
     @Test
     public void testInsert() {
-        PersonController userController = new PersonController();
+        PersonDAO userController = new PersonDAO();
         // Test s'il y a un utilisateur dans la base de données avec l'email john.doe@example.com
         User user = (User) userController.getPersonByEmail("john.doe@example.com");
         if (user != null) {

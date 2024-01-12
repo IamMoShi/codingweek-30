@@ -3,17 +3,15 @@ package eu.telecomnancy.codinglate;
 import eu.telecomnancy.codinglate.UI.CustomPasswordField;
 import eu.telecomnancy.codinglate.UI.CustomTextField;
 import eu.telecomnancy.codinglate.UI.FormButton;
-import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
+import eu.telecomnancy.codinglate.database.dataController.user.PersonDAO;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class LoginCreator extends HBox{
@@ -66,10 +64,10 @@ public class LoginCreator extends HBox{
         submitButton.setOnAction(e -> {
             String email = emailField.getText();
             String password = passwordField.getText();
-            PersonController personController = PersonController.getInstance();
+            PersonDAO personController = PersonDAO.getInstance();
 
             if (personController.VerifierBase(email, password)) {
-                PersonController.getInstance();
+                PersonDAO.getInstance();
                 personController.setCurrentUser(personController.getPersonByEmail(email));
                 System.out.println("Connexion réussie");
 

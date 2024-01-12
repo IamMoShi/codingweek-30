@@ -9,15 +9,15 @@ import eu.telecomnancy.codinglate.database.dataObject.user.User;
 
 import java.sql.*;
 
-public class PersonController {
+public class PersonDAO {
 
-    private static PersonController instance = null;
+    private static PersonDAO instance = null;
 
     private Person CurrentUser;
 
-    public static PersonController getInstance() {
+    public static PersonDAO getInstance() {
         if (instance == null) {
-            instance = new PersonController();
+            instance = new PersonDAO();
         }
         return instance;
     }
@@ -48,7 +48,7 @@ public class PersonController {
 
             if (person.getAddress().getId() == -1) {
                 // L'adresse n'existe pas encore dans la base de données
-                AddressController addressController = new AddressController();
+                AddressDAO addressController = new AddressDAO();
                 addressController.insert(person.getAddress());
                 pstmt.setInt(8, person.getAddress().getId());
             } else {
@@ -132,8 +132,7 @@ public class PersonController {
                 float balance = rs.getFloat("balance");
                 int adminValue = rs.getInt("admin");
 
-                Address address = null; // Vous devez obtenir l'adresse à partir de la base de données si nécessaire
-
+                Address address = new AddressDAO().getAddressById(rs.getInt("address"));
                 if (adminValue == 1) {
                     // L'utilisateur est un administrateur
                     person = new Admin(id, firstname, lastname, email, password, phone, balance, address);
@@ -307,7 +306,7 @@ public class PersonController {
                 String phone = rs.getString("phone");
                 float balance = rs.getFloat("balance");
                 int adminValue = rs.getInt("admin");
-                Address address = new AddressController().getAddressById(rs.getInt("address"));
+                Address address = new AddressDAO().getAddressById(rs.getInt("address"));
 
                 if (adminValue == 1) {
                     // L'utilisateur est un administrateur
