@@ -41,7 +41,7 @@ import java.util.Objects;
 
 public class SceneManager {
     private Stage primaryStage;
-
+    private Scene previousScene;
     public SceneManager(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
@@ -53,6 +53,7 @@ public class SceneManager {
         double height = getCurrentSceneHeight();
         primaryStage.setScene(scene);
         primaryStage.show();
+        previousScene = scene;
     }
 
     private int getCurrentSceneHeight() {
@@ -793,10 +794,7 @@ public class SceneManager {
 
 
         submitButton.setOnAction(event -> {
-            Booking booking = new Booking(offer, (User) PersonController.getInstance().getCurrentUser(), LocalDateTime.now(), LocalDateTime.now());
-            BookingDAO bookingDAO = new BookingDAO();
-            bookingDAO.insert(booking);
-
+            switchScene(createSceneCalendar(offer));
         });
 
         FormButton returnDisplayButton = new FormButton("returndisplay", "Retour");
@@ -926,8 +924,7 @@ public class SceneManager {
     }
 
 
-    public Scene createSceneCalendar() {
-        Offer offer = new OfferController().getOfferById(1);
+    public Scene createSceneCalendar(Offer offer) {
         SearchBar searchBar = new SearchBar();
 
         BorderPane root = new BorderPane();
@@ -940,9 +937,9 @@ public class SceneManager {
 
         root.setTop(layout);
         root.setCenter(calendar);
-        root.setBottom(new BookButton(createScenePresentation(), calendar));
+        root.setBottom(new BookButton(previousScene, calendar));
 
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root, getCurrentSceneWidth(), getCurrentSceneHeight());
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
         return scene;
 
