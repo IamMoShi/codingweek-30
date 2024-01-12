@@ -926,8 +926,7 @@ public class SceneManager {
     }
 
 
-    public Scene createSceneCalendar() {
-        Offer offer = new OfferController().getOfferById(1);
+    public Scene createSceneCalendar(Offer offer) {
         SearchBar searchBar = new SearchBar();
 
         BorderPane root = new BorderPane();
