@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 public class MessageCreator {
@@ -79,7 +80,6 @@ public class MessageCreator {
 
                 if(user2 instanceof User){
                     User receiver = (User) user2;
-
 
 
                     Message msg = new Message(-1, user, receiver,message, LocalDateTime.now());

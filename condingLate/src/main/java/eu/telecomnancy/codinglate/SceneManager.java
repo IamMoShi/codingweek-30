@@ -8,17 +8,14 @@ import eu.telecomnancy.codinglate.database.dataController.offer.OfferController;
 import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
 import eu.telecomnancy.codinglate.database.dataObject.enums.ProductCategory;
 import eu.telecomnancy.codinglate.database.dataObject.enums.ProductCondition;
-import eu.telecomnancy.codinglate.database.dataObject.message.Message;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Booking;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Offer;
-import eu.telecomnancy.codinglate.database.dataObject.offer.Product;
 import eu.telecomnancy.codinglate.database.dataObject.user.Person;
 import eu.telecomnancy.codinglate.database.dataObject.user.User;
 import eu.telecomnancy.codinglate.UI.SearchContent;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.control.*;
 
 import javafx.geometry.Insets;
@@ -26,10 +23,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -482,6 +476,7 @@ public class SceneManager {
 
         FormButton newConv = new FormButton("NewConvo", "Nouvelle Conversation");
         newConv.initializeButton();
+
         root.setRight(newConv);
 
 
