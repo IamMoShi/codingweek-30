@@ -42,6 +42,7 @@ import java.util.Objects;
 public class SceneManager {
     private Stage primaryStage;
     private Scene previousScene;
+
     public SceneManager(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
@@ -286,13 +287,17 @@ public class SceneManager {
 
         if (!images.isEmpty()) {
             String imageurl = images.get(0);
+            try {
+                Image image = new Image(getClass().getResourceAsStream("/" + imageurl));
+                ImageView imageView = new ImageView(image);
+                imageView.setFitWidth(240); // Largeur maximale de la VBox
+                imageView.setFitHeight(220); // Hauteur de la bande pour les informations
+                imageView.setPreserveRatio(true);
+                tile.getChildren().add(imageView);
+            } catch (Exception e) {
+                System.err.println("Erreur lors de la récupération de l'image : " + e.getMessage());
+            }
 
-            Image image = new Image(getClass().getResourceAsStream("/" + imageurl));
-            ImageView imageView = new ImageView(image);
-            imageView.setFitWidth(240); // Largeur maximale de la VBox
-            imageView.setFitHeight(220); // Hauteur de la bande pour les informations
-            imageView.setPreserveRatio(true);
-            tile.getChildren().add(imageView);
         }
 
         Label titleLabel = new Label(offer.getTitle());
@@ -338,7 +343,6 @@ public class SceneManager {
 
 
             dateLabel.setPadding(new Insets(7, 0, 0, 2));
-
 
 
             dateBox.getChildren().add(dateLabel);
@@ -480,7 +484,6 @@ public class SceneManager {
     }
 
 
-
     public Scene createMessageScene() {
 
         SearchBar searchBar = new SearchBar();
@@ -519,7 +522,7 @@ public class SceneManager {
 
         newConv.setOnAction(event -> {
                     Stage stage = (Stage) this.primaryStage;
-                    Scene scene = createSceneNewMessage(stage,"");
+                    Scene scene = createSceneNewMessage(stage, "");
                     SceneManager sceneManager = new SceneManager(stage);
                     sceneManager.switchScene(scene);
                 }
@@ -530,7 +533,7 @@ public class SceneManager {
         return scene;
     }
 
-    public Scene createSceneNewMessage(Stage stage,String email){
+    public Scene createSceneNewMessage(Stage stage, String email) {
         SearchBar searchBar = new SearchBar();
 
         BorderPane root = new BorderPane();
@@ -554,7 +557,6 @@ public class SceneManager {
             sceneManager.switchScene(scene);
         });
         gridPane.getChildren().add(returnButton);
-
 
 
         // Ajoutez le formulaire à la scène
@@ -682,7 +684,7 @@ public class SceneManager {
         return scene;
 
     }
-    
+
 
     public Scene createSceneProduct(Offer offer) {
         SearchBar searchBar = new SearchBar();
@@ -707,7 +709,7 @@ public class SceneManager {
         userPictureBox.getChildren().add(userView);
 
 
-        Label userLabel = new Label( offer.getUser().getFirstname() + " " + offer.getUser().getLastname());
+        Label userLabel = new Label(offer.getUser().getFirstname() + " " + offer.getUser().getLastname());
         userLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 20px; -fx-padding: 5 10 0 10; -fx-text-alignment: center; -fx-text-fill: #171616; -fx-font-family: 'Segoe UI', Helvetica, Arial, sans-serif; -fx-font-weight: 400; -fx-line-spacing: 1.5; -fx-letter-spacing: 0.5;");
         userLabel.setPadding(new Insets(0, 0, 0, 10));
 
@@ -732,7 +734,7 @@ public class SceneManager {
 
             }
             if (!founded) {
-                Scene scene = sceneManager.createSceneNewMessage((Stage) productBox.getScene().getWindow(),offer.getUser().getEmail());
+                Scene scene = sceneManager.createSceneNewMessage((Stage) productBox.getScene().getWindow(), offer.getUser().getEmail());
                 sceneManager.switchScene(scene);
             }
 
@@ -750,13 +752,18 @@ public class SceneManager {
 
 
         if (!offer.getImages().isEmpty()) {
-            ImageView imageView = new ImageView(offer.getImages().get(0)); // Utilisez la première image comme exemple
-            imageView.setFitHeight(300); // Hauteur de la bande pour les information
-            imageView.setPreserveRatio(true);
-            productDetailsBox.getChildren().add(imageView);
+            try {
+                ImageView imageView = new ImageView(offer.getImages().get(0)); // Utilisez la première image comme exemple
+                imageView.setFitHeight(300); // Hauteur de la bande pour les information
+                imageView.setPreserveRatio(true);
+                productDetailsBox.getChildren().add(imageView);
+            } catch (Exception e) {
+                System.err.println("Erreur lors de la récupération de l'image : " + e.getMessage());
+            }
+
         }
 
-        Label titleLabel = new Label( offer.getTitle());
+        Label titleLabel = new Label(offer.getTitle());
         titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 20px; -fx-padding: 5 10 0 10; -fx-text-alignment: center; -fx-text-fill: #171616; -fx-font-family: 'Segoe UI', Helvetica, Arial, sans-serif; -fx-font-weight: 400; -fx-line-spacing: 1.5; -fx-letter-spacing: 0.5;");
         productDetailsBox.getChildren().add(titleLabel);
         String description = offer.getDescription();
@@ -802,9 +809,7 @@ public class SceneManager {
         }
 
 
-
-
-        if ( offer instanceof Product) {
+        if (offer instanceof Product) {
             Product product = (Product) offer;
             Label brandLabel = new Label("Marque : " + product.getBrand());
             Label modelLabel = new Label("Modèle : " + product.getModel());
@@ -824,8 +829,15 @@ public class SceneManager {
                     System.out.println(offer.getUser().getAddress());
                     String offerAddress = offer.getUser().getAddress().getAddress();
                     Coordinates offerCoordinates = Geolocation.getCoordinatesFromAddress(offerAddress);
-                    double distance = userCoordinates.distance(offerCoordinates);
+                    double distance = 0;
+                    try {
+                        distance = userCoordinates.distance(offerCoordinates);
+                    } catch (Exception e) {
+                        System.out.println("Erreur lors du calcul de la distance : " + e.getMessage());
+                    }
+
                     System.out.println(distance);
+
                     HBox distanceBox = new HBox(3);
                     distanceBox.setPadding(new Insets(3, 0, 0, 10));
                     Image distanceImage = new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/icon/maps.png"));
@@ -834,7 +846,8 @@ public class SceneManager {
                     distanceImageView.setFitHeight(30);
                     distanceImageView.setPreserveRatio(true);
                     distanceBox.getChildren().add(distanceImageView);
-                    Label distanceLabel = new Label("Distance : " + distance + " km");
+
+                    Label distanceLabel = new Label("Distance : " + Math.round(distance) + " km");
                     distanceBox.getChildren().add(distanceLabel);
                     productDetailsBox.getChildren().add(distanceBox);
                 }
@@ -842,9 +855,6 @@ public class SceneManager {
 
             }
         }
-
-
-
 
 
         HBox bottomBox = new HBox(10);
@@ -927,9 +937,6 @@ public class SceneManager {
                 bookingsListView.setCellFactory(param -> new CustomCellViewBooking(booking));
                 bookingsListView.getItems().add(booking);
             }
-
-
-
 
 
             VBox.setMargin(bookingsListView, new Insets(10, 10, 0, 10));

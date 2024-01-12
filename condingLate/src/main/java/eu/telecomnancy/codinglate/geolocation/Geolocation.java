@@ -41,12 +41,16 @@ public class Geolocation {
                 JsonObject jsonObject = JsonParser.parseString(jsonResponse).getAsJsonObject();
 
                 if (jsonObject.has("results")) {
-                    JsonObject results = jsonObject.getAsJsonArray("results").get(0).getAsJsonObject();
-                    JsonObject geometry = results.getAsJsonObject("geometry");
-                    JsonObject location = geometry.getAsJsonObject("location");
-                    double latitude = location.get("lat").getAsDouble();
-                    double longitude = location.get("lng").getAsDouble();
-                    return new Coordinates(latitude, longitude);
+                    try {
+                        JsonObject results = jsonObject.getAsJsonArray("results").get(0).getAsJsonObject();
+                        JsonObject geometry = results.getAsJsonObject("geometry");
+                        JsonObject location = geometry.getAsJsonObject("location");
+                        double latitude = location.get("lat").getAsDouble();
+                        double longitude = location.get("lng").getAsDouble();
+                        return new Coordinates(latitude, longitude);
+                    }catch (IndexOutOfBoundsException e) {
+                        System.out.println("No results found.");}
+
                 } else {
                     System.out.println("No results found.");
                 }
