@@ -1,7 +1,7 @@
 package eu.telecomnancy.codinglate.database.dataController.offer;
 
 import eu.telecomnancy.codinglate.database.DbConnection;
-import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
+import eu.telecomnancy.codinglate.database.dataController.user.PersonDAO;
 import eu.telecomnancy.codinglate.database.dataObject.enums.BookingStatus;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Booking;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Offer;
@@ -67,7 +67,7 @@ public class BookingDAO {
             int offerId = rs.getInt("offer");
             Offer offer = new OfferController().getOfferById(offerId);
             int userId = rs.getInt("user");
-            User user = (User) new PersonController().getPersonById(userId);
+            User user = (User) new PersonDAO().getPersonById(userId);
             LocalDateTime startingDate = null;
             if (rs.getObject("startingDate") != null) startingDate = parseDate(rs.getString("startingDate"));
             LocalDateTime endingDate = null;

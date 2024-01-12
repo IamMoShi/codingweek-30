@@ -2,13 +2,11 @@ package eu.telecomnancy.codinglate;
 
 import eu.telecomnancy.codinglate.UI.*;
 import eu.telecomnancy.codinglate.database.dataController.offer.OfferController;
-import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
+import eu.telecomnancy.codinglate.database.dataController.user.PersonDAO;
 import eu.telecomnancy.codinglate.database.dataObject.enums.PriceType;
 import eu.telecomnancy.codinglate.database.dataObject.enums.ProductCategory;
 import eu.telecomnancy.codinglate.database.dataObject.enums.ProductCondition;
-import eu.telecomnancy.codinglate.database.dataObject.offer.Offer;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Product;
-import eu.telecomnancy.codinglate.database.dataObject.offer.Service;
 import eu.telecomnancy.codinglate.database.dataObject.user.Person;
 import eu.telecomnancy.codinglate.database.dataObject.user.User;
 import javafx.collections.FXCollections;
@@ -156,7 +154,7 @@ public class ProductCreator {
                     String storageDirectory = "OfferImage/tmps"; // Changez le chemin selon vos besoins
 
                     // Créez le chemin complet pour le répertoire de stockage
-                    String fullPath = storageDirectory + "/" + "image_user_n_" + PersonController.getInstance().getCurrentUser().getId() + "uuid=" + UUID.randomUUID() + ".jpg" ;
+                    String fullPath = storageDirectory + "/" + "image_user_n_" + PersonDAO.getInstance().getCurrentUser().getId() + "uuid=" + UUID.randomUUID() + ".jpg" ;
 
                     // Copiez le fichier dans le répertoire de stockage
                     Files.copy(selectedFile.toPath(), Paths.get(fullPath), StandardCopyOption.REPLACE_EXISTING);
@@ -226,7 +224,7 @@ public class ProductCreator {
 
             } else {
                 System.out.println("title: " + title);
-                PersonController personcontroller = PersonController.getInstance();
+                PersonDAO personcontroller = PersonDAO.getInstance();
                 Person currentUser = personcontroller.getCurrentUser();
 
                 //verify that user is not administrator

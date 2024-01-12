@@ -1,9 +1,6 @@
 package eu.telecomnancy.codinglate;
 
 
-import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
-import eu.telecomnancy.codinglate.database.dataObject.user.Address;
-import eu.telecomnancy.codinglate.database.dataObject.user.User;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;

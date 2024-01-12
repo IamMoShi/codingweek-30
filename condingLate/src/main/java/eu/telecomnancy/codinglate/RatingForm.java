@@ -4,7 +4,7 @@ import eu.telecomnancy.codinglate.UI.CustomChoiceBox;
 import eu.telecomnancy.codinglate.UI.CustomTextField;
 import eu.telecomnancy.codinglate.UI.FormButton;
 import eu.telecomnancy.codinglate.database.dataController.offer.RatingDAO;
-import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
+import eu.telecomnancy.codinglate.database.dataController.user.PersonDAO;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Offer;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Rating;
 import eu.telecomnancy.codinglate.database.dataObject.user.User;
@@ -80,7 +80,7 @@ public class RatingForm extends HBox {
         String value = customchoiceBox.getValue();
         String comment = customTextField.getText();
 
-        Rating rating = new Rating(offer, (User) PersonController.getInstance().getCurrentUser(), Integer.parseInt(value));
+        Rating rating = new Rating(offer, (User) PersonDAO.getInstance().getCurrentUser(), Integer.parseInt(value));
         rating.setComment(comment);
         RatingDAO ratingDAO = new RatingDAO();
         ratingDAO.insert(rating);

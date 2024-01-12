@@ -2,11 +2,11 @@ package eu.telecomnancy.codinglate;
 
 import eu.telecomnancy.codinglate.UI.*;
 import eu.telecomnancy.codinglate.calendar.ReservationCalendarView;
-import eu.telecomnancy.codinglate.database.dataController.MessageController;
+import eu.telecomnancy.codinglate.database.dataController.MessageDAO;
 import eu.telecomnancy.codinglate.database.dataController.offer.BookingDAO;
 import eu.telecomnancy.codinglate.database.dataController.offer.ImageOfferDAO;
 import eu.telecomnancy.codinglate.database.dataController.offer.OfferController;
-import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
+import eu.telecomnancy.codinglate.database.dataController.user.PersonDAO;
 import eu.telecomnancy.codinglate.database.dataObject.enums.ProductCategory;
 import eu.telecomnancy.codinglate.database.dataObject.enums.ProductCondition;
 import eu.telecomnancy.codinglate.database.dataObject.message.Message;
@@ -489,7 +489,7 @@ public class SceneManager {
         HBox contentBox = new HBox(20);
         contentBox.setAlignment(Pos.CENTER);
 
-        Person person = PersonController.getInstance().getCurrentUser();
+        Person person = PersonDAO.getInstance().getCurrentUser();
         if (person != null) {
             VBox profileInfo = new VBox(10);
             profileInfo.setAlignment(Pos.CENTER_LEFT);
@@ -536,11 +536,11 @@ public class SceneManager {
 
 
         //récupérer l'utilisateur courant
-        Person currentuser = PersonController.getInstance().getCurrentUser();
+        Person currentuser = PersonDAO.getInstance().getCurrentUser();
 
 
         //faire la liste de toutes les conversations de l'utilisateur courant
-        MessageController messageController = new MessageController();
+        MessageDAO messageController = new MessageDAO();
         List<Person> UserYouHadAConversationWith = messageController.getConversationList(currentuser);
         ListView<Person> MessageUserWithSelectedUserFromUserList = new ListView<>();
         MessageUserWithSelectedUserFromUserList.setCellFactory(param -> new CustomListCell(root));
@@ -868,7 +868,7 @@ public class SceneManager {
             }
         }
 
-        User user = (User) PersonController.getInstance().getCurrentUser();
+        User user = (User) PersonDAO.getInstance().getCurrentUser();
         if (user != null) {
             if (user.getAddress() != null) {
                 String userAddress = user.getAddress().getAddress();
@@ -961,8 +961,8 @@ public class SceneManager {
         layout.setPadding(new Insets(0));
         layout.getChildren().add(searchBar);
 
-        if (PersonController.getInstance().getCurrentUser() != null) {
-            User user = (User) PersonController.getInstance().getCurrentUser();
+        if (PersonDAO.getInstance().getCurrentUser() != null) {
+            User user = (User) PersonDAO.getInstance().getCurrentUser();
             int userId = user.getId();
             BookingDAO bookingDAO = new BookingDAO();
             ArrayList<Booking> bookingsByUser = bookingDAO.getBookingsByUser(userId);
@@ -1028,8 +1028,8 @@ public class SceneManager {
         ArrayList<Booking> allBookings = bookingDAO.getAllBooking(); // Supposons que vous ayez une méthode getBookings qui renvoie toutes les réservations
         ArrayList<Booking> userBookings = new ArrayList<>();
 
-        if (PersonController.getInstance().getCurrentUser() != null) {
-            User currentUser = (User) PersonController.getInstance().getCurrentUser();
+        if (PersonDAO.getInstance().getCurrentUser() != null) {
+            User currentUser = (User) PersonDAO.getInstance().getCurrentUser();
             int currentUserId = currentUser.getId();
 
             for (Booking booking : allBookings) {

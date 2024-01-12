@@ -1,14 +1,11 @@
 package eu.telecomnancy.codinglate.database.controller;
 
-import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
+import eu.telecomnancy.codinglate.database.dataController.user.PersonDAO;
 import eu.telecomnancy.codinglate.database.dataObject.message.Message;
 import eu.telecomnancy.codinglate.database.dataObject.user.Address;
 import eu.telecomnancy.codinglate.database.dataObject.user.Admin;
-import eu.telecomnancy.codinglate.database.dataObject.user.Person;
-import eu.telecomnancy.codinglate.database.dataController.MessageController;
+import eu.telecomnancy.codinglate.database.dataController.MessageDAO;
 import eu.telecomnancy.codinglate.database.dataObject.user.User;
-import javafx.scene.control.ListView;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -18,8 +15,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class MessageTest {
 
-    private final MessageController messageController = new MessageController();
-    private final PersonController personController = new PersonController();
+    private final MessageDAO messageController = new MessageDAO();
+    private final PersonDAO personController = new PersonDAO();
 
     @Test
     public void testInsertMessage() {
@@ -39,7 +36,7 @@ public class MessageTest {
         assertNotEquals(-1, newMessage.getId());
 
         // Récupérer le message de la base de données
-        List<Message> retrievedMessages = messageController.getConversation(sender.getEmail(), receiver.getEmail());
+        List<Message> retrievedMessages = messageController.getConversation(sender, receiver);
 
         // Vérifier si le message récupéré correspond au message inséré
         assertTrue(retrievedMessages.contains(newMessage));
@@ -64,7 +61,7 @@ public class MessageTest {
         messageController.insert(message3);
 
         // Récupérer la conversation
-        List<Message> conversation = messageController.getConversation(sender.getEmail(), receiver.getEmail());
+        List<Message> conversation = messageController.getConversation(sender, receiver);
 
         // Vérifier si la conversation contient les messages insérés
         assertTrue(conversation.contains(message1));
