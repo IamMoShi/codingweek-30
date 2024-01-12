@@ -15,6 +15,8 @@ import eu.telecomnancy.codinglate.database.dataObject.offer.Product;
 import eu.telecomnancy.codinglate.database.dataObject.user.Person;
 import eu.telecomnancy.codinglate.database.dataObject.user.User;
 import eu.telecomnancy.codinglate.UI.SearchContent;
+import eu.telecomnancy.codinglate.geolocation.Coordinates;
+import eu.telecomnancy.codinglate.geolocation.Geolocation;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -654,7 +656,21 @@ public class SceneManager {
 
         // Afficher les informations de l'utilisateur à gauche
         VBox userBox = new VBox(5);
-        Label userLabel = new Label("Utilisateur : " + offer.getUser().getFirstname() + " " + offer.getUser().getLastname());
+        HBox userPictureBox = new HBox(0);
+        Image userPicture = new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/icon/user.png"));
+        ImageView userView = new ImageView(userPicture);
+        userView.setFitWidth(35);
+        userView.setFitHeight(35);
+
+        userPictureBox.getChildren().add(userView);
+
+
+        Label userLabel = new Label( offer.getUser().getFirstname() + " " + offer.getUser().getLastname());
+        userLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 20px; -fx-padding: 5 10 0 10; -fx-text-alignment: center; -fx-text-fill: #171616; -fx-font-family: 'Segoe UI', Helvetica, Arial, sans-serif; -fx-font-weight: 400; -fx-line-spacing: 1.5; -fx-letter-spacing: 0.5;");
+        userLabel.setPadding(new Insets(0, 0, 0, 10));
+
+        userPictureBox.getChildren().add(userLabel);
+
         SearchBarButton messageButton = new SearchBarButton("Envoyer un message", "Envoyer un message");
         messageButton.initializeButton();
 
@@ -666,7 +682,7 @@ public class SceneManager {
 
 
         // Ajouter d'autres détails de l'utilisateur si nécessaire
-        userBox.getChildren().addAll(userLabel);
+        userBox.getChildren().addAll(userPictureBox);
         productBox.getChildren().add(userBox);
         userBox.getChildren().add(messageButton);
 
@@ -736,6 +752,34 @@ public class SceneManager {
             Label yearLabel = new Label("Année : " + product.getYear());
             productDetailsBox.getChildren().addAll(brandLabel, modelLabel, conditionLabel, yearLabel);
         }
+
+        User user = (User) PersonController.getInstance().getCurrentUser();
+        if (user != null) {
+            if (user.getAddress() != null) {
+                String userAddress = user.getAddress().getAddress();
+                Coordinates userCoordinates = Geolocation.getCoordinatesFromAddress(userAddress);
+                if (offer.getUser().getAddress() != null) {
+                    String offerAddress = offer.getUser().getAddress().getAddress();
+                    Coordinates offerCoordinates = Geolocation.getCoordinatesFromAddress(offerAddress);
+                    double distance = userCoordinates.distance(offerCoordinates);
+                    HBox distanceBox = new HBox(3);
+                    distanceBox.setPadding(new Insets(3, 0, 0, 10));
+                    Image distanceImage = new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/icon/maps.png"));
+                    ImageView distanceImageView = new ImageView(distanceImage);
+                    distanceImageView.setFitWidth(30);
+                    distanceImageView.setFitHeight(30);
+                    distanceImageView.setPreserveRatio(true);
+                    distanceBox.getChildren().add(distanceImageView);
+                    Label distanceLabel = new Label("Distance : " + distance + " km");
+                    distanceBox.getChildren().add(distanceLabel);
+                    productDetailsBox.getChildren().add(distanceBox);
+                }
+
+
+            }
+        }
+
+
 
 
 
