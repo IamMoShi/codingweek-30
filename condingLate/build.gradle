@@ -52,7 +52,7 @@ dependencies {
     implementation 'org.projectlombok:lombok:1.18.20'
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
     implementation 'org.hibernate:hibernate-core:5.6.3.Final'
-    implementation 'org.xerial:sqlite-jdbc:3.44.1.0'
+    implementation 'org.xerial:sqlite-jdbc:3.41.2.2'
     implementation 'com.github.gwenn:sqlite-dialect:0.1.2'
     implementation 'org.hibernate:hibernate-entitymanager:5.6.15.Final'
     implementation 'org.springframework.security:spring-security-crypto:6.0.3'

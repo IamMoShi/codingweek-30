@@ -1,6 +1,7 @@
 package eu.telecomnancy.codinglate;
 
 import eu.telecomnancy.codinglate.UI.*;
+import eu.telecomnancy.codinglate.calendar.ReservationCalendarView;
 import eu.telecomnancy.codinglate.database.dataController.MessageController;
 import eu.telecomnancy.codinglate.database.dataController.offer.BookingDAO;
 import eu.telecomnancy.codinglate.database.dataController.offer.ImageOfferDAO;
@@ -40,18 +41,22 @@ import java.util.Objects;
 
 public class SceneManager {
     private Stage primaryStage;
-
+    private Scene previousScene;
     public SceneManager(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
 
     public void switchScene(Scene scene) {
+        if (scene == null) {
+            scene = createScenePresentation();
+        }
         int minWidth = 1200;
         int minHeight = 800;
         double width = getCurrentSceneWidth();
         double height = getCurrentSceneHeight();
         primaryStage.setScene(scene);
         primaryStage.show();
+        previousScene = scene;
     }
 
     private int getCurrentSceneHeight() {
@@ -537,7 +542,7 @@ public class SceneManager {
         System.out.println(stage);
 
         // Créez une nouvelle instance de LoginCreator
-        LoginCreator loginCreator = new LoginCreator(stage);
+        LoginCreator loginCreator = new LoginCreator(stage, previousScene);
         VBox gridPane = loginCreator.getVbox();
 
         // Ajoutez le formulaire à la scène
@@ -568,7 +573,7 @@ public class SceneManager {
         // Ajoutez le formulaire à la scène
 
         root.setCenter(gridPane);
-        Scene scene = new Scene(root, 800, 500);
+        Scene scene = new Scene(root, getCurrentSceneWidth(), getCurrentSceneHeight());
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
 
         return scene;
@@ -592,7 +597,7 @@ public class SceneManager {
         // Ajoutez le formulaire à la scène
 
         root.setCenter(gridPane);
-        Scene scene = new Scene(root, 800, 500);
+        Scene scene = new Scene(root, getCurrentSceneWidth(), getCurrentSceneWidth());
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
         return scene;
 
@@ -615,7 +620,7 @@ public class SceneManager {
         // Ajoutez le formulaire à la scène
 
         root.setCenter(gridPane);
-        Scene scene = new Scene(root, 800, 500);
+        Scene scene = new Scene(root, getCurrentSceneWidth(), getCurrentSceneHeight());
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
         return scene;
 
@@ -792,10 +797,7 @@ public class SceneManager {
 
 
         submitButton.setOnAction(event -> {
-            Booking booking = new Booking(offer, (User) PersonController.getInstance().getCurrentUser(), LocalDateTime.now(), LocalDateTime.now());
-            BookingDAO bookingDAO = new BookingDAO();
-            bookingDAO.insert(booking);
-
+            switchScene(createSceneCalendar(offer));
         });
 
         FormButton returnDisplayButton = new FormButton("returndisplay", "Retour");
@@ -927,7 +929,7 @@ public class SceneManager {
     }
 
 
-    public Scene createSceneCalendar() {
+    public Scene createSceneCalendar(Offer offer) {
         SearchBar searchBar = new SearchBar();
 
         BorderPane root = new BorderPane();
@@ -936,12 +938,16 @@ public class SceneManager {
         layout.setPadding(new Insets(0));
         layout.getChildren().add(searchBar);
 
+        ReservationCalendarView calendar = new ReservationCalendarView(offer);
+
         root.setTop(layout);
+        root.setCenter(calendar);
+        root.setBottom(new BookButton(previousScene, calendar));
 
         Scene scene = new Scene(root, getCurrentSceneWidth(), getCurrentSceneHeight());
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
-
         return scene;
+
     }
 
 
