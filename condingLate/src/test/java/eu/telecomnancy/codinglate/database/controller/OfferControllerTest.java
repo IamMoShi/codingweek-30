@@ -1,7 +1,7 @@
 package eu.telecomnancy.codinglate.database.controller;
 
 import eu.telecomnancy.codinglate.database.dataController.offer.OfferController;
-import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
+import eu.telecomnancy.codinglate.database.dataController.user.PersonDAO;
 import eu.telecomnancy.codinglate.database.dataObject.enums.ProductCondition;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Offer;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Product;
@@ -21,7 +21,7 @@ public class OfferControllerTest {
 
     @Test
     public void testInsertService() {
-        PersonController userController = new PersonController();
+        PersonDAO userController = new PersonDAO();
         // Test s'il y a un utilisateur dans la base de données avec l'email john.doe@example.com
         User user = (User) userController.getPersonByEmail("john.doe@example.com");
         if (user != null) {
@@ -47,7 +47,7 @@ public class OfferControllerTest {
 
     @Test
     public void testInsertProduct() {
-        PersonController userController = new PersonController();
+        PersonDAO userController = new PersonDAO();
         // Test s'il y a un utilisateur dans la base de données avec l'email john.doe@example.com
         User user = (User) userController.getPersonByEmail("john.doe@example.com");
         if (user != null) {
@@ -78,7 +78,7 @@ public class OfferControllerTest {
          * ATTENTION IL FAUT REGARDER L'AJOUT DANS LA BASE DE DONNÉES POUR COMPRENDRE CE QUI SE PASSE
          */
 
-        PersonController userController = new PersonController();
+        PersonDAO userController = new PersonDAO();
         // Test s'il y a un utilisateur dans la base de données avec l'email john.doe@example.com
         User user = (User) userController.getPersonByEmail("john.doe@example.com");
         if (user != null) {
@@ -119,7 +119,7 @@ public class OfferControllerTest {
          * ATTENTION IL FAUT REGARDER L'AJOUT DANS LA BASE DE DONNÉES POUR COMPRENDRE CE QUI SE PASSE
          */
 
-        PersonController userController = new PersonController();
+        PersonDAO userController = new PersonDAO();
         // Test s'il y a un utilisateur dans la base de données avec l'email john.doe@example.com
         User user = (User) userController.getPersonByEmail("john.doe@example.com");
         if (user != null) {
@@ -163,7 +163,7 @@ public class OfferControllerTest {
          * ATTENTION IL FAUT REGARDER L'AJOUT DANS LA BASE DE DONNÉES POUR COMPRENDRE CE QUI SE PASSE
          */
 
-        PersonController userController = new PersonController();
+        PersonDAO userController = new PersonDAO();
         // Test s'il y a un utilisateur dans la base de données avec l'email john.doe@example.com
         User user = (User) userController.getPersonByEmail("john.doe@example.com");
         if (user != null) {
@@ -193,7 +193,7 @@ public class OfferControllerTest {
          * ATTENTION IL FAUT REGARDER L'AJOUT DANS LA BASE DE DONNÉES POUR COMPRENDRE CE QUI SE PASSE
          */
 
-        PersonController userController = new PersonController();
+        PersonDAO userController = new PersonDAO();
         // Test s'il y a un utilisateur dans la base de données avec l'email john.doe@example.com
         User user = (User) userController.getPersonByEmail("john.doe@example.com");
         if (user != null) {
@@ -236,7 +236,7 @@ public class OfferControllerTest {
          * ATTENTION IL FAUT REGARDER L'AJOUT DANS LA BASE DE DONNÉES POUR COMPRENDRE CE QUI SE PASSE
          */
 
-        PersonController userController = new PersonController();
+        PersonDAO userController = new PersonDAO();
         // Test s'il y a un utilisateur dans la base de données avec l'email john.doe@example.com
         User user = (User) userController.getPersonByEmail("john.doe@example.com");
         if (user != null) {

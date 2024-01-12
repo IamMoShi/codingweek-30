@@ -3,10 +3,8 @@ package eu.telecomnancy.codinglate.UI;
 import eu.telecomnancy.codinglate.SceneManager;
 import eu.telecomnancy.codinglate.calendar.ReservationCalendarView;
 import eu.telecomnancy.codinglate.database.dataController.offer.BookingDAO;
-import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
+import eu.telecomnancy.codinglate.database.dataController.user.PersonDAO;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Booking;
-import eu.telecomnancy.codinglate.database.dataObject.offer.Offer;
-import eu.telecomnancy.codinglate.database.dataObject.user.Person;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.HBox;
@@ -14,7 +12,6 @@ import javafx.stage.Stage;
 
 
 import java.time.LocalDateTime;
-import java.util.Calendar;
 
 public class BookButton extends HBox {
     public BookButton(Scene previousScene, ReservationCalendarView calendar) {
@@ -28,7 +25,7 @@ public class BookButton extends HBox {
     }
 
     private void bookButtonAdd(ReservationCalendarView calendar, Scene previousScene) {
-        if (PersonController.getInstance().getCurrentUser() == null) {
+        if (PersonDAO.getInstance().getCurrentUser() == null) {
             SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
             sceneManager.switchScene(sceneManager.createSceneConnexion());
 

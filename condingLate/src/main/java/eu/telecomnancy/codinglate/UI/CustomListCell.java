@@ -1,14 +1,13 @@
 package eu.telecomnancy.codinglate.UI;
 
-import eu.telecomnancy.codinglate.database.dataController.MessageController;
-import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
+import eu.telecomnancy.codinglate.database.dataController.MessageDAO;
+import eu.telecomnancy.codinglate.database.dataController.user.PersonDAO;
 import eu.telecomnancy.codinglate.database.dataObject.message.Message;
 import eu.telecomnancy.codinglate.database.dataObject.user.Person;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -21,8 +20,8 @@ public class CustomListCell extends ListCell<Person> {
         setOnMouseClicked(event -> {
 
             if (!isEmpty() && getItem() != null) {
-                MessageController messageController = new MessageController();
-                ArrayList<Message> ListMessage = messageController.getConversation(getItem(), PersonController.getInstance().getCurrentUser());
+                MessageDAO messageController = new MessageDAO();
+                ArrayList<Message> ListMessage = messageController.getConversation(getItem(), PersonDAO.getInstance().getCurrentUser());
 
                 VBox root = new VBox(10);
                 root.setPadding(new Insets(10));
@@ -35,7 +34,7 @@ public class CustomListCell extends ListCell<Person> {
                 chatBox.setStyle("-fx-background-color: #f0f0f0; -fx-padding: 10px; -fx-border-radius: 5px;");
 
                 for (Message message : ListMessage) {
-                    if (message.getSender().equals(PersonController.getInstance().getCurrentUser())) {
+                    if (message.getSender().equals(PersonDAO.getInstance().getCurrentUser())) {
                         appendMessage(message.getMessage(), true, chatBox);
                     }
                     else {
@@ -91,8 +90,8 @@ public class CustomListCell extends ListCell<Person> {
         sendButton.setOnAction(event -> {
             String message = messageField.getText();
             if (!message.isEmpty()) {
-                MessageController messageController = new MessageController();
-                Message message1 = new Message(PersonController.getInstance().getCurrentUser(),getItem(),message, LocalDateTime.now());
+                MessageDAO messageController = new MessageDAO();
+                Message message1 = new Message(PersonDAO.getInstance().getCurrentUser(),getItem(),message, LocalDateTime.now());
                 messageController.insert(message1);
 
                 appendMessage(message, true, chatBox);

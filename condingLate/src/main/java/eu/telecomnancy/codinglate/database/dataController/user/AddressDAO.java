@@ -5,7 +5,7 @@ import eu.telecomnancy.codinglate.database.dataObject.user.Address;
 
 import java.sql.*;
 
-public class AddressController {
+public class AddressDAO {
 
     public void insert(Address address) {
         try (Connection conn = DbConnection.connect();

@@ -4,17 +4,12 @@ package eu.telecomnancy.codinglate;
 import eu.telecomnancy.codinglate.UI.CustomPasswordField;
 import eu.telecomnancy.codinglate.UI.CustomTextField;
 import eu.telecomnancy.codinglate.UI.FormButton;
-import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
+import eu.telecomnancy.codinglate.database.dataController.user.PersonDAO;
 import eu.telecomnancy.codinglate.database.dataObject.user.Address;
 import eu.telecomnancy.codinglate.database.dataObject.user.Person;
 import eu.telecomnancy.codinglate.database.dataObject.user.User;
-import eu.telecomnancy.codinglate.UI.SearchBar;
-import javafx.application.Application;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -104,7 +99,7 @@ public class CompteCreator {
 
 
             //if the email is not valid
-            PersonController personController = PersonController.getInstance();
+            PersonDAO personController = PersonDAO.getInstance();
             if (personController.isEmailUsed(email)) {
                 addNewLabel(gridPane, "Email déjà utilisé!");
                 return;
@@ -139,7 +134,7 @@ public class CompteCreator {
 
             User newperson = new User(firstName, lastName, email, password, adress);
             newperson.setPhone(phone);
-            PersonController personcontroller = PersonController.getInstance();
+            PersonDAO personcontroller = PersonDAO.getInstance();
 
             personcontroller.insert((Person) newperson);
 

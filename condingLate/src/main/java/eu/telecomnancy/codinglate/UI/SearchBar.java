@@ -1,13 +1,11 @@
 package eu.telecomnancy.codinglate.UI;
 
 import eu.telecomnancy.codinglate.SceneManager;
-import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
+import eu.telecomnancy.codinglate.database.dataController.user.PersonDAO;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
@@ -23,7 +21,7 @@ public class SearchBar extends HBox {
         logoButton.initializeButton();
         getChildren().add(logoButton);
         logoButton.setOnMouseClicked(e -> {
-            if (PersonController.getInstance().getCurrentUser() == null) {
+            if (PersonDAO.getInstance().getCurrentUser() == null) {
                 SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
                 Scene scene = sceneManager.createSceneConnexion();
                 sceneManager.switchScene(scene);
@@ -50,7 +48,7 @@ public class SearchBar extends HBox {
 
         getChildren().add(searchField);
         searchField.setOnMouseClicked(e -> {
-            if (PersonController.getInstance().getCurrentUser() == null) {
+            if (PersonDAO.getInstance().getCurrentUser() == null) {
                 SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
                 Scene scene = sceneManager.createSceneConnexion();
                 sceneManager.switchScene(scene);
@@ -68,7 +66,7 @@ public class SearchBar extends HBox {
         HBox.setHgrow(spacer2, javafx.scene.layout.Priority.ALWAYS);
         getChildren().add(spacer2);
 
-        if (PersonController.getInstance().getCurrentUser() == null) {
+        if (PersonDAO.getInstance().getCurrentUser() == null) {
             SearchBarButton searchButton = new SearchBarButton("searchButton", "Se connecter");
             searchButton.initializeButton();
             getChildren().add(searchButton);
@@ -84,7 +82,7 @@ public class SearchBar extends HBox {
 
 
 
-        if (PersonController.getInstance().getCurrentUser() != null) {
+        if (PersonDAO.getInstance().getCurrentUser() != null) {
             SearchBarButton searchButton = new SearchBarButton("searchButton", "Ajouter une annonce");
             searchButton.initializeButton();
             getChildren().add(searchButton);
@@ -137,7 +135,7 @@ public class SearchBar extends HBox {
 
             MenuItem deconnexion = new MenuItem("Déconnexion");
             deconnexion.setOnAction(e -> {
-                PersonController.getInstance().setCurrentUser(null);
+                PersonDAO.getInstance().setCurrentUser(null);
                 SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
                 Scene scene = sceneManager.createScenePresentation();
                 sceneManager.switchScene(scene);

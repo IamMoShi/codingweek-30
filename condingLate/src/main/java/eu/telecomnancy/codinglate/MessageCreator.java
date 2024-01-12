@@ -2,8 +2,8 @@ package eu.telecomnancy.codinglate;
 
 import eu.telecomnancy.codinglate.UI.CustomTextField;
 import eu.telecomnancy.codinglate.UI.FormButton;
-import eu.telecomnancy.codinglate.database.dataController.MessageController;
-import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
+import eu.telecomnancy.codinglate.database.dataController.MessageDAO;
+import eu.telecomnancy.codinglate.database.dataController.user.PersonDAO;
 import eu.telecomnancy.codinglate.database.dataObject.message.Message;
 import eu.telecomnancy.codinglate.database.dataObject.user.Person;
 import eu.telecomnancy.codinglate.database.dataObject.user.User;
@@ -13,9 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 
 public class MessageCreator {
@@ -69,7 +67,7 @@ public class MessageCreator {
             String email = emailField.getText();
             String message = messageField.getText();
 
-            PersonController personController = PersonController.getInstance();
+            PersonDAO personController = PersonDAO.getInstance();
 
             Person currentUser = personController.getCurrentUser();
 
@@ -83,7 +81,7 @@ public class MessageCreator {
 
 
                     Message msg = new Message(-1, user, receiver,message, LocalDateTime.now());
-                    MessageController messageController =new MessageController();
+                    MessageDAO messageController =new MessageDAO();
                     messageController.insert(msg);
 
                     System.out.print("Message envoyé!");

@@ -1,13 +1,13 @@
 package eu.telecomnancy.codinglate.database.controller;
 
-import eu.telecomnancy.codinglate.database.dataController.user.AddressController;
+import eu.telecomnancy.codinglate.database.dataController.user.AddressDAO;
 import eu.telecomnancy.codinglate.database.dataObject.user.Address;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AddressTest {
-    private final AddressController addressController = new AddressController();
+    private final AddressDAO addressController = new AddressDAO();
 
     @Test
     public void testInsertAddress() {
