@@ -858,17 +858,20 @@ public class SceneManager {
             layout.getChildren().add(titleLabel);
 
             // Créer une liste de réservations
-            ListView<String> bookingsListView = new ListView<>();
+            ListView<Booking> bookingsListView = new ListView<>();
+
+
             bookingsListView.setPrefHeight(200);
 
             // Ajouter les réservations à la liste
             for (Booking booking : bookingsByUser) {
-                String bookingInfo = "Offer: " + booking.getOffer().getTitle() +
-                        ", Starting Date: " + booking.getStartingDate() +
-                        ", Ending Date: " + booking.getEndingDate() +
-                        ", Status: " + booking.getStatus();
-                bookingsListView.getItems().add(bookingInfo);
+                bookingsListView.setCellFactory(param -> new CustomCellViewBooking(booking));
+                bookingsListView.getItems().add(booking);
             }
+
+
+
+
 
             VBox.setMargin(bookingsListView, new Insets(10, 10, 0, 10));
             layout.getChildren().add(bookingsListView);
@@ -881,17 +884,16 @@ public class SceneManager {
 
 
             // Créer une liste de réservations
-            ListView<String> bookingsOnmyOfferListView2 = new ListView<>();
+            ListView<Booking> bookingsOnmyOfferListView2 = new ListView<>();
+
+
             bookingsOnmyOfferListView2.setPrefHeight(200);
 
 
             // Ajouter les réservations à la liste
             for (Booking booking : offersByUser) {
-                String bookingInfo = "Offer: " + booking.getOffer().getTitle() +
-                        ", Starting Date: " + booking.getStartingDate() +
-                        ", Ending Date: " + booking.getEndingDate() +
-                        ", Status: " + booking.getStatus();
-                bookingsOnmyOfferListView2.getItems().add(bookingInfo);
+                bookingsOnmyOfferListView2.setCellFactory(param -> new CustomCellViewOurBooking());
+                bookingsOnmyOfferListView2.getItems().add(booking);
             }
             VBox.setMargin(bookingsOnmyOfferListView2, new Insets(10, 10, 0, 10));
             layout.getChildren().add(bookingsOnmyOfferListView2);
@@ -949,7 +951,7 @@ public class SceneManager {
     }
 
 
-    public Scene createSceneEvaluations(Offer offer) {
+    public Scene createSceneRateOffer(Offer offer) {
         SearchBar searchBar = new SearchBar();
 
         BorderPane root = new BorderPane();
@@ -962,6 +964,18 @@ public class SceneManager {
 
         RatingForm ratingForm = new RatingForm((Stage) this.primaryStage, offer);
         VBox gridPane = ratingForm.getVbox();
+
+        FormButton returnDisplayButton = new FormButton("returndisplay", "Retour");
+        returnDisplayButton.initializeButton();
+
+        returnDisplayButton.setOnAction(event -> {
+            SceneManager sceneManager = new SceneManager(primaryStage);
+            Scene scene = sceneManager.createSceneMyBookings();
+            sceneManager.switchScene(scene);
+        });
+
+        gridPane.getChildren().add(returnDisplayButton);
+
 
         root.setCenter(gridPane);
 
@@ -979,8 +993,9 @@ public class SceneManager {
         layout.setPadding(new Insets(0));
         layout.getChildren().add(searchBar);
 
-
         root.setTop(layout);
+
+
 
         Scene scene = new Scene(root, getCurrentSceneWidth(), getCurrentSceneHeight());
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
