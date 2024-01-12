@@ -1,6 +1,7 @@
 package eu.telecomnancy.codinglate;
 
 import eu.telecomnancy.codinglate.UI.*;
+import eu.telecomnancy.codinglate.calendar.ReservationCalendarView;
 import eu.telecomnancy.codinglate.database.dataController.MessageController;
 import eu.telecomnancy.codinglate.database.dataController.offer.BookingDAO;
 import eu.telecomnancy.codinglate.database.dataController.offer.ImageOfferDAO;
@@ -926,6 +927,7 @@ public class SceneManager {
 
 
     public Scene createSceneCalendar() {
+        Offer offer = new OfferController().getOfferById(1);
         SearchBar searchBar = new SearchBar();
 
         BorderPane root = new BorderPane();
@@ -934,12 +936,16 @@ public class SceneManager {
         layout.setPadding(new Insets(0));
         layout.getChildren().add(searchBar);
 
+        ReservationCalendarView calendar = new ReservationCalendarView(offer);
+
         root.setTop(layout);
+        root.setCenter(calendar);
+        root.setBottom(new BookButton(createScenePresentation(), calendar));
 
-        Scene scene = new Scene(root, getCurrentSceneWidth(), getCurrentSceneHeight());
+        Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
-
         return scene;
+
     }
 
 
