@@ -573,7 +573,7 @@ public class SceneManager {
         // Ajoutez le formulaire à la scène
 
         root.setCenter(gridPane);
-        Scene scene = new Scene(root, 800, 500);
+        Scene scene = new Scene(root, getCurrentSceneWidth(), getCurrentSceneHeight());
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
 
         return scene;
@@ -597,7 +597,7 @@ public class SceneManager {
         // Ajoutez le formulaire à la scène
 
         root.setCenter(gridPane);
-        Scene scene = new Scene(root, 800, 500);
+        Scene scene = new Scene(root, getCurrentSceneWidth(), getCurrentSceneWidth());
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
         return scene;
 
@@ -620,7 +620,7 @@ public class SceneManager {
         // Ajoutez le formulaire à la scène
 
         root.setCenter(gridPane);
-        Scene scene = new Scene(root, 800, 500);
+        Scene scene = new Scene(root, getCurrentSceneWidth(), getCurrentSceneHeight());
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
         return scene;
 
