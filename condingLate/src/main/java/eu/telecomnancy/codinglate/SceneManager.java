@@ -352,7 +352,7 @@ public class SceneManager {
         }
 
 
-        User user = (User) PersonController.getInstance().getCurrentUser();
+        User user = (User) PersonDAO.getInstance().getCurrentUser();
         if (user != null) {
             if (user.getAddress() != null) {
                 String userAddress = user.getAddress().getAddress();
@@ -760,8 +760,8 @@ public class SceneManager {
         messageButton.setOnAction(event -> {
             boolean founded = false;
             SceneManager sceneManager = new SceneManager((Stage) productBox.getScene().getWindow());
-            Person currentuser = PersonController.getInstance().getCurrentUser();
-            MessageController messageController = new MessageController();
+            Person currentuser = PersonDAO.getInstance().getCurrentUser();
+            MessageDAO messageController = new MessageDAO();
             List<Person> UserYouHadAConversationWith = messageController.getConversationList(currentuser);
             for (Person person : UserYouHadAConversationWith) {
                 if (person.getId() == offer.getUser().getId()) {
@@ -1114,7 +1114,7 @@ public class SceneManager {
         OfferController offerController = new OfferController();
         TilePane tilePane = new TilePane();
 
-        ArrayList<Offer> offersByUser = offerController.getOffersByUser(PersonController.getInstance().getCurrentUser());
+        ArrayList<Offer> offersByUser = offerController.getOffersByUser(PersonDAO.getInstance().getCurrentUser());
 
         updateTilePane(tilePane, offersByUser);
 

@@ -65,6 +65,7 @@ public class BookingDAO {
         try {
             int id = rs.getInt("id");
             int offerId = rs.getInt("offer");
+            System.out.println(offerId);
             Offer offer = new OfferController().getOfferById(offerId);
             int userId = rs.getInt("user");
             User user = (User) new PersonDAO().getPersonById(userId);
@@ -73,6 +74,7 @@ public class BookingDAO {
             LocalDateTime endingDate = null;
             if (rs.getObject("endingDate") != null) endingDate = parseDate(rs.getString("endingDate"));
             BookingStatus status = BookingStatus.values()[rs.getInt("status")];
+            System.out.println(offer);
             booking = new Booking(id, offer, user, startingDate, endingDate, status);
         } catch (SQLException e) {
             throw new RuntimeException(e);
