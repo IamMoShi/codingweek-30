@@ -6,6 +6,7 @@ import eu.telecomnancy.codinglate.UI.FormButton;
 import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -74,8 +75,18 @@ public class LoginCreator extends HBox{
 
                 SceneManager sceneManager = new SceneManager(stage);
                 sceneManager.switchScene(previousScene);
+            } else {
+                alertFailed("Erreur de connection, email ou mot de passe incorrect");
             }
         });
+    }
+
+    private void alertFailed(String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Erreur de connection");
+        alert.setContentText(message);
+        alert.showAndWait();
+
     }
 
     private void addBottomMessage(VBox vbox,Stage stage) {
