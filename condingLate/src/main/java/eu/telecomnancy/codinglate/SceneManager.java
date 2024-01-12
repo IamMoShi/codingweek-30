@@ -350,6 +350,45 @@ public class SceneManager {
 
 
         }
+
+
+        User user = (User) PersonController.getInstance().getCurrentUser();
+        if (user != null) {
+            if (user.getAddress() != null) {
+                String userAddress = user.getAddress().getAddress();
+                System.out.println(userAddress);
+                Coordinates userCoordinates = Geolocation.getCoordinatesFromAddress(userAddress);
+                System.out.println(offer.getUser().getAddress());
+                if (offer.getUser().getAddress().getAddress() != null) {
+                    System.out.println(offer.getUser().getAddress());
+                    String offerAddress = offer.getUser().getAddress().getAddress();
+                    Coordinates offerCoordinates = Geolocation.getCoordinatesFromAddress(offerAddress);
+                    double distance = 0;
+                    try {
+                        distance = userCoordinates.distance(offerCoordinates);
+                    } catch (Exception e) {
+                        System.out.println("Erreur lors du calcul de la distance : " + e.getMessage());
+                    }
+
+                    System.out.println(distance);
+
+                    HBox distanceBox = new HBox(3);
+                    distanceBox.setPadding(new Insets(3, 0, 0, 10));
+                    Image distanceImage = new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/icon/maps.png"));
+                    ImageView distanceImageView = new ImageView(distanceImage);
+                    distanceImageView.setFitWidth(30);
+                    distanceImageView.setFitHeight(30);
+                    distanceImageView.setPreserveRatio(true);
+                    distanceBox.getChildren().add(distanceImageView);
+
+                    Label distanceLabel = new Label("Distance : " + Math.round(distance) + " km");
+                    distanceBox.getChildren().add(distanceLabel);
+                    detailsLayout.getChildren().add(distanceBox);
+                }
+
+
+            }
+        }
         tile.getChildren().add(detailsLayout);
 
         // Ajouter un gestionnaire d'événements pour le clic sur la tuile
@@ -811,11 +850,22 @@ public class SceneManager {
 
         if (offer instanceof Product) {
             Product product = (Product) offer;
-            Label brandLabel = new Label("Marque : " + product.getBrand());
-            Label modelLabel = new Label("Modèle : " + product.getModel());
-            Label conditionLabel = new Label("Condition : " + product.getCondition());
-            Label yearLabel = new Label("Année : " + product.getYear());
-            productDetailsBox.getChildren().addAll(brandLabel, modelLabel, conditionLabel, yearLabel);
+            if (product.getBrand() != null) {
+                Label brandLabel = new Label("Marque : " + product.getBrand());
+                productDetailsBox.getChildren().add(brandLabel);
+            }
+            if (product.getModel() != null) {
+                Label modelLabel = new Label("Modèle : " + product.getModel());
+                productDetailsBox.getChildren().add(modelLabel);
+            }
+            if (product.getCondition() != null) {
+                Label conditionLabel = new Label("Condition : " + product.getCondition());
+                productDetailsBox.getChildren().add(conditionLabel);
+            }
+            if (product.getYear() != 0){
+                Label yearLabel = new Label("Année : " + product.getYear());
+                productDetailsBox.getChildren().add( yearLabel);
+            }
         }
 
         User user = (User) PersonController.getInstance().getCurrentUser();
