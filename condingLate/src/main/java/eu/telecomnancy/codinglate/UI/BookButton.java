@@ -51,6 +51,7 @@ public class BookButton extends HBox {
                 }
 
                 new BookingDAO().insert(booking);
+                alertSuccess("La réservation a été effectuée avec succès");
                 SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
                 sceneManager.switchScene(previousScene);
 

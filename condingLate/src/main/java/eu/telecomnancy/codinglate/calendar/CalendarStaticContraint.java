@@ -24,15 +24,18 @@ public class CalendarStaticContraint extends Calendar {
             newBooking.setCalendar(this);
         }
 
-        // Bloquer les périodes de réservation qui ne sont pas entre le début de l'offre et la fin de l'offre
-        Entry<String> beforeAvailable = new Entry<>("L'offre n'est pas encore disponible", "before");
-        beforeAvailable.setInterval(LocalDateTime.of(1000, 1, 1, 0, 0),offer.getStartingDate());
-        beforeAvailable.setCalendar(this);
+        if (offer.getStartingDate() != null) {
+            // Bloquer les périodes de réservation qui ne sont pas entre le début de l'offre et la fin de l'offre
+            Entry<String> beforeAvailable = new Entry<>("L'offre n'est pas encore disponible", "before");
+            beforeAvailable.setInterval(LocalDateTime.of(1000, 1, 1, 0, 0),offer.getStartingDate());
+            beforeAvailable.setCalendar(this);
+        }
 
-        Entry<String> afterAvailable = new Entry<>("L'offre n'est plus disponible", "after");
-        afterAvailable.setInterval(offer.getEndingDate(), LocalDateTime.of(3000, 1, 1, 0, 0));
-        afterAvailable.setCalendar(this);
-
+        if (offer.getEndingDate() != null) {
+            Entry<String> afterAvailable = new Entry<>("L'offre n'est plus disponible", "after");
+            afterAvailable.setInterval(offer.getEndingDate(), LocalDateTime.of(3000, 1, 1, 0, 0));
+            afterAvailable.setCalendar(this);
+        }
 
     }
 }
