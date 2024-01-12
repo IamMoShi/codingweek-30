@@ -91,7 +91,10 @@ public class SearchContent extends HBox {
             Boolean isService = service.isSelected();
             TextField distanceField = ((TextField) gridPane2.getChildren().get(2));
 
-            assert PersonController.getInstance().getCurrentUser() != null;
+            if (PersonController.getInstance().getCurrentUser() == null) {
+                SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
+                sceneManager.switchScene(sceneManager.createSceneConnexion());
+            }
 
             int distance = 0;
 

@@ -2,6 +2,7 @@ package eu.telecomnancy.codinglate.database.dataController.offer;
 
 import eu.telecomnancy.codinglate.database.DbConnection;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Rating;
+import eu.telecomnancy.codinglate.database.dataObject.user.Person;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -39,5 +40,35 @@ public class RatingDAO {
             e.printStackTrace();
             // Gérer les erreurs de manière appropriée, par exemple, en lançant une exception personnalisée
         }
+    }
+
+    public int getNumberOfEvaluation(Person person) {
+        try (Connection conn = DbConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement(
+                     "SELECT COUNT(*) FROM rating WHERE user = ?")) {
+
+            pstmt.setInt(1, person.getId());
+
+            return pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Gérer les erreurs de manière appropriée, par exemple, en lançant une exception personnalisée
+        }
+        return -1;
+    }
+
+    public double getAverageEvaluation(Person person) {
+        try (Connection conn = DbConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement(
+                     "SELECT AVG(value) FROM rating WHERE user = ?")) {
+
+            pstmt.setInt(1, person.getId());
+
+            return pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Gérer les erreurs de manière appropriée, par exemple, en lançant une exception personnalisée
+        }
+        return -1;
     }
 }

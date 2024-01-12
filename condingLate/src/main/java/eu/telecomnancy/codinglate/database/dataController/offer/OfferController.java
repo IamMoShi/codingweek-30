@@ -344,6 +344,38 @@ public class OfferController {
         return new Service(id, user, title, description, price, priceType, startingDate, endingDate, new ArrayList<>());
     }
 
+    public ArrayList<Offer> getOffersByUser(Person person) {
+        try (Connection conn = DbConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM offer WHERE user = ?")) {
+
+            pstmt.setInt(1, person.getId());
+
+            try (ResultSet resultSet = pstmt.executeQuery()) {
+                ArrayList<Offer> offers = new ArrayList<>();
+                while (resultSet.next()) {
+                    // Déterminez le type d'offre en fonction de la catégorie
+                    int categoryOrdinal = resultSet.getInt("category");
+                    Offer offer;
+                    if (categoryOrdinal == 0) {
+                        // Service
+                        offer = createService(resultSet);
+                    } else {
+                        // Product
+                        offer = createProduct(resultSet);
+                    }
+
+                    if (offer != null) {
+                        offers.add(offer);
+                    }
+                }
+                return offers;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
     public Offer getOfferById(int offerId) {
         Offer offer = null;
         try (Connection conn = DbConnection.connect();

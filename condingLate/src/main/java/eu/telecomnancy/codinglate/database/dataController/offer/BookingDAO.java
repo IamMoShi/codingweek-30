@@ -148,11 +148,11 @@ public class BookingDAO {
             return false;
         }
         // Test si l'offre est globalement disponible à cette date
-        if (endDate.isAfter(offer.getEndingDate())) {
+        if (offer.getEndingDate() != null && endDate.isAfter(offer.getEndingDate())) {
             System.out.println("L'offre n'est pas planifié jusqu'à cette date.");
             return false;
         }
-        if (startDate.isBefore(offer.getStartingDate())) {
+        if (offer.getEndingDate() != null && startDate.isBefore(offer.getStartingDate())) {
             System.out.println("L'offre n'est pas planifié à partir de cette date.");
             return false;
         }

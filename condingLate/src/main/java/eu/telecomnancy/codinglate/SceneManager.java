@@ -1,6 +1,7 @@
 package eu.telecomnancy.codinglate;
 
 import eu.telecomnancy.codinglate.UI.*;
+import eu.telecomnancy.codinglate.calendar.ReservationCalendarView;
 import eu.telecomnancy.codinglate.database.dataController.MessageController;
 import eu.telecomnancy.codinglate.database.dataController.offer.BookingDAO;
 import eu.telecomnancy.codinglate.database.dataController.offer.ImageOfferDAO;
@@ -8,12 +9,15 @@ import eu.telecomnancy.codinglate.database.dataController.offer.OfferController;
 import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
 import eu.telecomnancy.codinglate.database.dataObject.enums.ProductCategory;
 import eu.telecomnancy.codinglate.database.dataObject.enums.ProductCondition;
+import eu.telecomnancy.codinglate.database.dataObject.message.Message;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Booking;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Offer;
 import eu.telecomnancy.codinglate.database.dataObject.offer.Product;
 import eu.telecomnancy.codinglate.database.dataObject.user.Person;
 import eu.telecomnancy.codinglate.database.dataObject.user.User;
 import eu.telecomnancy.codinglate.UI.SearchContent;
+import eu.telecomnancy.codinglate.geolocation.Coordinates;
+import eu.telecomnancy.codinglate.geolocation.Geolocation;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -37,18 +41,22 @@ import java.util.Objects;
 
 public class SceneManager {
     private Stage primaryStage;
-
+    private Scene previousScene;
     public SceneManager(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
 
     public void switchScene(Scene scene) {
+        if (scene == null) {
+            scene = createScenePresentation();
+        }
         int minWidth = 1200;
         int minHeight = 800;
         double width = getCurrentSceneWidth();
         double height = getCurrentSceneHeight();
         primaryStage.setScene(scene);
         primaryStage.show();
+        previousScene = scene;
     }
 
     private int getCurrentSceneHeight() {
@@ -279,18 +287,8 @@ public class SceneManager {
         if (!images.isEmpty()) {
             String imageurl = images.get(0);
 
-            //Image image = new Image(getClass().getResourceAsStream("/" + imageurl));
-            Image image = new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/picture/default.png"));
+            Image image = new Image(getClass().getResourceAsStream("/" + imageurl));
             ImageView imageView = new ImageView(image);
-            imageView.setFitWidth(240); // Largeur maximale de la VBox
-            imageView.setFitHeight(220); // Hauteur de la bande pour les informations
-            imageView.setPreserveRatio(true);
-            tile.getChildren().add(imageView);
-        }
-
-        else {
-            //ImageView imageView = new ImageView(offer.getImages().get(0));
-            ImageView imageView = new ImageView(new Image("C:/Users/26269/codingweek-30/OfferImage/image_user_n_1uuid=af25eb63-a442-4c26-985a-54fc4e667c5e.jpg"));
             imageView.setFitWidth(240); // Largeur maximale de la VBox
             imageView.setFitHeight(220); // Hauteur de la bande pour les informations
             imageView.setPreserveRatio(true);
@@ -315,6 +313,9 @@ public class SceneManager {
         priceLabel.setPadding(new Insets(3, 0, 0, 0));
         priceBox.getChildren().add(imageView);
         priceBox.getChildren().add(priceLabel);
+
+
+
 
 
         VBox detailsLayout = new VBox(5);
@@ -505,19 +506,12 @@ public class SceneManager {
         ListView<Person> MessageUserWithSelectedUserFromUserList = new ListView<>();
         MessageUserWithSelectedUserFromUserList.setCellFactory(param -> new CustomListCell(root));
 
-
         MessageUserWithSelectedUserFromUserList.getItems().addAll(UserYouHadAConversationWith);
-        MessageUserWithSelectedUserFromUserList.setPrefHeight(650);
-        if (!UserYouHadAConversationWith.isEmpty()) {
-            MessageUserWithSelectedUserFromUserList.getSelectionModel().selectFirst();
-        }
+        root.setLeft(MessageUserWithSelectedUserFromUserList);
 
-        FormButtonNewConv newConv = new FormButtonNewConv("NewConvo", "Nouvelle Conversation");
+        FormButton newConv = new FormButton("NewConvo", "Nouvelle Conversation");
         newConv.initializeButton();
-
-        VBox vboxleft = new VBox(2);
-        vboxleft.getChildren().addAll(MessageUserWithSelectedUserFromUserList, newConv);
-        root.setLeft(vboxleft);
+        root.setRight(newConv);
 
 
         newConv.setOnAction(event -> {
@@ -548,7 +542,7 @@ public class SceneManager {
         System.out.println(stage);
 
         // Créez une nouvelle instance de LoginCreator
-        LoginCreator loginCreator = new LoginCreator(stage);
+        LoginCreator loginCreator = new LoginCreator(stage, previousScene);
         VBox gridPane = loginCreator.getVbox();
 
         // Ajoutez le formulaire à la scène
@@ -571,6 +565,7 @@ public class SceneManager {
 
         root.setTop(layout);
 
+
         // Créez une nouvelle instance de CompteCreator
         CompteCreator compteCreator = new CompteCreator((Stage) this.primaryStage);
         VBox gridPane = compteCreator.getVbox();
@@ -578,7 +573,7 @@ public class SceneManager {
         // Ajoutez le formulaire à la scène
 
         root.setCenter(gridPane);
-        Scene scene = new Scene(root, 800, 500);
+        Scene scene = new Scene(root, getCurrentSceneWidth(), getCurrentSceneHeight());
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
 
         return scene;
@@ -602,7 +597,7 @@ public class SceneManager {
         // Ajoutez le formulaire à la scène
 
         root.setCenter(gridPane);
-        Scene scene = new Scene(root, 800, 500);
+        Scene scene = new Scene(root, getCurrentSceneWidth(), getCurrentSceneWidth());
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
         return scene;
 
@@ -625,7 +620,7 @@ public class SceneManager {
         // Ajoutez le formulaire à la scène
 
         root.setCenter(gridPane);
-        Scene scene = new Scene(root, 800, 500);
+        Scene scene = new Scene(root, getCurrentSceneWidth(), getCurrentSceneHeight());
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
         return scene;
 
@@ -666,16 +661,23 @@ public class SceneManager {
 
         // Afficher les informations de l'utilisateur à gauche
         VBox userBox = new VBox(5);
-        Label userLabel = new Label("Utilisateur : " + offer.getUser().getFirstname() + " " + offer.getUser().getLastname());
-        userLabel.setStyle("-fx-font-weight: bold;-fx-font-size: 16;");
-        userLabel.setTranslateY(100);
-        userLabel.setTranslateX(10);
+        HBox userPictureBox = new HBox(0);
+        Image userPicture = new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/icon/user.png"));
+        ImageView userView = new ImageView(userPicture);
+        userView.setFitWidth(35);
+        userView.setFitHeight(35);
+
+        userPictureBox.getChildren().add(userView);
+
+
+        Label userLabel = new Label( offer.getUser().getFirstname() + " " + offer.getUser().getLastname());
+        userLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 20px; -fx-padding: 5 10 0 10; -fx-text-alignment: center; -fx-text-fill: #171616; -fx-font-family: 'Segoe UI', Helvetica, Arial, sans-serif; -fx-font-weight: 400; -fx-line-spacing: 1.5; -fx-letter-spacing: 0.5;");
+        userLabel.setPadding(new Insets(0, 0, 0, 10));
+
+        userPictureBox.getChildren().add(userLabel);
+
         SearchBarButton messageButton = new SearchBarButton("Envoyer un message", "Envoyer un message");
         messageButton.initializeButton();
-        messageButton.setTranslateY(100);
-        messageButton.setTranslateX(20);
-
-
 
         messageButton.setOnAction(event -> {
             SceneManager sceneManager = new SceneManager((Stage) productBox.getScene().getWindow());
@@ -684,20 +686,8 @@ public class SceneManager {
         });
 
 
-        //Creer un bouton retour
-        FormButtonReturn returnDisplayButton = new FormButtonReturn("returndisplay", "Retour");
-        returnDisplayButton.initializeButton();
-        userBox.getChildren().add(returnDisplayButton);
-
-        returnDisplayButton.setOnAction(event -> {
-            SceneManager sceneManager = new SceneManager(primaryStage);
-            Scene scene = sceneManager.createSceneDisplayProduct();
-            sceneManager.switchScene(scene);
-        });
-
-
         // Ajouter d'autres détails de l'utilisateur si nécessaire
-        userBox.getChildren().addAll(userLabel);
+        userBox.getChildren().addAll(userPictureBox);
         productBox.getChildren().add(userBox);
         userBox.getChildren().add(messageButton);
 
@@ -705,21 +695,10 @@ public class SceneManager {
         // Afficher les détails du produit au centre
         VBox productDetailsBox = new VBox(10);
 
-        if (!offer.getImages().isEmpty()) {
-            //ImageView imageView = new ImageView(offer.getImages().get(0)); // Utilisez la première image comme exemple
-            ImageView imageView = new ImageView(new Image("C:/Users/26269/codingweek-30/condingLate/OfferImage/image_user_n_1uuid=af25eb63-a442-4c26-985a-54fc4e667c5e.jpg"));
-            imageView.setFitHeight(300); // Hauteur de la bande pour les information
-            imageView.setFitWidth(400);
-            imageView.setTranslateX(40);
-            imageView.setPreserveRatio(true);
-            productBox.getChildren().add(imageView);
-        }
 
-        else {
-            ImageView imageView = new ImageView(new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/picture/default.png")));
-            imageView.setFitHeight(300);
-            imageView.setFitWidth(400);
-            imageView.setTranslateX(40);
+        if (!offer.getImages().isEmpty()) {
+            ImageView imageView = new ImageView(offer.getImages().get(0)); // Utilisez la première image comme exemple
+            imageView.setFitHeight(300); // Hauteur de la bande pour les information
             imageView.setPreserveRatio(true);
             productDetailsBox.getChildren().add(imageView);
         }
@@ -730,7 +709,6 @@ public class SceneManager {
         String description = offer.getDescription();
         if (!Objects.equals(description, "")) {
             Label descriptionLabel = new Label(offer.getDescription());
-            descriptionLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 15px; -fx-min-height: 30px;");
             productDetailsBox.getChildren().add(descriptionLabel);
         }
 
@@ -766,6 +744,8 @@ public class SceneManager {
 
             dateBox.getChildren().add(dateLabel);
             productDetailsBox.getChildren().add(dateBox);
+
+
         }
 
 
@@ -778,22 +758,62 @@ public class SceneManager {
             productDetailsBox.getChildren().addAll(brandLabel, modelLabel, conditionLabel, yearLabel);
         }
 
+        User user = (User) PersonController.getInstance().getCurrentUser();
+        if (user != null) {
+            if (user.getAddress() != null) {
+                String userAddress = user.getAddress().getAddress();
+                Coordinates userCoordinates = Geolocation.getCoordinatesFromAddress(userAddress);
+                if (offer.getUser().getAddress() != null) {
+                    String offerAddress = offer.getUser().getAddress().getAddress();
+                    Coordinates offerCoordinates = Geolocation.getCoordinatesFromAddress(offerAddress);
+                    double distance = userCoordinates.distance(offerCoordinates);
+                    HBox distanceBox = new HBox(3);
+                    distanceBox.setPadding(new Insets(3, 0, 0, 10));
+                    Image distanceImage = new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/icon/maps.png"));
+                    ImageView distanceImageView = new ImageView(distanceImage);
+                    distanceImageView.setFitWidth(30);
+                    distanceImageView.setFitHeight(30);
+                    distanceImageView.setPreserveRatio(true);
+                    distanceBox.getChildren().add(distanceImageView);
+                    Label distanceLabel = new Label("Distance : " + distance + " km");
+                    distanceBox.getChildren().add(distanceLabel);
+                    productDetailsBox.getChildren().add(distanceBox);
+                }
+
+
+            }
+        }
+
+
+
 
 
         HBox bottomBox = new HBox(10);
         // Vous pouvez ajouter d'autres informations du produit ici
-        FormButtonReserved submitButton = new FormButtonReserved("submit", "Réserver cette offre");
+        FormButton submitButton = new FormButton("submit", "Reserver cette offre");
         submitButton.initializeButton();
-        submitButton.setTranslateX(40);
+
         bottomBox.getChildren().add(submitButton);
 
 
         submitButton.setOnAction(event -> {
-            Booking booking = new Booking(offer, (User) PersonController.getInstance().getCurrentUser(), LocalDateTime.now(), LocalDateTime.now());
-            BookingDAO bookingDAO = new BookingDAO();
-            bookingDAO.insert(booking);
-
+            switchScene(createSceneCalendar(offer));
         });
+
+        FormButton returnDisplayButton = new FormButton("returndisplay", "Retour");
+        returnDisplayButton.initializeButton();
+
+        bottomBox.getChildren().add(returnDisplayButton);
+
+
+        returnDisplayButton.setOnAction(event -> {
+            SceneManager sceneManager = new SceneManager(primaryStage);
+            Scene scene = sceneManager.createSceneDisplayProduct();
+            sceneManager.switchScene(scene);
+        });
+
+
+        // Ajouter une image si disponible
 
 
         // Ajouter les labels au conteneur des détails du produit
@@ -838,17 +858,20 @@ public class SceneManager {
             layout.getChildren().add(titleLabel);
 
             // Créer une liste de réservations
-            ListView<String> bookingsListView = new ListView<>();
+            ListView<Booking> bookingsListView = new ListView<>();
+
+
             bookingsListView.setPrefHeight(200);
 
             // Ajouter les réservations à la liste
             for (Booking booking : bookingsByUser) {
-                String bookingInfo = "Offer: " + booking.getOffer().getTitle() +
-                        ", Starting Date: " + booking.getStartingDate() +
-                        ", Ending Date: " + booking.getEndingDate() +
-                        ", Status: " + booking.getStatus();
-                bookingsListView.getItems().add(bookingInfo);
+                bookingsListView.setCellFactory(param -> new CustomCellViewBooking(booking));
+                bookingsListView.getItems().add(booking);
             }
+
+
+
+
 
             VBox.setMargin(bookingsListView, new Insets(10, 10, 0, 10));
             layout.getChildren().add(bookingsListView);
@@ -861,17 +884,16 @@ public class SceneManager {
 
 
             // Créer une liste de réservations
-            ListView<String> bookingsOnmyOfferListView2 = new ListView<>();
+            ListView<Booking> bookingsOnmyOfferListView2 = new ListView<>();
+
+
             bookingsOnmyOfferListView2.setPrefHeight(200);
 
 
             // Ajouter les réservations à la liste
             for (Booking booking : offersByUser) {
-                String bookingInfo = "Offer: " + booking.getOffer().getTitle() +
-                        ", Starting Date: " + booking.getStartingDate() +
-                        ", Ending Date: " + booking.getEndingDate() +
-                        ", Status: " + booking.getStatus();
-                bookingsOnmyOfferListView2.getItems().add(bookingInfo);
+                bookingsOnmyOfferListView2.setCellFactory(param -> new CustomCellViewOurBooking());
+                bookingsOnmyOfferListView2.getItems().add(booking);
             }
             VBox.setMargin(bookingsOnmyOfferListView2, new Insets(10, 10, 0, 10));
             layout.getChildren().add(bookingsOnmyOfferListView2);
@@ -907,7 +929,7 @@ public class SceneManager {
     }
 
 
-    public Scene createSceneCalendar() {
+    public Scene createSceneCalendar(Offer offer) {
         SearchBar searchBar = new SearchBar();
 
         BorderPane root = new BorderPane();
@@ -916,16 +938,20 @@ public class SceneManager {
         layout.setPadding(new Insets(0));
         layout.getChildren().add(searchBar);
 
+        ReservationCalendarView calendar = new ReservationCalendarView(offer);
+
         root.setTop(layout);
+        root.setCenter(calendar);
+        root.setBottom(new BookButton(previousScene, calendar));
 
         Scene scene = new Scene(root, getCurrentSceneWidth(), getCurrentSceneHeight());
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
-
         return scene;
+
     }
 
 
-    public Scene createSceneEvaluations(Offer offer) {
+    public Scene createSceneRateOffer(Offer offer) {
         SearchBar searchBar = new SearchBar();
 
         BorderPane root = new BorderPane();
@@ -938,6 +964,18 @@ public class SceneManager {
 
         RatingForm ratingForm = new RatingForm((Stage) this.primaryStage, offer);
         VBox gridPane = ratingForm.getVbox();
+
+        FormButton returnDisplayButton = new FormButton("returndisplay", "Retour");
+        returnDisplayButton.initializeButton();
+
+        returnDisplayButton.setOnAction(event -> {
+            SceneManager sceneManager = new SceneManager(primaryStage);
+            Scene scene = sceneManager.createSceneMyBookings();
+            sceneManager.switchScene(scene);
+        });
+
+        gridPane.getChildren().add(returnDisplayButton);
+
 
         root.setCenter(gridPane);
 
@@ -955,8 +993,9 @@ public class SceneManager {
         layout.setPadding(new Insets(0));
         layout.getChildren().add(searchBar);
 
-
         root.setTop(layout);
+
+
 
         Scene scene = new Scene(root, getCurrentSceneWidth(), getCurrentSceneHeight());
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());

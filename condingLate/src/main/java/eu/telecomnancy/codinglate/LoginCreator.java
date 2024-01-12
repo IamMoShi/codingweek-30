@@ -6,6 +6,7 @@ import eu.telecomnancy.codinglate.UI.FormButton;
 import eu.telecomnancy.codinglate.database.dataController.user.PersonController;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -24,10 +25,10 @@ public class LoginCreator extends HBox{
         return this.vbox;
     }
 
-    public LoginCreator(Stage stage) {
+    public LoginCreator(Stage stage, Scene previousScene) {
         this.stage = stage;
         this.vbox = createFormPane();
-        addUIControls((GridPane) vbox.getChildren().get(0));
+        addUIControls((GridPane) vbox.getChildren().get(0), previousScene);
         addBottomMessage(vbox, stage);
     }
 
@@ -47,7 +48,7 @@ public class LoginCreator extends HBox{
         return vbox;
     }
 
-    private void addUIControls(GridPane gridPane) {
+    private void addUIControls(GridPane gridPane, Scene previousScene) {
         // Ajouter des contrôles à la grille
 
         CustomTextField emailField = new CustomTextField("Email");
@@ -73,10 +74,19 @@ public class LoginCreator extends HBox{
                 System.out.println("Connexion réussie");
 
                 SceneManager sceneManager = new SceneManager(stage);
-                Scene scene = sceneManager.createSceneDisplayProduct();
-                sceneManager.switchScene(scene);
+                sceneManager.switchScene(previousScene);
+            } else {
+                alertFailed("Erreur de connection, email ou mot de passe incorrect");
             }
         });
+    }
+
+    private void alertFailed(String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Erreur de connection");
+        alert.setContentText(message);
+        alert.showAndWait();
+
     }
 
     private void addBottomMessage(VBox vbox,Stage stage) {
