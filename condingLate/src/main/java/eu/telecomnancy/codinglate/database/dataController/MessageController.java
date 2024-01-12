@@ -112,12 +112,12 @@ public class MessageController {
 
                 if (sender == person.getId()) {
                     // Regarde dans la liste si la personne n'est pas déjà présente
-                    if (!ids.contains(receiver)) {
+                    if (!ids.contains(receiver) && receiver!=sender) {
                         ids.add(receiver);
                     }
                 } else {
                     // Regarde dans la liste si la personne n'est pas déjà présente
-                    if (!ids.contains(sender)) {
+                    if (!ids.contains(sender) && sender!=receiver) {
                         ids.add(sender);
                     }
                 }

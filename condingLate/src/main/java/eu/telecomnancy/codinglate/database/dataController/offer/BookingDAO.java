@@ -10,6 +10,7 @@ import eu.telecomnancy.codinglate.database.dataObject.user.User;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class BookingDAO {
@@ -59,7 +60,7 @@ public class BookingDAO {
     }
 
     private Booking createBooking(ResultSet rs) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
         Booking booking = null;
         try {
             int id = rs.getInt("id");
@@ -68,9 +69,9 @@ public class BookingDAO {
             int userId = rs.getInt("user");
             User user = (User) new PersonController().getPersonById(userId);
             LocalDateTime startingDate = null;
-            if (rs.getObject("startingDate") != null) startingDate = LocalDateTime.parse(rs.getString("startingDate"), formatter);
+            if (rs.getObject("startingDate") != null) startingDate = parseDate(rs.getString("startingDate"));
             LocalDateTime endingDate = null;
-            if (rs.getObject("endingDate") != null) endingDate = endingDate = LocalDateTime.parse(rs.getString("endingDate"), formatter);
+            if (rs.getObject("endingDate") != null) endingDate = parseDate(rs.getString("endingDate"));
             BookingStatus status = BookingStatus.values()[rs.getInt("status")];
             booking = new Booking(id, offer, user, startingDate, endingDate, status);
         } catch (SQLException e) {
@@ -173,5 +174,36 @@ public class BookingDAO {
         System.out.println("L'offre est disponible à cette date.");
         return true;
     }
+
+    public static LocalDateTime parseDate(String dateString) {
+        // Liste des formats à tester
+        String[] formats = {
+                "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS",
+                "yyyy-MM-dd'T'HH:mm:ss.SSSSSSS",
+                "yyyy-MM-dd'T'HH:mm:ss.SSSSSS",
+                "yyyy-MM-dd'T'HH:mm:ss.SSSSS",
+                "yyyy-MM-dd'T'HH:mm:ss.SSSS",
+                "yyyy-MM-dd'T'HH:mm:ss.SSS",
+                "yyyy-MM-dd'T'HH:mm:ss.SS",
+                "yyyy-MM-dd'T'HH:mm:ss.S",
+                "yyyy-MM-dd'T'HH:mm:ss",
+                "yyyy-MM-dd'T'HH:mm",
+
+        };
+
+        // Essaie de parser avec chaque format
+        for (String format : formats) {
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+                return LocalDateTime.parse(dateString, formatter);
+            } catch (DateTimeParseException e) {
+                // Échoue silencieusement et essaye le prochain format
+            }
+        }
+
+        // Si aucun format ne réussit
+        throw new IllegalArgumentException("Aucun format de date valide trouvé");
+    }
+
 
 }

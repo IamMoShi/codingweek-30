@@ -74,6 +74,7 @@ public class ImageOfferDAO {
 
             // Mettez à jour la liste d'images de l'objet "Offer" avec les URL récupérées
             offer.setImages(imageUrls);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
