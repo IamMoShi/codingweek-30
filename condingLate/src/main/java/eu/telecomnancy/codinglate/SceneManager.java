@@ -628,8 +628,13 @@ public class SceneManager {
         // Afficher les informations de l'utilisateur à gauche
         VBox userBox = new VBox(5);
         Label userLabel = new Label("Utilisateur : " + offer.getUser().getFirstname() + " " + offer.getUser().getLastname());
+        userLabel.setTranslateX(10);
+        userLabel.setTranslateY(100);
+        userLabel.setStyle("-fx-font-weight: bold;-fx-font-size: 16;");
         SearchBarButton messageButton = new SearchBarButton("Envoyer un message", "Envoyer un message");
         messageButton.initializeButton();
+        messageButton.setTranslateY(100);
+        messageButton.setTranslateX(20);
 
         messageButton.setOnAction(event -> {
             SceneManager sceneManager = new SceneManager((Stage) productBox.getScene().getWindow());
@@ -637,9 +642,21 @@ public class SceneManager {
             sceneManager.switchScene(scene);
         });
 
+        Button returndisplaybutton = new Button("Retour");
+        messageButton.initializeButton();
+        returndisplaybutton.setPrefHeight(20);
+        returndisplaybutton.setPrefWidth(200);
+        returndisplaybutton.setStyle("-fx-background-color: #xxxxx");
+        returndisplaybutton.setOnAction(event -> {
+            SceneManager sceneManager = new SceneManager(primaryStage);
+            Scene scene = sceneManager.createSceneDisplayProduct();
+            sceneManager.switchScene(scene);
+        });
 
+
+        userBox.getChildren().add(returndisplaybutton);
         // Ajouter d'autres détails de l'utilisateur si nécessaire
-        userBox.getChildren().addAll(userLabel);
+        userBox.getChildren().add(userLabel);
         productBox.getChildren().add(userBox);
         userBox.getChildren().add(messageButton);
 
@@ -654,7 +671,7 @@ public class SceneManager {
         }
 
         // Vous pouvez ajouter d'autres informations du produit ici
-        FormButton submitButton = new FormButton("submit", "Reserver cette offre");
+        FormButton submitButton = new FormButton("submit", "Réserver cette offre");
         submitButton.initializeButton();
 
 
@@ -663,15 +680,8 @@ public class SceneManager {
             BookingDAO bookingDAO = new BookingDAO();
             bookingDAO.insert(booking);
 
-        });
+            Label label = new Label("Réservation effectuée!");
 
-        Button returndisplaybutton = new Button("Retour");
-        returndisplaybutton.setPrefHeight(0);
-        returndisplaybutton.setStyle("-fx-background-color: #0000");
-        returndisplaybutton.setOnAction(event -> {
-            SceneManager sceneManager = new SceneManager(primaryStage);
-            Scene scene = sceneManager.createSceneDisplayProduct();
-            sceneManager.switchScene(scene);
         });
 
         ImageOfferDAO imageOfferDAO = new ImageOfferDAO();
@@ -687,10 +697,16 @@ public class SceneManager {
 
             Image image = new Image(cheminAbsolu.replace("\\", "/"));
             ImageView imageView = new ImageView(image);
-            imageView.setFitWidth(100);
-            imageView.setFitHeight(100);
+
             imageView.setPreserveRatio(true);
-            productDetailsBox.getChildren().add(imageView);
+            productBox.getChildren().add(imageView);
+        }
+
+
+        else {
+            ImageView imageView = new ImageView(new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/picture/default.png")));
+
+            productBox.getChildren().addAll(imageView);
         }
 
         // Ajouter les labels au conteneur des détails du produit
@@ -710,9 +726,6 @@ public class SceneManager {
             productDetailsBox.getChildren().add(submitButton);
         }
 
-        if (!productDetailsBox.getChildren().contains(returndisplaybutton)) {
-            productDetailsBox.getChildren().add(returndisplaybutton);
-        }
         productBox.getChildren().add(productDetailsBox);
 
         // Ajouter la boîte du produit à la mise en page principale
