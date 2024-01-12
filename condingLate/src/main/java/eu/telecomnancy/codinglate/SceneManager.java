@@ -1,6 +1,8 @@
 package eu.telecomnancy.codinglate;
 
 import eu.telecomnancy.codinglate.UI.*;
+import eu.telecomnancy.codinglate.calendar.CalendarStaticContraint;
+import eu.telecomnancy.codinglate.calendar.ReservationCalendarView;
 import eu.telecomnancy.codinglate.database.dataController.MessageController;
 import eu.telecomnancy.codinglate.database.dataController.offer.BookingDAO;
 import eu.telecomnancy.codinglate.database.dataController.offer.ImageOfferDAO;
@@ -14,10 +16,16 @@ import eu.telecomnancy.codinglate.database.dataObject.offer.Product;
 import eu.telecomnancy.codinglate.database.dataObject.user.Person;
 import eu.telecomnancy.codinglate.database.dataObject.user.User;
 import eu.telecomnancy.codinglate.UI.SearchContent;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.scene.control.*;
+
+import com.calendarfx.model.Calendar;
+import com.calendarfx.model.Calendar.Style;
+import com.calendarfx.model.CalendarSource;
+import com.calendarfx.view.CalendarView;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -27,8 +35,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.application.Platform;
 
-
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -37,10 +47,12 @@ import java.util.Objects;
 
 public class SceneManager {
     private Stage primaryStage;
+    private static Scene previousScene;
 
     public SceneManager(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
+
 
     public void switchScene(Scene scene) {
         int minWidth = 1200;
@@ -49,6 +61,7 @@ public class SceneManager {
         double height = getCurrentSceneHeight();
         primaryStage.setScene(scene);
         primaryStage.show();
+        previousScene = scene;
     }
 
     private int getCurrentSceneHeight() {
@@ -792,7 +805,7 @@ public class SceneManager {
 
 
         // Ajouter les labels au conteneur des détails du produit
-        productDetailsBox.getChildren().add(bottomBox);
+        productDetailsBox.getChildren().addAll(titleLabel, descriptionLabel, priceLabel, submitButton, returndisplaybutton);
         productBox.getChildren().add(productDetailsBox);
 
         // Ajouter la boîte du produit à la mise en page principale
@@ -903,6 +916,7 @@ public class SceneManager {
 
 
     public Scene createSceneCalendar() {
+        Offer offer = new OfferController().getOfferById(1);
         SearchBar searchBar = new SearchBar();
 
         BorderPane root = new BorderPane();
@@ -911,11 +925,14 @@ public class SceneManager {
         layout.setPadding(new Insets(0));
         layout.getChildren().add(searchBar);
 
+        ReservationCalendarView calendar = new ReservationCalendarView(offer);
+
         root.setTop(layout);
+        root.setCenter(calendar);
+        root.setBottom(new BookButton(createScenePresentation(), calendar));
 
-        Scene scene = new Scene(root, getCurrentSceneWidth(), getCurrentSceneHeight());
+        Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
-
         return scene;
     }
 
