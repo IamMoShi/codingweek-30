@@ -260,7 +260,7 @@ public class ServiceCreator {
 
                 // Enregistrez l'image localement
                 Files.copy(file.toPath(), Paths.get(newPath), StandardCopyOption.REPLACE_EXISTING);
-                imageUrls.add(newPath);
+                imageUrls.add(file.getName());
                 deleteTempImage(tempImagePath);
             } catch (Exception e) {
                 e.printStackTrace();
