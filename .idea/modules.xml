@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/codingLate.main.iml" filepath="$PROJECT_DIR$/.idea/modules/codingLate.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/codingweek-30.iml" filepath="$PROJECT_DIR$/.idea/codingweek-30.iml" />
     </modules>
   </component>
