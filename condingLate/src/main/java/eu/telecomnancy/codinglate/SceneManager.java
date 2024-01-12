@@ -279,8 +279,8 @@ public class SceneManager {
         if (!images.isEmpty()) {
             String imageurl = images.get(0);
 
-            Image image = new Image(getClass().getResourceAsStream("/" + imageurl));
-            //Image image = new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/picture/default.png"));
+            //Image image = new Image(getClass().getResourceAsStream("/" + imageurl));
+            Image image = new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/picture/default.png"));
             ImageView imageView = new ImageView(image);
             imageView.setFitWidth(240); // Largeur maximale de la VBox
             imageView.setFitHeight(220); // Hauteur de la bande pour les informations
@@ -289,7 +289,8 @@ public class SceneManager {
         }
 
         else {
-            ImageView imageView = new ImageView(new Image("C:/Users/26269/codingweek-30/condingLate/OfferImage/image_user_n_1uuid=af25eb63-a442-4c26-985a-54fc4e667c5e.jpg"));
+            //ImageView imageView = new ImageView(offer.getImages().get(0));
+            ImageView imageView = new ImageView(new Image("C:/Users/26269/codingweek-30/OfferImage/image_user_n_1uuid=af25eb63-a442-4c26-985a-54fc4e667c5e.jpg"));
             imageView.setFitWidth(240); // Largeur maximale de la VBox
             imageView.setFitHeight(220); // Hauteur de la bande pour les informations
             imageView.setPreserveRatio(true);
@@ -504,12 +505,19 @@ public class SceneManager {
         ListView<Person> MessageUserWithSelectedUserFromUserList = new ListView<>();
         MessageUserWithSelectedUserFromUserList.setCellFactory(param -> new CustomListCell(root));
 
-        MessageUserWithSelectedUserFromUserList.getItems().addAll(UserYouHadAConversationWith);
-        root.setLeft(MessageUserWithSelectedUserFromUserList);
 
-        FormButton newConv = new FormButton("NewConvo", "Nouvelle Conversation");
+        MessageUserWithSelectedUserFromUserList.getItems().addAll(UserYouHadAConversationWith);
+        MessageUserWithSelectedUserFromUserList.setPrefHeight(650);
+        if (!UserYouHadAConversationWith.isEmpty()) {
+            MessageUserWithSelectedUserFromUserList.getSelectionModel().selectFirst();
+        }
+
+        FormButtonNewConv newConv = new FormButtonNewConv("NewConvo", "Nouvelle Conversation");
         newConv.initializeButton();
-        root.setRight(newConv);
+
+        VBox vboxleft = new VBox(2);
+        vboxleft.getChildren().addAll(MessageUserWithSelectedUserFromUserList, newConv);
+        root.setLeft(vboxleft);
 
 
         newConv.setOnAction(event -> {
@@ -562,7 +570,6 @@ public class SceneManager {
         layout.getChildren().add(searchBar);
 
         root.setTop(layout);
-
 
         // Créez une nouvelle instance de CompteCreator
         CompteCreator compteCreator = new CompteCreator((Stage) this.primaryStage);
@@ -701,8 +708,8 @@ public class SceneManager {
         if (!offer.getImages().isEmpty()) {
             //ImageView imageView = new ImageView(offer.getImages().get(0)); // Utilisez la première image comme exemple
             ImageView imageView = new ImageView(new Image("C:/Users/26269/codingweek-30/condingLate/OfferImage/image_user_n_1uuid=af25eb63-a442-4c26-985a-54fc4e667c5e.jpg"));
-            imageView.setFitHeight(500); // Hauteur de la bande pour les information
-            imageView.setFitWidth(800);
+            imageView.setFitHeight(300); // Hauteur de la bande pour les information
+            imageView.setFitWidth(400);
             imageView.setTranslateX(40);
             imageView.setPreserveRatio(true);
             productBox.getChildren().add(imageView);
@@ -710,8 +717,8 @@ public class SceneManager {
 
         else {
             ImageView imageView = new ImageView(new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/picture/default.png")));
-            imageView.setFitHeight(500);
-            imageView.setFitWidth(800);
+            imageView.setFitHeight(300);
+            imageView.setFitWidth(400);
             imageView.setTranslateX(40);
             imageView.setPreserveRatio(true);
             productDetailsBox.getChildren().add(imageView);
@@ -759,8 +766,6 @@ public class SceneManager {
 
             dateBox.getChildren().add(dateLabel);
             productDetailsBox.getChildren().add(dateBox);
-
-
         }
 
 
