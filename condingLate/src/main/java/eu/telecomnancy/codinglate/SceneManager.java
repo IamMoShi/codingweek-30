@@ -47,6 +47,9 @@ public class SceneManager {
     }
 
     public void switchScene(Scene scene) {
+        if (scene == null) {
+            scene = createScenePresentation();
+        }
         int minWidth = 1200;
         int minHeight = 800;
         double width = getCurrentSceneWidth();
@@ -539,7 +542,7 @@ public class SceneManager {
         System.out.println(stage);
 
         // Créez une nouvelle instance de LoginCreator
-        LoginCreator loginCreator = new LoginCreator(stage);
+        LoginCreator loginCreator = new LoginCreator(stage, previousScene);
         VBox gridPane = loginCreator.getVbox();
 
         // Ajoutez le formulaire à la scène

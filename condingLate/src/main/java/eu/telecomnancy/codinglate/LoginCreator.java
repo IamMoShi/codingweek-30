@@ -24,10 +24,10 @@ public class LoginCreator extends HBox{
         return this.vbox;
     }
 
-    public LoginCreator(Stage stage) {
+    public LoginCreator(Stage stage, Scene previousScene) {
         this.stage = stage;
         this.vbox = createFormPane();
-        addUIControls((GridPane) vbox.getChildren().get(0));
+        addUIControls((GridPane) vbox.getChildren().get(0), previousScene);
         addBottomMessage(vbox, stage);
     }
 
@@ -47,7 +47,7 @@ public class LoginCreator extends HBox{
         return vbox;
     }
 
-    private void addUIControls(GridPane gridPane) {
+    private void addUIControls(GridPane gridPane, Scene previousScene) {
         // Ajouter des contrôles à la grille
 
         CustomTextField emailField = new CustomTextField("Email");
@@ -73,8 +73,7 @@ public class LoginCreator extends HBox{
                 System.out.println("Connexion réussie");
 
                 SceneManager sceneManager = new SceneManager(stage);
-                Scene scene = sceneManager.createSceneDisplayProduct();
-                sceneManager.switchScene(scene);
+                sceneManager.switchScene(previousScene);
             }
         });
     }

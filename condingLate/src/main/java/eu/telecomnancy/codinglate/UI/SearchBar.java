@@ -23,6 +23,12 @@ public class SearchBar extends HBox {
         logoButton.initializeButton();
         getChildren().add(logoButton);
         logoButton.setOnMouseClicked(e -> {
+            if (PersonController.getInstance().getCurrentUser() == null) {
+                SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
+                Scene scene = sceneManager.createSceneConnexion();
+                sceneManager.switchScene(scene);
+                return ;
+            }
             SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
             Scene scene = sceneManager.createSceneDisplayProduct();
             sceneManager.switchScene(scene);
@@ -44,6 +50,12 @@ public class SearchBar extends HBox {
 
         getChildren().add(searchField);
         searchField.setOnMouseClicked(e -> {
+            if (PersonController.getInstance().getCurrentUser() == null) {
+                SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
+                Scene scene = sceneManager.createSceneConnexion();
+                sceneManager.switchScene(scene);
+                return ;
+            }
             SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
             Scene scene = sceneManager.createSceneSearch();
             sceneManager.switchScene(scene);
