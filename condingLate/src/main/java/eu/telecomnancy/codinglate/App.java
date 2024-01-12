@@ -21,7 +21,7 @@ public class App extends Application {
         stage.getIcons().add(appIcon);
 
         this.sceneManager = new SceneManager(stage);
-        Scene scene = sceneManager.createSceneCalendar();
+        Scene scene = sceneManager.createScenePresentation();
         sceneManager.switchScene(scene);
     }
 
