@@ -315,9 +315,6 @@ public class SceneManager {
         priceBox.getChildren().add(priceLabel);
 
 
-
-
-
         VBox detailsLayout = new VBox(5);
         detailsLayout.getChildren().addAll(titleLabel, descriptionLabel, priceBox);
 
@@ -356,8 +353,6 @@ public class SceneManager {
 
         return tile;
     }
-
-
 
 
     private void handleTileClick(Offer offer, TilePane tilePane) {
@@ -440,6 +435,7 @@ public class SceneManager {
         SearchBar searchBar = new SearchBar();
 
         BorderPane root = new BorderPane();
+
         // Mise en page de la scène
         VBox layout = new VBox(10);
         layout.setPadding(new Insets(0));
@@ -447,40 +443,42 @@ public class SceneManager {
 
         root.setTop(layout);
 
-        VBox vbox = new VBox();
-        vbox.setSpacing(10);
+        HBox contentBox = new HBox(20);
+        contentBox.setAlignment(Pos.CENTER);
 
         Person person = PersonController.getInstance().getCurrentUser();
         if (person != null) {
-            GridPane gridPane = new GridPane();
-            gridPane.setPadding(new Insets(10, 40, 10, 40));
-            gridPane.setStyle("-fx-font-size: 20px;");
-            gridPane.setAlignment(Pos.CENTER_LEFT);
-            gridPane.add(new Text("Nom : " + person.getLastname()), 0, 0);
-            gridPane.add(new Text("Prénom : " + person.getFirstname()), 0, 1);
-            gridPane.add(new Text("Email : " + person.getEmail()), 0, 2);
-            gridPane.add(new Text("Téléphone : " + person.getPhone()), 0, 3);
-            //gridPane.add(new Text("Adresse : " + person.getAddress().getAddress() ),  0, 4);
-            gridPane.add(new Text("Solde : " + person.getBalance()), 0, 5);
+            VBox profileInfo = new VBox(10);
+            profileInfo.setAlignment(Pos.CENTER_LEFT);
+            profileInfo.setStyle("-fx-font-size: 20px;");
 
-            root.setCenter(gridPane);
+            profileInfo.getChildren().addAll(
+                    new Text("Nom : " + person.getLastname()),
+                    new Text("Prénom : " + person.getFirstname()),
+                    new Text("Email : " + person.getEmail()),
+                    new Text("Téléphone : " + person.getPhone()),
+                    // new Text("Adresse : " + person.getAddress().getAddress()), // Ajoutez cette ligne si besoin
+                    new Text("Solde : " + person.getBalance())
+            );
+
+            contentBox.getChildren().addAll(profileInfo);
+
+            // Ajout de l'image du profil à droite des informations
+            Image image = new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/icon/user.png"));
+            ImageView imageView = new ImageView(image);
+            imageView.setPreserveRatio(true);
+            imageView.setFitWidth(200);
+
+            contentBox.getChildren().add(imageView);
         }
 
-        Image image = new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/icon/user.png"));
-        ImageView imageView = new ImageView(image);
-        imageView.setPreserveRatio(true);
-        imageView.setFitWidth(200);
-        imageView.minWidth(200);
-
-
-        root.setRight(imageView);
-
+        root.setCenter(contentBox);
 
         Scene scene = new Scene(root, getCurrentSceneWidth(), getCurrentSceneHeight());
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
         return scene;
-
     }
+
 
 
     public Scene createMessageScene() {
@@ -498,7 +496,6 @@ public class SceneManager {
         //récupérer l'utilisateur courant
         Person currentuser = PersonController.getInstance().getCurrentUser();
 
-        System.out.println(currentuser);
 
         //faire la liste de toutes les conversations de l'utilisateur courant
         MessageController messageController = new MessageController();
@@ -509,21 +506,63 @@ public class SceneManager {
         MessageUserWithSelectedUserFromUserList.getItems().addAll(UserYouHadAConversationWith);
         root.setLeft(MessageUserWithSelectedUserFromUserList);
 
+
+        HBox hBox = new HBox();
+        hBox.setPadding(new Insets(10, 0, 10, 0));
+
+
         FormButton newConv = new FormButton("NewConvo", "Nouvelle Conversation");
         newConv.initializeButton();
-        root.setRight(newConv);
+        hBox.getChildren().add(newConv);
+        root.setCenter(hBox);
 
 
         newConv.setOnAction(event -> {
                     Stage stage = (Stage) this.primaryStage;
-                    MessageCreator messageCreator = new MessageCreator(stage);
-                    VBox gridPane = messageCreator.getVbox();
-                    root.setCenter(gridPane);
+                    Scene scene = createSceneNewMessage(stage,"");
+                    SceneManager sceneManager = new SceneManager(stage);
+                    sceneManager.switchScene(scene);
                 }
         );
 
         Scene scene = new Scene(root, getCurrentSceneWidth(), getCurrentSceneHeight());
         scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
+        return scene;
+    }
+
+    public Scene createSceneNewMessage(Stage stage,String email){
+        SearchBar searchBar = new SearchBar();
+
+        BorderPane root = new BorderPane();
+
+        VBox layout = new VBox(10);
+        layout.setPadding(new Insets(0));
+        layout.getChildren().add(searchBar);
+
+        root.setTop(layout);
+
+
+        // Créez une nouvelle instance de CompteCreator
+        MessageCreator messageCreator = new MessageCreator(stage, email);
+        VBox gridPane = messageCreator.getVbox();
+
+        FormButton returnButton = new FormButton("return", "Retour");
+        returnButton.initializeButton();
+        returnButton.setOnAction(event -> {
+            SceneManager sceneManager = new SceneManager((Stage) gridPane.getScene().getWindow());
+            Scene scene = sceneManager.createMessageScene();
+            sceneManager.switchScene(scene);
+        });
+        gridPane.getChildren().add(returnButton);
+
+
+
+        // Ajoutez le formulaire à la scène
+
+        root.setCenter(gridPane);
+        Scene scene = new Scene(root, getCurrentSceneWidth(), getCurrentSceneHeight());
+        scene.getStylesheets().add(getClass().getResource("/eu/telecomnancy/codinglate/css/ui/searchBar.css").toString());
+
         return scene;
     }
 
@@ -643,9 +682,7 @@ public class SceneManager {
         return scene;
 
     }
-
-
-    // ... (autres méthodes existantes)
+    
 
     public Scene createSceneProduct(Offer offer) {
         SearchBar searchBar = new SearchBar();
@@ -680,9 +717,25 @@ public class SceneManager {
         messageButton.initializeButton();
 
         messageButton.setOnAction(event -> {
+            boolean founded = false;
             SceneManager sceneManager = new SceneManager((Stage) productBox.getScene().getWindow());
-            Scene scene = sceneManager.createMessageScene();
-            sceneManager.switchScene(scene);
+            Person currentuser = PersonController.getInstance().getCurrentUser();
+            MessageController messageController = new MessageController();
+            List<Person> UserYouHadAConversationWith = messageController.getConversationList(currentuser);
+            for (Person person : UserYouHadAConversationWith) {
+                if (person.getId() == offer.getUser().getId()) {
+                    Scene scene = sceneManager.createMessageScene();
+                    sceneManager.switchScene(scene);
+                    founded = true;
+                    return;
+                }
+
+            }
+            if (!founded) {
+                Scene scene = sceneManager.createSceneNewMessage((Stage) productBox.getScene().getWindow(),offer.getUser().getEmail());
+                sceneManager.switchScene(scene);
+            }
+
         });
 
 
@@ -749,6 +802,8 @@ public class SceneManager {
         }
 
 
+
+
         if ( offer instanceof Product) {
             Product product = (Product) offer;
             Label brandLabel = new Label("Marque : " + product.getBrand());
@@ -762,11 +817,15 @@ public class SceneManager {
         if (user != null) {
             if (user.getAddress() != null) {
                 String userAddress = user.getAddress().getAddress();
+                System.out.println(userAddress);
                 Coordinates userCoordinates = Geolocation.getCoordinatesFromAddress(userAddress);
-                if (offer.getUser().getAddress() != null) {
+                System.out.println(offer.getUser().getAddress());
+                if (offer.getUser().getAddress().getAddress() != null) {
+                    System.out.println(offer.getUser().getAddress());
                     String offerAddress = offer.getUser().getAddress().getAddress();
                     Coordinates offerCoordinates = Geolocation.getCoordinatesFromAddress(offerAddress);
                     double distance = userCoordinates.distance(offerCoordinates);
+                    System.out.println(distance);
                     HBox distanceBox = new HBox(3);
                     distanceBox.setPadding(new Insets(3, 0, 0, 10));
                     Image distanceImage = new Image(getClass().getResourceAsStream("/eu/telecomnancy/codinglate/icon/maps.png"));
@@ -995,6 +1054,14 @@ public class SceneManager {
 
         root.setTop(layout);
 
+        OfferController offerController = new OfferController();
+        TilePane tilePane = new TilePane();
+
+        ArrayList<Offer> offersByUser = offerController.getOffersByUser(PersonController.getInstance().getCurrentUser());
+
+        updateTilePane(tilePane, offersByUser);
+
+        root.setCenter(tilePane);
 
 
         Scene scene = new Scene(root, getCurrentSceneWidth(), getCurrentSceneHeight());
@@ -1003,6 +1070,7 @@ public class SceneManager {
 
 
     }
+
 
 }
 

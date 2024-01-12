@@ -128,6 +128,13 @@ public class SearchBar extends HBox {
                 sceneManager.switchScene(scene);
             });
 
+            MenuItem offer = new MenuItem("Mes annonces");
+            offer.setOnAction(e -> {
+                SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
+                Scene scene = sceneManager.createSceneMyOffers();
+                sceneManager.switchScene(scene);
+            });
+
             MenuItem message = new MenuItem("Messagerie");
             message.setOnAction(e -> {
                 SceneManager sceneManager = new SceneManager((Stage) this.getScene().getWindow());
@@ -143,7 +150,7 @@ public class SearchBar extends HBox {
                 sceneManager.switchScene(scene);
             });
 
-            contextMenu.getItems().addAll(profil, booking,message, deconnexion);
+            contextMenu.getItems().addAll(profil, booking,offer,message, deconnexion);
 
             userButton.setOnMouseClicked(e -> {
                 contextMenu.show(userButton, e.getScreenX() - userButton.getHeight(), e.getScreenY() + userButton.getHeight());

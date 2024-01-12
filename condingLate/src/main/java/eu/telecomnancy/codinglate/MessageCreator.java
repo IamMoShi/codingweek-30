@@ -23,11 +23,14 @@ public class MessageCreator {
     private VBox vbox;
     private Stage stage;
 
+    private String email;
+
     public VBox getVbox() {
         return this.vbox;
     }
 
-    public MessageCreator(Stage stage) {
+    public MessageCreator(Stage stage, String email) {
+        this.email = email;
         this.stage = stage;
         this.vbox = createFormPane();
         addUIControls((GridPane) vbox.getChildren().get(0));
@@ -52,7 +55,9 @@ public class MessageCreator {
         // Ajouter des contrôles à la grille
 
         CustomTextField emailField = new CustomTextField("Email du destinataire");
+        emailField.setText(email);
         gridPane.add(emailField, 1, 0);
+
 
         CustomTextField messageField = new CustomTextField("Message");
         gridPane.add(messageField, 1, 1);
